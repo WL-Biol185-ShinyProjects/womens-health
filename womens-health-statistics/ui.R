@@ -22,121 +22,192 @@ navbarPage(
   ),
   
   # Home Page Tab
-  # Home Page Tab (Replace your existing Home tabPanel with this)
-tabPanel("Home",
-         tags$head(
-           tags$link(href = "https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Inter:wght@300;400;500;600&display=swap", 
-                     rel = "stylesheet")
-         ),
-         div(style = "background: linear-gradient(135deg, #F3E4F5 0%, #E8F4F8 100%); 
-                      min-height: 100vh; padding: 0;",
-             
-             # Header section with gradient
-             div(style = "background: linear-gradient(135deg, #a29bfe 0%, #6c5ce7 100%); 
-                          padding: 70px 20px; text-align: center; 
-                          box-shadow: 0 4px 10px rgba(0,0,0,0.1);",
-                 h1("Women's Health Disparities Dashboard", 
-                    style = "color: white; font-family: 'Playfair Display', serif; 
-                             font-weight: 700; font-size: 52px; margin: 0; letter-spacing: -0.5px;")
-             ),
-             
-             # Main content
-             div(style = "padding: 40px 20px; font-family: 'Inter', sans-serif;",
-                 fluidRow(
-                   column(12,
-                          div(style = "background-color: white; padding: 35px; 
-                                       border-radius: 15px; box-shadow: 0 6px 12px rgba(0,0,0,0.1);",
-                              fluidRow(
-                                column(6,
-                                       p("Women's health disparities and outcomes 
-                                         have been severely overlooked throughout medical research history. Oftentimes, 
-                                         this can lead to disproportionate access to healthcare and medical 
-                                         interventions, especially for marginalized populations. Our interactive website 
-                                         aims to highlight data from the CDC WONDER Online Database grouped 
-                                         by state and race to assess the quality of health and living for women 
-                                         across the United States.",
-                                         style = "font-size: 17px; line-height: 1.9; color: #4a5568; font-weight: 400;"),
-                                       
-                                       h3("About This Project", 
-                                          style = "color: #6c5ce7; margin-top: 30px; font-weight: 600; 
-                                                   font-family: 'Playfair Display', serif; font-size: 28px;"),
-                                       p("Understanding health disparities is crucial for improving outcomes 
-                                         for all women. This dashboard visualizes data on maternal mortality 
-                                         and other health conditions to highlight where interventions are most needed.",
-                                         style = "font-size: 16px; line-height: 1.9; color: #4a5568; font-weight: 400;")
-                                ),
-                                column(6,
-                                       img(src = "https://p7.hiclipart.com/preview/972/512/1019/5bfcc0ef600d3.jpg",
-                                           style = "width: 100%; border-radius: 10px;")
-                                )
-                              )
-                          )
-                   )
-                 ),
-                 
-                 # Second row with image and content
-                 fluidRow(style = "margin-top: 30px;",
-                          column(12,
-                                 div(style = "background-color: white; padding: 35px; 
-                                       border-radius: 15px; box-shadow: 0 6px 12px rgba(0,0,0,0.1);",
-                                     fluidRow(
-                                       column(6,
-                                              img(src = "https://www.nysut.org/-/media/images/nysut/news/2022/july/banner_220706_womenshealth_01.jpg",
-                                                  style = "width: 100%; border-radius: 10px;")
-                                       ),
-                                       column(6,
-                                              h3("What You'll Find Here", 
-                                                 style = "color: #6c5ce7; font-weight: 600; 
-                                                          font-family: 'Playfair Display', serif; font-size: 28px;"),
-                                              tags$ul(
-                                                style = "font-size: 16px; line-height: 2; color: #4a5568; font-weight: 400;",
-                                                tags$li("Interactive maps showing maternal mortality by state and race"),
-                                                tags$li("Analysis of health disparities across different populations"),
-                                                tags$li("Data-driven insights to inform policy and healthcare decisions")
-                                              ),
-                                              
-                                              h3("How to Use This Dashboard", 
-                                                 style = "color: #6c5ce7; margin-top: 30px; font-weight: 600;
-                                                          font-family: 'Playfair Display', serif; font-size: 28px;"),
-                                              p("Navigate using the tabs above to explore different visualizations. 
-                                Use the filters to focus on specific racial/ethnic groups or states 
-                                of interest.",
-                                                style = "font-size: 16px; line-height: 1.9; color: #4a5568; font-weight: 400;")
+  # Clean, Simple Home Page - No Gradients or Emojis
+  tabPanel("Home",
+           tags$head(
+             tags$link(href = "https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Inter:wght@300;400;500;600&display=swap", 
+                       rel = "stylesheet")
+           ),
+           div(style = "background: #f8f9fa; min-height: 100vh; padding: 0;",
+               
+               # Simple solid header
+               div(style = "background: #2C3E50; 
+                          padding: 80px 20px; text-align: center;",
+                   h1("Women's Health Disparities Dashboard", 
+                      style = "color: white; font-family: 'Playfair Display', serif; 
+                             font-weight: 700; font-size: 52px; margin: 0; letter-spacing: -0.5px;"),
+                   p("Understanding health disparities across the United States",
+                     style = "color: #E8F4F8; font-size: 20px; margin: 15px 0 0 0; 
+                            font-family: 'Inter', sans-serif;")
+               ),
+               
+               # Main content
+               div(style = "padding: 60px 20px; font-family: 'Inter', sans-serif;",
+                   
+                   # Mission section
+                   fluidRow(style = "margin-bottom: 60px;",
+                            column(12,
+                                   div(style = "background: white; padding: 50px; 
+                                              border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);",
+                                       fluidRow(
+                                         column(6,
+                                                h2("About This Project", 
+                                                   style = "color: #2C3E50; margin-top: 0; font-weight: 600; 
+                                                          font-family: 'Playfair Display', serif; font-size: 36px;
+                                                          margin-bottom: 25px;"),
+                                                p("Women's health disparities and outcomes have been severely overlooked 
+                                                throughout medical research history. This oversight leads to disproportionate 
+                                                access to healthcare and medical interventions, especially for marginalized populations.",
+                                                  style = "font-size: 17px; line-height: 1.9; color: #4a5568; 
+                                                         font-weight: 400; margin-bottom: 20px;"),
+                                                p("Our interactive dashboard highlights data from the CDC WONDER Online Database, 
+                                                grouped by state and race, to assess health outcomes for women across the United States.",
+                                                  style = "font-size: 17px; line-height: 1.9; color: #4a5568; font-weight: 400;")
+                                         ),
+                                         column(6,
+                                                img(src = "https://p7.hiclipart.com/preview/972/512/1019/5bfcc0ef600d3.jpg",
+                                                    style = "width: 100%; border-radius: 8px;")
+                                         )
                                        )
-                                     )
-                                 )
-                          )
-                 ),
-                 
-                 # Data Sources section
-                 fluidRow(style = "margin-top: 30px;",
-                          column(12,
-                                 div(style = "background-color: white; padding: 35px; 
-                                       border-radius: 15px; box-shadow: 0 6px 12px rgba(0,0,0,0.1);",
-                                     p(strong("Data Sources:"), "All datasets were retrieved from KFF 
-                                (originally Kaiser Family Foundation), a public charity and national 
-                                nonprofit that serves to provide data and research on health policy
-                                and health disparities across the United States. KFF currently researches
-                                Women's Health policy through their Policy Analysis sector. Datasets on 
-                                women's health disparities used data from the WONDER Online Database from the 
-                                United States Department of Health and Human Services, Centers for Disease Control 
-                                and Prevention and National Cancer Institute (CDC WONDER Online Database). 
-                                All data after 1989 meets the National Center for Health Statistics data use 
-                                restrictions, where missing values are due to state incidence data not meeting 
-                                publication criteria. Suppressed values replace incidence rate, death counts, 
-                                death rates and associated confidence intervals and standard errors, as well 
-                                as corresponding population figures, when the figure represents one to nine 
-                                (1-9) persons for deaths 1999 and after (About Us, 
-                                retrieved from ", 
-                                       a(href = "https://www.kff.org/about-us/", "https://www.kff.org/about-us/"), 
-                                       ").",
-                                       style = "font-size: 15px; line-height: 1.9; color: #4a5568; font-weight: 400;")
-                                 )
-                          )
-                 )
-             )
-         )
-),
+                                   )
+                            )
+                   ),
+                   
+                   # Features section
+                   fluidRow(style = "margin-bottom: 60px;",
+                            column(4,
+                                   div(style = "background: white; padding: 40px; 
+                                              border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+                                              border-left: 4px solid #2C3E50; height: 100%;",
+                                       h3("Interactive Maps", 
+                                          style = "color: #2C3E50; font-family: 'Playfair Display', serif; 
+                                                 font-size: 24px; margin-top: 0; margin-bottom: 15px;"),
+                                       p("Explore maternal mortality and cancer incidence rates by state and race with 
+                                       dynamic visualizations.",
+                                         style = "font-size: 16px; line-height: 1.8; color: #5a6c7d;")
+                                   )
+                            ),
+                            column(4,
+                                   div(style = "background: white; padding: 40px; 
+                                              border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+                                              border-left: 4px solid #E8F4F8; height: 100%;",
+                                       h3("Disparity Analysis", 
+                                          style = "color: #2C3E50; font-family: 'Playfair Display', serif; 
+                                                 font-size: 24px; margin-top: 0; margin-bottom: 15px;"),
+                                       p("Compare health outcomes across different racial and ethnic populations to 
+                                       identify critical gaps in care.",
+                                         style = "font-size: 16px; line-height: 1.8; color: #5a6c7d;")
+                                   )
+                            ),
+                            column(4,
+                                   div(style = "background: white; padding: 40px; 
+                                              border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+                                              border-left: 4px solid #2C3E50; height: 100%;",
+                                       h3("Evidence-Based Insights", 
+                                          style = "color: #2C3E50; font-family: 'Playfair Display', serif; 
+                                                 font-size: 24px; margin-top: 0; margin-bottom: 15px;"),
+                                       p("Data-driven findings to inform policy decisions and target healthcare interventions 
+                                       where needed most.",
+                                         style = "font-size: 16px; line-height: 1.8; color: #5a6c7d;")
+                                   )
+                            )
+                   ),
+                   
+                   # How to use section
+                   fluidRow(style = "margin-bottom: 60px;",
+                            column(12,
+                                   div(style = "background: #2C3E50; padding: 50px; border-radius: 8px;",
+                                       h2("How to Use This Dashboard", 
+                                          style = "color: white; font-family: 'Playfair Display', serif; 
+                                                 font-size: 36px; margin-top: 0; margin-bottom: 40px; text-align: center;"),
+                                       fluidRow(
+                                         column(4,
+                                                div(style = "padding: 20px; text-align: center;",
+                                                    div(style = "width: 60px; height: 60px; background: #E8F4F8; 
+                                                               border-radius: 50%; margin: 0 auto 20px auto;
+                                                               display: flex; align-items: center; justify-content: center;",
+                                                        span("1", style = "font-size: 28px; font-weight: 700; color: #2C3E50;")
+                                                    ),
+                                                    h4("Select a Topic", 
+                                                       style = "color: white; font-size: 20px; margin-bottom: 15px;"),
+                                                    p("Navigate using the tabs to explore different health conditions",
+                                                      style = "color: #E8F4F8; font-size: 15px; line-height: 1.7;")
+                                                )
+                                         ),
+                                         column(4,
+                                                div(style = "padding: 20px; text-align: center;",
+                                                    div(style = "width: 60px; height: 60px; background: #E8F4F8; 
+                                                               border-radius: 50%; margin: 0 auto 20px auto;
+                                                               display: flex; align-items: center; justify-content: center;",
+                                                        span("2", style = "font-size: 28px; font-weight: 700; color: #2C3E50;")
+                                                    ),
+                                                    h4("Apply Filters", 
+                                                       style = "color: white; font-size: 20px; margin-bottom: 15px;"),
+                                                    p("Use dropdown menus to focus on specific states or demographics",
+                                                      style = "color: #E8F4F8; font-size: 15px; line-height: 1.7;")
+                                                )
+                                         ),
+                                         column(4,
+                                                div(style = "padding: 20px; text-align: center;",
+                                                    div(style = "width: 60px; height: 60px; background: #E8F4F8; 
+                                                               border-radius: 50%; margin: 0 auto 20px auto;
+                                                               display: flex; align-items: center; justify-content: center;",
+                                                        span("3", style = "font-size: 28px; font-weight: 700; color: #2C3E50;")
+                                                    ),
+                                                    h4("Explore Insights", 
+                                                       style = "color: white; font-size: 20px; margin-bottom: 15px;"),
+                                                    p("Interact with visualizations to discover patterns and disparities",
+                                                      style = "color: #E8F4F8; font-size: 15px; line-height: 1.7;")
+                                                )
+                                         )
+                                       )
+                                   )
+                            )
+                   ),
+                   
+                   # Image and about data section
+                   fluidRow(style = "margin-bottom: 60px;",
+                            column(12,
+                                   div(style = "background: white; padding: 50px; 
+                                              border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);",
+                                       fluidRow(
+                                         column(6,
+                                                img(src = "https://www.nysut.org/-/media/images/nysut/news/2022/july/banner_220706_womenshealth_01.jpg",
+                                                    style = "width: 100%; border-radius: 8px;")
+                                         ),
+                                         column(6,
+                                                h2("About This Data", 
+                                                   style = "color: #2C3E50; margin-top: 0; font-weight: 600; 
+                                                          font-family: 'Playfair Display', serif; font-size: 36px;
+                                                          margin-bottom: 25px;"),
+                                                p(strong("Data Sources: "), 
+                                                  "All datasets were retrieved from KFF (originally Kaiser Family Foundation), 
+                                                a public charity and national nonprofit that serves to provide data and research 
+                                                on health policy and health disparities across the United States. KFF currently 
+                                                researches Women's Health policy through their Policy Analysis sector.",
+                                                  style = "font-size: 16px; line-height: 1.9; color: #4a5568; margin-bottom: 20px;"),
+                                                p("Datasets on women's health disparities used data from the WONDER Online Database 
+                                                from the United States Department of Health and Human Services, Centers for Disease 
+                                                Control and Prevention and National Cancer Institute (CDC WONDER Online Database).",
+                                                  style = "font-size: 16px; line-height: 1.9; color: #4a5568; margin-bottom: 20px;"),
+                                                p("All data after 1989 meets the National Center for Health Statistics data use 
+                                                restrictions, where missing values are due to state incidence data not meeting 
+                                                publication criteria. Suppressed values replace incidence rate, death counts, 
+                                                death rates and associated confidence intervals and standard errors, as well 
+                                                as corresponding population figures, when the figure represents one to nine 
+                                                (1-9) persons for deaths 1999 and after.",
+                                                  style = "font-size: 15px; line-height: 1.9; color: #4a5568; margin-bottom: 20px;"),
+                                                p(a(href = "https://www.kff.org/about-us/", "About Us, retrieved from https://www.kff.org/about-us/",
+                                                    style = "color: #2C3E50; font-size: 16px; font-weight: 600; text-decoration: underline;"),
+                                                  style = "margin: 0;")
+                                         )
+                                       )
+                                   )
+                            )
+                   )
+               )
+           )
+  ),
   
   navbarMenu("Cancer",
              
