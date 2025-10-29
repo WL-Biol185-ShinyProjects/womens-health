@@ -9,11 +9,10 @@ library(ggplot2)
 states <- read_sf("us-states.geojson")
 breast_cancer_long <- read.csv("breast_cancer_long.csv") 
 cervical_cancer_long <- read.csv("cervical_cancer_long.csv") 
-mortality_year_long <- read.csv("mortality_year_long.csv") 
 
 server <- function(input, output, session) {
   
-
+  
   
   # Update race filter choices
   updateSelectInput(session,
@@ -189,7 +188,7 @@ server <- function(input, output, session) {
     
   }, bg = "white")
   
-
+  
   
   # Update cervical race filter choices
   updateSelectInput(session,
@@ -366,4 +365,3 @@ server <- function(input, output, session) {
   }, bg = "white")
   
 }
-
