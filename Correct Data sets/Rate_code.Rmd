@@ -30,6 +30,9 @@ syphilis <- read.csv("syphilis_rate_clean.csv")
 mortality_race <- mortality_race %>%
   rename(state = location_name)
 
+mortality_year <- mortality_race %>%
+  rename(year = year_id)
+
 breast_cancer <- breast_cancer %>%
   rename(state = Location)
 
@@ -306,6 +309,14 @@ mortality_race_long <-
          "val") %>%
   rename(maternal_mortality = val)
 
+mortality_year_long <-
+  mortality_year %>%
+  select("state",
+         "year",
+         "race",
+         "val") %>%
+  rename(maternal_mortality = val)
+
 ```
 
 #Join
@@ -355,6 +366,7 @@ health_long_clean <-
 
 write.csv(breast_cancer_long, "breast_cancer_long.csv", row.names = FALSE)
 write.csv(cervical_cancer_long, "cervical_cancer_long.csv", row.names = FALSE)
+write.csv(mortality_year_long, "mortality_year_long.csv", row.names = FALSE)
 ```
 
 
