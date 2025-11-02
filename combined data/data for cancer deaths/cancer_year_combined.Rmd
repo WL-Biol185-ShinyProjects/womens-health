@@ -1,0 +1,382 @@
+---
+title: "cancer_combine"
+author: "ME"
+date: "2025-10-29"
+output: html_document
+---
+
+Breast Cancer Deaths over the years
+
+# Joining the data
+```{r}
+library(tidyverse)
+library(lubridate)
+library(dplyr)
+library(sf)
+```
+
+# Load in Datasets
+```{r}
+breast20 <- read.csv("20_bc.csv")
+breast21 <- read.csv("21_bc.csv")
+breast22 <- read.csv("22_bc.csv")
+breast23 <- read.csv("23_bc.csv")
+cervical20 <- read.csv("20_cc.csv")
+cervical21 <- read.csv("21_cc.csv")
+cervical22 <- read.csv("22_cc.csv")
+cervical23 <- read.csv("23_cc.csv")
+```
+
+# Rename State Columns
+```{r}
+# Breast Cancer Deaths
+breast20 <- breast20 %>%
+  rename(state = Location)
+
+breast21 <- breast21 %>%
+  rename(state = Location)
+
+breast22 <- breast22 %>%
+  rename(state = Location)
+
+breast23 <- breast23 %>%
+  rename(state = Location)
+
+# Cervical Cancer Deaths
+cervical20 <- cervical20 %>%
+  rename(state = Location)
+
+cervical21 <- cervical21 %>%
+  rename(state = Location)
+
+cervical22 <- cervical22 %>%
+  rename(state = Location)
+
+cervical23 <- cervical23 %>%
+  rename(state = Location)
+```
+
+# rename race columns
+```{r}
+# Breast Cancer Deaths
+breast20 <- breast20 %>%
+  rename(American_Indian_AlaskaNative = American.Indian.or.Alaska.Native,
+         Native_Hawaiian_Pacific_Islander = Native.Hawaiian.Pacific.Islander,
+         Multiple_Races = Multiple.Races)
+
+breast21 <- breast21 %>%
+  rename(American_Indian_AlaskaNative = American.Indian.or.Alaska.Native,
+         Native_Hawaiian_Pacific_Islander = Native.Hawaiian.Pacific.Islander,
+         Multiple_Races = Multiple.Races)
+
+breast22 <- breast22 %>%
+  rename(American_Indian_AlaskaNative = American.Indian.or.Alaska.Native,
+         Native_Hawaiian_Pacific_Islander = Native.Hawaiian.Pacific.Islander,
+         Multiple_Races = Multiple.Races)
+
+breast23 <- breast23 %>%
+  rename(American_Indian_AlaskaNative = American.Indian.or.Alaska.Native,
+         Native_Hawaiian_Pacific_Islander = Native.Hawaiian.Pacific.Islander,
+         Multiple_Races = Multiple.Races)
+
+# Cervical Cancer Deaths
+cervical20 <- cervical20 %>%
+  rename(American_Indian_AlaskaNative = American.Indian.or.Alaska.Native,
+         Native_Hawaiian_Pacific_Islander = Native.Hawaiian.Pacific.Islander,
+         Multiple_Races = Multiple.Races)
+
+cervical21 <- cervical21 %>%
+  rename(American_Indian_AlaskaNative = American.Indian.or.Alaska.Native,
+         Native_Hawaiian_Pacific_Islander = Native.Hawaiian.Pacific.Islander,
+         Multiple_Races = Multiple.Races)
+
+cervical22 <- cervical22 %>%
+  rename(American_Indian_AlaskaNative = American.Indian.or.Alaska.Native,
+         Native_Hawaiian_Pacific_Islander = Native.Hawaiian.Pacific.Islander,
+         Multiple_Races = Multiple.Races)
+
+cervical23 <- cervical23 %>%
+  rename(American_Indian_AlaskaNative = American.Indian.or.Alaska.Native,
+         Native_Hawaiian_Pacific_Islander = Native.Hawaiian.Pacific.Islander,
+         Multiple_Races = Multiple.Races)
+```
+
+# add a year column
+```{r}
+# Breast Cancer Deaths
+breast20y <- breast20 %>%
+  mutate(year = 2020)
+
+breast21y <- breast21 %>%
+  mutate(year = 2021)
+
+breast22y <- breast22 %>%
+  mutate(year = 2022)
+
+breast23y <- breast23 %>%
+  mutate(year = 2023)
+
+# Cervical Cancer Deaths
+cervical20y <- cervical20 %>%
+  mutate(year = 2020)
+
+cervical21y <- cervical21 %>%
+  mutate(year = 2021)
+
+cervical22y <- cervical22 %>%
+  mutate(year = 2022)
+
+cervical23y <- cervical23 %>%
+  mutate(year = 2023)
+```
+
+# convert numeric
+```{r}
+# Breast Cancer Deaths
+breast20y <- breast20y %>%
+  mutate(across(c(White, Black, Hispanic,
+                 American_Indian_AlaskaNative, Asian, Native_Hawaiian_Pacific_Islander, Multiple_Races, Overall), 
+                as.numeric))
+
+breast21y <- breast21y %>%
+  mutate(across(c(White, Black, Hispanic,
+                 American_Indian_AlaskaNative, Asian, Native_Hawaiian_Pacific_Islander, Multiple_Races, Overall), 
+                as.numeric))
+
+breast22y <- breast22y %>%
+  mutate(across(c(White, Black, Hispanic,
+                 American_Indian_AlaskaNative, Asian, Native_Hawaiian_Pacific_Islander, Multiple_Races, Overall), 
+                as.numeric))
+
+breast23y <- breast23y %>%
+  mutate(across(c(White, Black, Hispanic,
+                 American_Indian_AlaskaNative, Asian, Native_Hawaiian_Pacific_Islander, Multiple_Races, Overall), 
+                as.numeric))
+
+# Cervical Cancer Deaths
+cervical20y <- cervical20y %>%
+  mutate(across(c(White, Black, Hispanic,
+                 American_Indian_AlaskaNative, Asian, Native_Hawaiian_Pacific_Islander, Multiple_Races, Overall), 
+                as.numeric))
+
+cervical21y <- cervical21y %>%
+  mutate(across(c(White, Black, Hispanic,
+                 American_Indian_AlaskaNative, Asian, Native_Hawaiian_Pacific_Islander, Multiple_Races, Overall), 
+                as.numeric))
+
+cervical22y <- cervical22y %>%
+  mutate(across(c(White, Black, Hispanic,
+                 American_Indian_AlaskaNative, Asian, Native_Hawaiian_Pacific_Islander, Multiple_Races, Overall), 
+                as.numeric))
+
+cervical23y <- cervical23y %>%
+  mutate(across(c(White, Black, Hispanic,
+                 American_Indian_AlaskaNative, Asian, Native_Hawaiian_Pacific_Islander, Multiple_Races, Overall), 
+                as.numeric))
+```
+
+# Tidy Long
+```{r}
+# Breast Cancer Deaths
+breast20_long <- breast20y %>%
+  pivot_longer(c("White", 
+                 "Black", 
+                 "Hispanic",
+                 "American_Indian_AlaskaNative",
+                 "Asian",
+                 "Native_Hawaiian_Pacific_Islander",
+                 "Multiple_Races",
+                 "Overall"),
+               names_to = "race", 
+               values_to = "breast")
+
+breast21_long <- breast21y %>%
+  pivot_longer(c("White", 
+                 "Black", 
+                 "Hispanic",
+                 "American_Indian_AlaskaNative",
+                 "Asian",
+                 "Native_Hawaiian_Pacific_Islander",
+                 "Multiple_Races",
+                 "Overall"),
+               names_to = "race", 
+               values_to = "breast")
+
+breast22_long <- breast22y %>%
+  pivot_longer(c("White", 
+                 "Black", 
+                 "Hispanic",
+                 "American_Indian_AlaskaNative",
+                 "Asian",
+                 "Native_Hawaiian_Pacific_Islander",
+                 "Multiple_Races",
+                 "Overall"),
+               names_to = "race", 
+               values_to = "breast")
+
+breast23_long <- breast23y %>%
+  pivot_longer(c("White", 
+                 "Black", 
+                 "Hispanic",
+                 "American_Indian_AlaskaNative",
+                 "Asian",
+                 "Native_Hawaiian_Pacific_Islander",
+                 "Multiple_Races",
+                 "Overall"),
+               names_to = "race", 
+               values_to = "breast")
+
+# Cervical Cancer Deaths
+cervical20_long <- cervical20y %>%
+  pivot_longer(c("White", 
+                 "Black", 
+                 "Hispanic",
+                 "American_Indian_AlaskaNative",
+                 "Asian",
+                 "Native_Hawaiian_Pacific_Islander",
+                 "Multiple_Races",
+                 "Overall"),
+               names_to = "race", 
+               values_to = "cervical")
+
+cervical21_long <- cervical21y %>%
+  pivot_longer(c("White", 
+                 "Black", 
+                 "Hispanic",
+                 "American_Indian_AlaskaNative",
+                 "Asian",
+                 "Native_Hawaiian_Pacific_Islander",
+                 "Multiple_Races",
+                 "Overall"),
+               names_to = "race", 
+               values_to = "cervical")
+
+cervical22_long <- cervical22y %>%
+  pivot_longer(c("White", 
+                 "Black", 
+                 "Hispanic",
+                 "American_Indian_AlaskaNative",
+                 "Asian",
+                 "Native_Hawaiian_Pacific_Islander",
+                 "Multiple_Races",
+                 "Overall"),
+               names_to = "race", 
+               values_to = "cervical")
+
+cervical23_long <- cervical23y %>%
+  pivot_longer(c("White", 
+                 "Black", 
+                 "Hispanic",
+                 "American_Indian_AlaskaNative",
+                 "Asian",
+                 "Native_Hawaiian_Pacific_Islander",
+                 "Multiple_Races",
+                 "Overall"),
+               names_to = "race", 
+               values_to = "cervical")
+```
+
+#Select Necessary Columns
+```{r}
+# Breast Cancer Deaths
+breast20y_long <-
+  breast20_long %>%
+  select("state",
+         "year",
+         "race",
+         "breast")
+
+breast21y_long <-
+  breast21_long %>%
+  select("state",
+         "year",
+         "race",
+         "breast")
+
+breast22y_long <-
+  breast22_long %>%
+  select("state",
+         "year",
+         "race",
+         "breast")
+
+breast23y_long <-
+  breast23_long %>%
+  select("state",
+         "year",
+         "race",
+         "breast")
+
+# Cervical Cancer Deaths
+cervical20y_long <-
+  cervical20_long %>%
+  select("state",
+         "year",
+         "race",
+         "cervical")
+
+cervical21y_long <-
+  cervical21_long %>%
+  select("state",
+         "year",
+         "race",
+         "cervical")
+
+cervical22y_long <-
+  cervical22_long %>%
+  select("state",
+         "year",
+         "race",
+         "cervical")
+
+cervical23y_long <-
+  cervical23_long %>%
+  select("state",
+         "year",
+         "race",
+         "cervical")
+```
+
+# Bind rows
+```{r}
+breast_cancer_deaths_all <- bind_rows(
+  breast20y_long,
+  breast21y_long,
+  breast22y_long,
+  breast23y_long)
+
+cervical_cancer_deaths_all <- bind_rows(
+  cervical20y_long,
+  cervical21y_long,
+  cervical22y_long,
+  cervical23y_long)
+
+# Option 1: Add a disease identifier column to each data set before binding
+cervical_cancer_deaths_all <- cervical_cancer_deaths_all %>% mutate(cancer = "cervical")
+breast_cancer_deaths_all <- breast_cancer_deaths_all %>% mutate(cancer = "breast")
+
+# Then rename the rate column to a common name in each
+breast_cancer_deaths_all <- breast_cancer_deaths_all %>% rename(rate = breast)
+cervical_cancer_deaths_all <- cervical_cancer_deaths_all %>% rename(rate = cervical)
+
+cancer_deaths_all <- bind_rows(
+  breast_cancer_deaths_all,
+  cervical_cancer_deaths_all)
+
+cancer_all <- bind_rows(
+  breast20y_long,
+  breast21y_long,
+  breast22y_long,
+  breast23y_long,
+  cervical20y_long,
+  cervical21y_long,
+  cervical22y_long,
+  cervical23y_long)
+```
+
+# make data set into csv
+```{r}
+write.csv(cancer_deaths_all, "cancer_deaths_years.csv", row.names = FALSE)
+
+write.csv(breast_cancer_deaths_all, "breast_cancer_deaths_years.csv", row.names = FALSE)
+```
