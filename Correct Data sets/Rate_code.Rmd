@@ -16,14 +16,15 @@ library(sf)
 # Load in Datasets
 ```{r}
 
-mortality_race <- read.csv("mortality_race.CSV")
-breast_cancer <- read.csv("breast_rate_clean.csv")
-breast_cancer_deaths <- read.csv("breast_death_rate_clean.csv")
-cervical_cancer <- read.csv("cervical_rate_clean.csv")
-cervical_cancer_deaths <- read.csv("cervical_death_rate_clean.csv")
-chlamydia <- read.csv("chlamydia_rate_clean.csv")
-gonorrhea <- read.csv("gonorrhea_rate_clean.csv")
-syphilis <- read.csv("syphilis_rate_clean.csv")
+mortality_race <- read.csv("mortality_race.CSV", na.strings = "NA")
+infant_mortality <- read.csv("infant_death_rate_clean.csv", na.strings = "NA")
+breast_cancer <- read.csv("breast_rate_clean.csv", na.strings = c("NA", "N/A", "NSD"))
+breast_cancer_deaths <- read.csv("breast_death_rate_clean.csv",na.strings = c("NA", "N/A", "NSD"))
+cervical_cancer <- read.csv("cervical_rate_clean.csv", na.strings = c("NA", "N/A", "NSD"))
+cervical_cancer_deaths <- read.csv("cervical_death_rate_clean.csv", na.strings = c("NA", "N/A", "NSD"))
+chlamydia <- read.csv("chlamydia_rate_clean.csv", na.strings = "NA")
+gonorrhea <- read.csv("gonorrhea_rate_clean.csv", na.strings = "NA")
+syphilis <- read.csv("syphilis_rate_clean.csv", na.strings = "NA")
 #us_states <- read_sf("code_state.geojson")
 ```
 
@@ -31,6 +32,9 @@ syphilis <- read.csv("syphilis_rate_clean.csv")
 ```{r}
 mortality_race <- mortality_race %>%
   rename(state = location_name)
+
+infant_mortality<- infant_mortality %>%
+  rename(state = Location)
 
 mortality_year <- mortality_race %>%
   rename(year = year_id)
@@ -79,6 +83,27 @@ mortality_race$race <-
                     "Asian or Native Hawaiian",
                     "Black",
                     "White"))
+
+
+mortality_year <- mortality_year %>%
+  rename(race = race_group)
+
+mortality_year$race <- 
+  factor(mortality_year$race, 
+         levels = c("Hispanic and any race", 
+                    "Non-Hispanic American Indian and Alaska Native", 
+                    "Non-Hispanic Asian, Native Hawaiian, or Other Pacific Islander",
+                    "Non-Hispanic Black",
+                    "Non-Hispanic White"),
+         labels = c("Hispanic",
+                    "American Indian and Alaska Native",
+                    "Asian or Native Hawaiian",
+                    "Black",
+                    "White"))
+
+infant_mortality <- infant_mortality %>%
+  rename(Black = Black.or.African.American,
+         Overall = Other.Races)
 
 
 #Breast Cancer
@@ -147,6 +172,14 @@ syphilis <- syphilis%>%
 #Make Race Columns Numeric
 ```{r}
 
+
+infant_mortality <- infant_mortality %>% 
+  mutate_at(c("White",
+           "Black",
+           "Hispanic",
+           "Overall"),
+         as.numeric)
+
 breast_cancer <- breast_cancer %>% 
   mutate_at(c("White",
            "Black",
@@ -190,6 +223,17 @@ cervical_cancer_deaths <- cervical_cancer_deaths %>%
 #Tidying the Data
 
 ```{r}
+
+
+infant_mortality_long <- infant_mortality %>%
+  pivot_longer(c("White", 
+                 "Black", 
+                 "Hispanic",
+                 "Overall"),
+               names_to = "race", 
+               values_to = "infant_mortality")
+
+
 #Breast Cancer
 breast_cancer_long <- breast_cancer %>%
   pivot_longer(c("White", 
