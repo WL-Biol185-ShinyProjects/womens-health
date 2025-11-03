@@ -12,6 +12,9 @@ library(shinyWidgets)
 breast_cancer_long <- read.csv("breast_cancer_long.csv")
 cervical_cancer_long <- read.csv("cervical_cancer_long.csv")
 sex_infect_years <- read.csv("sex_infect_years.csv")
+syphilis <- read.csv("syphilis_long.csv")
+chlamydia <- read.csv("chlamydia_long.csv") 
+gonorrhea <- read.csv("gonorrhea_long.csv")
 
 navbarPage(
   title = "Women's Health in the United States",
