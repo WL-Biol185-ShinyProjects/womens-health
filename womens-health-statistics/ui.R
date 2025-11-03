@@ -15,6 +15,7 @@ sex_infect_years <- read.csv("sex_infect_years.csv")
 syphilis <- read.csv("syphilis_long.csv")
 chlamydia <- read.csv("chlamydia_long.csv") 
 gonorrhea <- read.csv("gonorrhea_long.csv")
+maternal_mortality <- ("mortality_year_long.csv")
 
 navbarPage(
   title = "Women's Health in the United States",
@@ -480,8 +481,6 @@ navbarPage(
   ),
   
   # Sexual infections
-  
-  
   tabPanel("Sexual Infections",
            div(style = "background: linear-gradient(135deg, #F3E5F5 0%, #E1BEE7 100%); 
                min-height: 100vh; padding: 40px 20px;",
@@ -647,62 +646,57 @@ navbarPage(
            )
   ),
   
-  
 
-  
   # Maternal-Infant Health
   tabPanel("Maternal-Infant Health",
            div(style = "padding: 40px 20px;",
                div(style = "text-align: center; margin-bottom: 40px; 
-                            background: white; padding: 30px; 
-                            border-radius: 15px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);",
-                   h1("Maternal & Infant Mortality Rates", 
-                      style = "color: #2C3E50; font-weight: 700; margin-bottom: 10px;"),
-                   p("Statement TBD",
-                     style = "color: #555; font-size: 18px; margin: 0;")
-               )
-           )
-  ),
-  
-  # All health combined
-  tabPanel("Changes in Health",
-           div(style = "padding: 40px 20px;",
-               div(style = "text-align: center; margin-bottom: 40px; 
                           background: white; padding: 30px; 
                           border-radius: 15px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);",
-                   h1("Women's Health Over Time", 
+                   h1("Maternal & Infant Mortality Rates", 
                       style = "color: #2C3E50; font-weight: 700; margin-bottom: 10px;"),
                    p("Statement TBD",
                      style = "color: #555; font-size: 18px; margin: 0;")
                ),
                
-               # STD Rates Section
-               div(style = "background: white; padding: 30px; 
+               # Maternal Mortality Map Section
+               div(style = "background: white; padding: 30px; margin-bottom: 30px;
                           border-radius: 15px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);",
-                   h2("STI Rates by Race and Year", 
+                   h3("Maternal Mortality by State", 
                       style = "color: #2C3E50; margin-bottom: 20px;"),
                    
-                   sidebarLayout(      
-                     # Define the sidebar with inputs
-                     sidebarPanel(
-                       selectInput("state", "State:", 
-                                   choices=unique(sex_infect_years$state)),
-                       selectInput("disease", "Disease:", 
-                                   choices=c("chlamydia", "syphilis", "gonorrhea")),
-                       selectInput("race", "Race:", 
-                                   choices=c("White", "Black", "Hispanic", "AmericanIndian_AlaskaNative", 
-                                             "Asian", "Native_Hawaiian_or_PacificIslander", "Multiple races", "Overall")),
-                       hr(),
-                       helpText("Data showing STI rates by race from 2020-2023.")
+                   fluidRow(
+                     column(6,
+                            selectInput("maternal_race_filter",
+                                        "Filter by Race:",
+                                        choices = c("All"),
+                                        selected = "All")
                      ),
-                     
-                     # Create a spot for the barplot
-                     mainPanel(
-                       plotOutput("diseasePlot")  
+                     column(6,
+                            selectInput("maternal_year_filter",
+                                        "Filter by Year:",
+                                        choices = c("All"),
+                                        selected = "All")
                      )
-                   )
+                   ),
+                   
+                   leafletOutput("maternal_map", height = 600)
                )
            )
+  ),
+  
+  # Resource Page 
+  tabPanel("Resource Page",
+           div(style = "padding: 40px 20px;",
+               div(style = "text-align: center; margin-bottom: 40px; 
+                          background: white; padding: 30px; 
+                          border-radius: 15px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);",
+                   h1("Resources for More Information or Help", 
+                      style = "color: #2C3E50; font-weight: 700; margin-bottom: 10px;"),
+                   p("Statement TBD",
+                     style = "color: #555; font-size: 18px; margin: 0;")
+               ),
+           )   
   ),
   
   # About Tab

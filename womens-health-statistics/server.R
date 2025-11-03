@@ -15,6 +15,7 @@ chlamydia <- read.csv("chlamydia_long.csv")
 gonorrhea <- read.csv("gonorrhea_long.csv")
 
 
+
 server <- function(input, output, session) {
   
  # Breast Cancer Map 
@@ -636,41 +637,98 @@ server <- function(input, output, session) {
     
   }, bg = "white")
   
+  # Maternal Mortality State Plot
+  # Load maternal mortality data from CSV
+  # Replace "maternal_mortality.csv" with your actual file path
+  maternal_mortality <- read.csv("mortality_year_long.csv", stringsAsFactors = FALSE)
+  maternal_mortality <- as.data.frame(maternal_mortality)
+  maternal_mortality$year <- as.numeric(maternal_mortality$year)
+  maternal_mortality$maternal_mortality <- as.numeric(maternal_mortality$maternal_mortality)
   
+  # Remove rows with NA in race column
+  maternal_mortality <- maternal_mortality %>%
+    filter(!is.na(race))
   
+  # Update maternal mortality race filter choices
+  updateSelectInput(session,
+                    "maternal_race_filter",
+                    choices = c("All", unique(maternal_mortality$race)))
   
+  # Update maternal mortality year filter choices
+  updateSelectInput(session,
+                    "maternal_year_filter",
+                    choices = c("All", unique(maternal_mortality$year)))
   
-  
-  
-  
-  
- #Over Time Plots
+  # MATERNAL MORTALITY REACTIVE DATA - This recalculates automatically when filters change
+  maternal_mortality_filtered <- reactive({
+    result <- maternal_mortality  
     
-    # Fill in the spot we created for a plot
-    output$diseasePlot <- renderPlot({
-      
-      # Filter data based on selected state, disease, and race
-      filtered_data <- sex_infect_years[sex_infect_years$state == input$state & 
-                                          sex_infect_years$disease == input$disease & 
-                                          sex_infect_years$race == input$race, ]
-      # Check if we have data
-      if(nrow(filtered_data) == 0) {
-        plot(1, type="n", xlim=c(0, 10), ylim=c(0, 10), 
-             xlab="", ylab="", main="No data available for this combination")
-        text(5, 5, "No data available\nfor the selected filters", cex=1.5, col="red")
-        return() }
-      
-      # Create a named vector for barplot (years as names, rates as values)
-      plot_data <- filtered_data$rate
-      names(plot_data) <- filtered_data$year
-      
-      # Render a barplot
-      barplot(plot_data, 
-              main=paste(input$state, "-", input$disease, "-", input$race),
-              ylab="Rate per 100,000",
-              xlab="Year",
-              col="steelblue")
-    })
-  
+    if (input$maternal_race_filter != "All") {
+      result <- result %>%
+        filter(race == input$maternal_race_filter)
+    }
     
+    if (input$maternal_year_filter != "All") {
+      result <- result %>%
+        filter(year == as.numeric(input$maternal_year_filter))
+    }
+    
+    result
+  })
+  
+  # MATERNAL MORTALITY REACTIVE MAP DATA - Aggregate data before joining
+  maternal_map_data <- reactive({
+    # First, aggregate the filtered data by state
+    aggregated <- maternal_mortality_filtered() %>%
+      group_by(state) %>%
+      summarise(maternal_mortality = mean(maternal_mortality, na.rm = TRUE), .groups = 'drop')
+    
+    # Then join with states
+    states %>%
+      left_join(aggregated, by = c("name" = "state"))
+  })
+  
+  # RENDER THE MATERNAL MORTALITY MAP
+  output$maternal_map <- renderLeaflet({
+    data <- maternal_map_data()
+    
+    # Make sure maternal_mortality is numeric, not a list
+    if (is.list(data$maternal_mortality)) {
+      data$maternal_mortality <- as.numeric(unlist(data$maternal_mortality))
+    }
+    
+    bins <- c(0, 5, 10, 15, 20, 25, 30, Inf)
+    pal <- colorBin("YlOrRd", domain = data$maternal_mortality, bins = bins)
+    
+    labels <- sprintf(
+      "<strong>%s</strong><br/>%.1f per 100,000 live births",
+      data$name, data$maternal_mortality
+    ) %>% lapply(HTML)
+    
+    leaflet(data) %>%
+      setView(-96, 37.8, 4) %>%
+      addProviderTiles("CartoDB.Positron") %>%
+      addPolygons(
+        fillColor = ~pal(maternal_mortality),
+        weight = 2,
+        opacity = 1,
+        color = "white",
+        dashArray = "3",
+        fillOpacity = 0.7,
+        highlightOptions = highlightOptions(
+          weight = 5,
+          color = "#666",
+          dashArray = "",
+          fillOpacity = 0.7,
+          bringToFront = TRUE),
+        label = labels,
+        labelOptions = labelOptions(
+          style = list("font-weight" = "normal", padding = "3px 8px"),
+          textsize = "15px",
+          direction = "auto")) %>%
+      addLegend(pal = pal, values = ~maternal_mortality, opacity = 0.7,
+                title = "Maternal Mortality<br/>(per 100,000)",
+                position = "bottomright")
+  })
+  
 }
