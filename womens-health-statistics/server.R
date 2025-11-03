@@ -7,18 +7,18 @@ library(sf)
 library(ggplot2)
 
 states <- read_sf("us-states.geojson")
-breast_cancer_long <- read.csv("breast_cancer_long.csv") 
-cervical_cancer_long <- read.csv("cervical_cancer_long.csv") 
+breast_cancer_long <- read.csv("breast_cancer_long.csv")
+cervical_cancer_long <- read.csv("cervical_cancer_long.csv")
 sex_infect_years <- read.csv("sex_infect_years.csv")
 syphilis <- read.csv("syphilis_long.csv")
-chlamydia <- read.csv("chlamydia_long.csv") 
+chlamydia <- read.csv("chlamydia_long.csv")
 gonorrhea <- read.csv("gonorrhea_long.csv")
 
 
 
 server <- function(input, output, session) {
   
- # Breast Cancer Map 
+  # Breast Cancer Map
   
   # Update race filter choices
   updateSelectInput(session,
@@ -121,13 +121,13 @@ server <- function(input, output, session) {
     )
     
     # Create ggplot
-    ggplot(state_data, aes(x = reorder(race_label, -breast_cancer), 
-                           y = breast_cancer, 
+    ggplot(state_data, aes(x = reorder(race_label, -breast_cancer),
+                           y = breast_cancer,
                            fill = race)) +
       geom_col(width = 0.7, alpha = 0.9) +
-      geom_text(aes(label = round(breast_cancer, 1)), 
-                vjust = -0.5, 
-                size = 4, 
+      geom_text(aes(label = round(breast_cancer, 1)),
+                vjust = -0.5,
+                size = 4,
                 fontface = "bold",
                 color = "#2C3E50") +
       scale_fill_manual(values = race_colors) +
@@ -166,9 +166,9 @@ server <- function(input, output, session) {
     # Create ggplot with horizontal bars
     ggplot(rank_data, aes(x = reorder(state, breast_cancer), y = breast_cancer)) +
       geom_col(fill = "#FF8BA0", alpha = 0.9, width = 0.7) +
-      geom_text(aes(label = round(breast_cancer, 1)), 
-                hjust = -0.2, 
-                size = 4, 
+      geom_text(aes(label = round(breast_cancer, 1)),
+                hjust = -0.2,
+                size = 4,
                 fontface = "bold",
                 color = "#2C3E50") +
       coord_flip() +
@@ -298,13 +298,13 @@ server <- function(input, output, session) {
     )
     
     # Create ggplot
-    ggplot(state_data, aes(x = reorder(race_label, -cervical_cancer), 
-                           y = cervical_cancer, 
+    ggplot(state_data, aes(x = reorder(race_label, -cervical_cancer),
+                           y = cervical_cancer,
                            fill = race)) +
       geom_col(width = 0.7, alpha = 0.9) +
-      geom_text(aes(label = round(cervical_cancer, 1)), 
-                vjust = -0.5, 
-                size = 4, 
+      geom_text(aes(label = round(cervical_cancer, 1)),
+                vjust = -0.5,
+                size = 4,
                 fontface = "bold",
                 color = "#2C3E50") +
       scale_fill_manual(values = race_colors) +
@@ -343,9 +343,9 @@ server <- function(input, output, session) {
     # Create ggplot with horizontal bars
     ggplot(rank_data, aes(x = reorder(state, cervical_cancer), y = cervical_cancer)) +
       geom_col(fill = "#1E9C99", alpha = 0.9, width = 0.7) +
-      geom_text(aes(label = round(cervical_cancer, 1)), 
-                hjust = -0.2, 
-                size = 4, 
+      geom_text(aes(label = round(cervical_cancer, 1)),
+                hjust = -0.2,
+                size = 4,
                 fontface = "bold",
                 color = "#2C3E50") +
       coord_flip() +
@@ -479,13 +479,13 @@ server <- function(input, output, session) {
     
     # Filter data for selected state and race, all diseases
     plot_data <- sex_infect_years %>%
-      filter(state == input$sti_state, 
+      filter(state == input$sti_state,
              race == input$sti_race,
              !is.na(rate))
     
     # Check if we have data
     if(nrow(plot_data) == 0) {
-      plot(1, type="n", xlim=c(0, 10), ylim=c(0, 10), 
+      plot(1, type="n", xlim=c(0, 10), ylim=c(0, 10),
            xlab="", ylab="", main="No data available")
       text(5, 5, "No data available\nfor the selected filters", cex=1.5, col="red")
       return()
@@ -506,19 +506,19 @@ server <- function(input, output, session) {
     ggplot(plot_data, aes(x = year, y = rate, color = disease_label, group = disease_label)) +
       geom_line(size = 2.5, alpha = 0.9) +
       geom_point(size = 4.5, alpha = 0.95) +
-      geom_text(data = plot_data %>% 
-                  group_by(disease_label) %>% 
+      geom_text(data = plot_data %>%
+                  group_by(disease_label) %>%
                   filter(year == max(year)),
-                aes(label = round(rate, 1)), 
-                vjust = -1.2, 
+                aes(label = round(rate, 1)),
+                vjust = -1.2,
                 hjust = 0.5,
-                size = 4.5, 
+                size = 4.5,
                 fontface = "bold",
                 show.legend = FALSE) +
       scale_color_manual(values = disease_colors) +
       scale_x_continuous(breaks = unique(plot_data$year)) +
       labs(title = paste("STI Trends in", input$sti_state),
-           subtitle = paste("Race:", input$sti_race, "| Years", 
+           subtitle = paste("Race:", input$sti_race, "| Years",
                             min(plot_data$year), "-", max(plot_data$year)),
            x = "Year",
            y = "Rate per 100,000",
@@ -549,7 +549,7 @@ server <- function(input, output, session) {
   }, bg = "white")
   
   
-
+  
   
   # STI Chart 2: One Disease by Race
   output$sti_race_plot <- renderPlot({
@@ -575,7 +575,7 @@ server <- function(input, output, session) {
     
     # Check if we have data
     if(nrow(plot_data) == 0) {
-      plot(1, type="n", xlim=c(0, 10), ylim=c(0, 10), 
+      plot(1, type="n", xlim=c(0, 10), ylim=c(0, 10),
            xlab="", ylab="", main="No data available")
       text(5, 5, "No data available\nfor the selected filters", cex=1.5, col="red")
       return()
@@ -604,13 +604,13 @@ server <- function(input, output, session) {
     )
     
     # Create ggplot
-    ggplot(plot_data, aes(x = reorder(race_label, -rate), 
-                          y = rate, 
+    ggplot(plot_data, aes(x = reorder(race_label, -rate),
+                          y = rate,
                           fill = race)) +
       geom_col(width = 0.7, alpha = 0.9) +
-      geom_text(aes(label = round(rate, 1)), 
-                vjust = -0.5, 
-                size = 4.5, 
+      geom_text(aes(label = round(rate, 1)),
+                vjust = -0.5,
+                size = 4.5,
                 fontface = "bold",
                 color = "#2C3E50") +
       scale_fill_manual(values = race_colors) +
