@@ -94,7 +94,7 @@ navbarPage(
                             column(4,
                                    div(style = "background: white; padding: 40px; 
                                               border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-                                              border-left: 4px solid #E8F4F8; height: 100%;",
+                                              border-left: 4px solid #2C3E50; height: 100%;",
                                        h3("Disparity Analysis", 
                                           style = "color: #2C3E50; font-family: 'Playfair Display', serif; 
                                                  font-size: 24px; margin-top: 0; margin-bottom: 15px;"),
