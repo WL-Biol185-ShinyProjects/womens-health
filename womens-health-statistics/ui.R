@@ -69,7 +69,7 @@ navbarPage(
                                                   style = "font-size: 17px; line-height: 1.9; color: #4a5568; font-weight: 400;")
                                          ),
                                          column(6,
-                                                img(src = "https://p7.hiclipart.com/preview/972/512/1019/5bfcc0ef600d3.jpg",
+                                                img(src = "purple-hands.png",
                                                     style = "width: 100%; border-radius: 8px;")
                                          )
                                        )
@@ -175,7 +175,7 @@ navbarPage(
                                    div(style = "background: white; padding: 50px; 
                                               border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);",
                                        fluidRow(
-                                         column(6,
+                                         column(6, style = "display: flex; justify-content: center; align-items: center;",
                                                 img(src = "https://www.nysut.org/-/media/images/nysut/news/2022/july/banner_220706_womenshealth_01.jpg",
                                                     style = "width: 100%; border-radius: 8px;")
                                          ),
