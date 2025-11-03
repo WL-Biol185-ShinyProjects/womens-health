@@ -430,6 +430,8 @@ write.csv(mortality_year_long, "mortality_year_long.csv", row.names = FALSE)
 write.csv(syphilis_long, "syphilis_long.csv", row.names = FALSE)
 write.csv(gonorrhea_long, "gonorrhea_long.csv", row.names = FALSE)
 write.csv(chlamydia_long, "chlamydia_long.csv", row.names = FALSE)
+write.csv(infant_mortality_long, "infant_mortality_long.csv", row.names = FALSE)
+write.csv(mortality_race_long, "mortality_race_long.csv", row.names = FALSE)
 
 ```
 

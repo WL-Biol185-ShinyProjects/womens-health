@@ -1,0 +1,209 @@
+"state","race","infant_mortality"
+"United States","White",4.48
+"United States","Black",10.93
+"United States","Hispanic",5.03
+"United States","Overall",4.75
+"Alabama","White",5.48
+"Alabama","Black",12.93
+"Alabama","Hispanic",5.95
+"Alabama","Overall",NA
+"Alaska","White",NA
+"Alaska","Black",NA
+"Alaska","Hispanic",NA
+"Alaska","Overall",10.9
+"Arizona","White",4.92
+"Arizona","Black",6.92
+"Arizona","Hispanic",5.66
+"Arizona","Overall",6.47
+"Arkansas","White",6.9
+"Arkansas","Black",14.89
+"Arkansas","Hispanic",4.88
+"Arkansas","Overall",8.88
+"California","White",2.68
+"California","Black",9
+"California","Hispanic",4.36
+"California","Overall",3.26
+"Colorado","White",3.86
+"Colorado","Black",9.64
+"Colorado","Hispanic",4.71
+"Colorado","Overall",NA
+"Connecticut","White",3.06
+"Connecticut","Black",7.4
+"Connecticut","Hispanic",6.02
+"Connecticut","Overall",NA
+"Delaware","White",4.89
+"Delaware","Black",10.02
+"Delaware","Hispanic",NA
+"Delaware","Overall",NA
+"District of Columbia","White",NA
+"District of Columbia","Black",10.41
+"District of Columbia","Hispanic",NA
+"District of Columbia","Overall",NA
+"Florida","White",5.29
+"Florida","Black",10.6
+"Florida","Hispanic",4.4
+"Florida","Overall",4.85
+"Georgia","White",4.89
+"Georgia","Black",10.85
+"Georgia","Hispanic",5.41
+"Georgia","Overall",4.44
+"Hawaii","White",NA
+"Hawaii","Black",NA
+"Hawaii","Hispanic",NA
+"Hawaii","Overall",4.11
+"Idaho","White",3.84
+"Idaho","Black",NA
+"Idaho","Hispanic",4.92
+"Idaho","Overall",NA
+"Illinois","White",4.07
+"Illinois","Black",13.77
+"Illinois","Hispanic",5.35
+"Illinois","Overall",4.64
+"Indiana","White",5.33
+"Indiana","Black",12.86
+"Indiana","Hispanic",6.14
+"Indiana","Overall",6.8
+"Iowa","White",4.53
+"Iowa","Black",8.42
+"Iowa","Hispanic",6.17
+"Iowa","Overall",NA
+"Kansas","White",4.94
+"Kansas","Black",10.85
+"Kansas","Hispanic",4.26
+"Kansas","Overall",NA
+"Kentucky","White",5.77
+"Kentucky","Black",11.95
+"Kentucky","Hispanic",6.6
+"Kentucky","Overall",8.35
+"Louisiana","White",5.55
+"Louisiana","Black",10.55
+"Louisiana","Hispanic",4.02
+"Louisiana","Overall",NA
+"Maine","White",4.89
+"Maine","Black",NA
+"Maine","Hispanic",NA
+"Maine","Overall",NA
+"Maryland","White",4.12
+"Maryland","Black",9.13
+"Maryland","Hispanic",4.92
+"Maryland","Overall",NA
+"Massachusetts","White",2.05
+"Massachusetts","Black",6.3
+"Massachusetts","Hispanic",3.63
+"Massachusetts","Overall",2.98
+"Michigan","White",4.64
+"Michigan","Black",12.13
+"Michigan","Hispanic",4.9
+"Michigan","Overall",6.37
+"Minnesota","White",3.37
+"Minnesota","Black",10.65
+"Minnesota","Hispanic",4.31
+"Minnesota","Overall",6.25
+"Mississippi","White",6.63
+"Mississippi","Black",12.38
+"Mississippi","Hispanic",NA
+"Mississippi","Overall",NA
+"Missouri","White",4.84
+"Missouri","Black",12.81
+"Missouri","Hispanic",6.52
+"Missouri","Overall",7.34
+"Montana","White",4.62
+"Montana","Black",0
+"Montana","Hispanic",NA
+"Montana","Overall",NA
+"Nebraska","White",5.05
+"Nebraska","Black",13.28
+"Nebraska","Hispanic",7.78
+"Nebraska","Overall",NA
+"Nevada","White",4.4
+"Nevada","Black",10.02
+"Nevada","Hispanic",5.62
+"Nevada","Overall",4.95
+"New Hampshire","White",2.67
+"New Hampshire","Black",NA
+"New Hampshire","Hispanic",NA
+"New Hampshire","Overall",NA
+"New Jersey","White",2.16
+"New Jersey","Black",8.89
+"New Jersey","Hispanic",4.1
+"New Jersey","Overall",2.74
+"New Mexico","White",NA
+"New Mexico","Black",NA
+"New Mexico","Hispanic",4.73
+"New Mexico","Overall",NA
+"New York","White",2.88
+"New York","Black",8.25
+"New York","Hispanic",4.41
+"New York","Overall",3.18
+"North Carolina","White",4.99
+"North Carolina","Black",12.85
+"North Carolina","Hispanic",6.01
+"North Carolina","Overall",6.36
+"North Dakota","White",3.89
+"North Dakota","Black",NA
+"North Dakota","Hispanic",NA
+"North Dakota","Overall",NA
+"Ohio","White",5.59
+"Ohio","Black",13.28
+"Ohio","Hispanic",7.28
+"Ohio","Overall",6.57
+"Oklahoma","White",6.2
+"Oklahoma","Black",12.76
+"Oklahoma","Hispanic",7.15
+"Oklahoma","Overall",7.2
+"Oregon","White",3.79
+"Oregon","Black",NA
+"Oregon","Hispanic",4.5
+"Oregon","Overall",4.78
+"Pennsylvania","White",4.45
+"Pennsylvania","Black",9.64
+"Pennsylvania","Hispanic",6.86
+"Pennsylvania","Overall",4.5
+"Rhode Island","White",NA
+"Rhode Island","Black",NA
+"Rhode Island","Hispanic",NA
+"Rhode Island","Overall",NA
+"South Carolina","White",5.08
+"South Carolina","Black",11.53
+"South Carolina","Hispanic",5.91
+"South Carolina","Overall",NA
+"South Dakota","White",4.75
+"South Dakota","Black",NA
+"South Dakota","Hispanic",NA
+"South Dakota","Overall",10.51
+"Tennessee","White",5.48
+"Tennessee","Black",11.89
+"Tennessee","Hispanic",4.29
+"Tennessee","Overall",5.79
+"Texas","White",4.89
+"Texas","Black",10.25
+"Texas","Hispanic",5.43
+"Texas","Overall",4.36
+"Utah","White",4.93
+"Utah","Black",NA
+"Utah","Hispanic",4.11
+"Utah","Overall",6.16
+"Vermont","White",NA
+"Vermont","Black",0
+"Vermont","Hispanic",NA
+"Vermont","Overall",0
+"Virginia","White",4.66
+"Virginia","Black",10.28
+"Virginia","Hispanic",6.04
+"Virginia","Overall",3.65
+"Washington","White",4.69
+"Washington","Black",9.85
+"Washington","Hispanic",4.26
+"Washington","Overall",5.12
+"West Virginia","White",5.25
+"West Virginia","Black",NA
+"West Virginia","Hispanic",NA
+"West Virginia","Overall",NA
+"Wisconsin","White",4.65
+"Wisconsin","Black",14.31
+"Wisconsin","Hispanic",5.01
+"Wisconsin","Overall",6.61
+"Wyoming","White",NA
+"Wyoming","Black",0
+"Wyoming","Hispanic",NA
+"Wyoming","Overall",NA

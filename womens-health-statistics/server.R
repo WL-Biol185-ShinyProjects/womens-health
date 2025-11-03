@@ -13,6 +13,8 @@ sex_infect_years <- read.csv("sex_infect_years.csv")
 syphilis <- read.csv("syphilis_long.csv")
 chlamydia <- read.csv("chlamydia_long.csv") 
 gonorrhea <- read.csv("gonorrhea_long.csv")
+infant_mortality_long<- read.csv("infant_mortality_long.csv")
+mortality_race_long<- read.csv("mortality_race_long.csv")
 
 
 server <- function(input, output, session) {
@@ -672,5 +674,173 @@ server <- function(input, output, session) {
               col="steelblue")
     })
   
+    
+      #Pie Chart - Maternal and Infant
+      # Update state choices based on chart type
+      observe({
+        if (input$chartType == "infant") {
+          states <- unique(infant_mortality_long$state)
+        } else {
+          states <- unique(mortality_race_long$state)
+        }
+        
+        updateSelectInput(session,
+                          "selectedState",
+                          choices = states,
+                          selected = states[1])
+      })
+      
+      # REACTIVE DATA - Filter and aggregate by state and race
+      chart_data <- reactive({
+        req(input$selectedState)
+        
+        # Select appropriate dataset and value column
+        if (input$chartType == "infant") {
+          data <- infant_mortality_long
+          value_col <- "infant_mortality"
+        } else {
+          data <- mortality_race_long
+          value_col <- "maternal_mortality"
+        }
+        
+        # Filter by state and remove NA values
+        filtered <- data %>%
+          filter(state == input$selectedState,
+                 !is.na(.data[[value_col]]))
+        
+        # Group by race and calculate mean (handles multiple rows per state/race)
+        aggregated <- filtered %>%
+          group_by(race) %>%
+          summarise(
+            value = mean(.data[[value_col]], na.rm = TRUE),
+            .groups = 'drop'
+          ) %>%
+          arrange(desc(value))
+        
+        # Add colors for each race
+        race_colors <- c(
+          "White" = "#3b82f6",
+          "Black" = "#ef4444",
+          "Hispanic" = "#10b981",
+          "Asian_NativeHawaiian" = "#f59e0b",
+          "AmericanIndian_AlaskaNative" = "#8b5cf6",
+          "Overall" = "#6b7280"
+        )
+        
+        aggregated$color <- race_colors[aggregated$race]
+        aggregated$color[is.na(aggregated$color)] <- "#6b7280"
+        
+        aggregated
+      })
+      
+      # RENDER PIE CHART
+      output$mortality_pie <- renderPlotly({
+        data <- chart_data()
+        
+        if (nrow(data) == 0) {
+          return(NULL)
+        }
+        
+        # Determine units based on chart type
+        unit <- if(input$chartType == "infant") "1,000" else "100,000"
+        
+        # Create interactive pie chart
+        plot_ly(data,
+                labels = ~race,
+                values = ~value,
+                type = 'pie',
+                marker = list(colors = ~color),
+                textposition = 'inside',
+                textinfo = 'label+percent',
+                hovertemplate = paste0(
+                  '<b>%{label}</b><br>',
+                  '%{value:.2f} per ', unit, ' live births<br>',
+                  '<extra></extra>'
+                )) %>%
+          layout(
+            title = list(
+              text = paste("Mortality Rates in", input$selectedState),
+              font = list(size = 20, color = "#1e293b")
+            ),
+            showlegend = TRUE,
+            legend = list(
+              orientation = "h",
+              x = 0.5,
+              xanchor = "center",
+              y = -0.1
+            ),
+            paper_bgcolor = 'rgba(0,0,0,0)',
+            plot_bgcolor = 'rgba(0,0,0,0)'
+          )
+      })
+      
+      # RENDER SUMMARY CARDS
+      output$summary_cards <- renderUI({
+        data <- chart_data()
+        
+        if (nrow(data) == 0) {
+          return(NULL)
+        }
+        
+        unit <- if(input$chartType == "infant") "1,000" else "100,000"
+        
+        # Create a card for each race
+        cards <- lapply(1:nrow(data), function(i) {
+          row <- data[i, ]
+          
+          column(4,
+                 div(
+                   style = paste0(
+                     "padding: 16px; ",
+                     "border: 2px solid ", row$color, "; ",
+                     "border-radius: 8px; ",
+                     "margin: 10px 0; ",
+                     "transition: box-shadow 0.3s;"
+                   ),
+                   div(
+                     style = "display: flex; align-items: center; gap: 8px; margin-bottom: 8px;",
+                     div(
+                       style = paste0(
+                         "width: 16px; ",
+                         "height: 16px; ",
+                         "border-radius: 50%; ",
+                         "background-color: ", row$color
+                       )
+                     ),
+                     h4(style = "margin: 0; color: #1e293b;", row$race)
+                   ),
+                   p(
+                     style = paste0("font-size: 28px; font-weight: bold; color: ", row$color, "; margin: 8px 0;"),
+                     sprintf("%.2f", row$value)
+                   ),
+                   p(
+                     style = "font-size: 12px; color: #64748b; margin: 0;",
+                     paste("per", unit, "live births")
+                   )
+                 )
+          )
+        })
+        
+        do.call(fluidRow, cards)
+      })
+      
+      # RENDER DATA INFO
+      output$data_info <- renderUI({
+        data <- chart_data()
+        
+        unit <- if(input$chartType == "infant") "1,000" else "100,000"
+        type_name <- if(input$chartType == "infant") "Infant" else "Maternal"
+        
+        p(class = "info-text",
+          paste0(
+            type_name, " mortality rates showing deaths per ", unit, " live births. ",
+            "Displaying data for ", nrow(data), " racial group(s) in ", input$selectedState, "."
+          )
+        )
+      })
+      
+ 
+    
+    
     
 }

@@ -7,6 +7,7 @@ library(tidyverse)
 library(ggplot2)
 library(RColorBrewer)
 library(shinyWidgets)
+library(plotly)
 
 # Load data
 breast_cancer_long <- read.csv("breast_cancer_long.csv")
@@ -15,6 +16,8 @@ sex_infect_years <- read.csv("sex_infect_years.csv")
 syphilis <- read.csv("syphilis_long.csv")
 chlamydia <- read.csv("chlamydia_long.csv") 
 gonorrhea <- read.csv("gonorrhea_long.csv")
+infant_mortality_long<- read.csv("infant_mortality_long.csv")
+mortality_race_long<- read.csv("mortality_race_long.csv")
 
 navbarPage(
   title = "Women's Health in the United States",
@@ -648,18 +651,59 @@ navbarPage(
   ),
   
   
-
-  
   # Maternal-Infant Health
   tabPanel("Maternal-Infant Health",
            div(style = "padding: 40px 20px;",
+               
+               # Header Section
                div(style = "text-align: center; margin-bottom: 40px; 
-                            background: white; padding: 30px; 
-                            border-radius: 15px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);",
+                          background: white; padding: 30px; 
+                          border-radius: 15px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);",
                    h1("Maternal & Infant Mortality Rates", 
                       style = "color: #2C3E50; font-weight: 700; margin-bottom: 10px;"),
-                   p("Statement TBD",
+                   p("Interactive visualization of health disparities across demographics",
                      style = "color: #555; font-size: 18px; margin: 0;")
+               ),
+               
+               # Main Content Area
+               div(style = "background: white; padding: 30px; 
+                          border-radius: 15px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);",
+                   
+                   # Controls Row
+                   fluidRow(
+                     column(6,
+                            selectInput("chartType", 
+                                        "Data Type",
+                                        choices = c("Maternal Mortality" = "maternal",
+                                                    "Infant Mortality" = "infant"),
+                                        selected = "maternal",
+                                        width = "100%")
+                     ),
+                     column(6,
+                            selectInput("selectedState",
+                                        "State",
+                                        choices = NULL,
+                                        width = "100%")
+                     )
+                   ),
+                   
+                   # Pie Chart
+                   div(style = "margin-top: 30px;",
+                       plotlyOutput("mortality_pie", height = "500px")
+                   ),
+                   
+                   # Summary Statistics Cards
+                   div(style = "margin-top: 30px;",
+                       uiOutput("summary_cards")
+                   ),
+                   
+                   # Data Info Box
+                   div(style = "background: #dbeafe; border: 2px solid #93c5fd; 
+                              border-radius: 8px; padding: 16px; margin-top: 30px;",
+                       h4(style = "font-weight: bold; color: #1e3a8a; margin-bottom: 8px;", 
+                          "About the Data"),
+                       uiOutput("data_info")
+                   )
                )
            )
   ),
