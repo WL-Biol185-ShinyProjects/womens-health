@@ -95,15 +95,9 @@ navbarPage(
                             column(4,
                                    div(style = "background: white; padding: 40px;
                                               border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-<<<<<<< HEAD
-                                              border-left: 4px solid #2C3E50; height: 100%;",
-                                       h3("Disparity Analysis", 
-                                          style = "color: #2C3E50; font-family: 'Playfair Display', serif; 
-=======
                                               border-left: 4px solid #E8F4F8; height: 100%;",
                                        h3("Disparity Analysis",
                                           style = "color: #2C3E50; font-family: 'Playfair Display', serif;
->>>>>>> f0754794b9ae1f2adf599c72fd6163ec37472542
                                                  font-size: 24px; margin-top: 0; margin-bottom: 15px;"),
                                        p("Compare health outcomes across different racial and ethnic populations to
                                        identify critical gaps in care.",
