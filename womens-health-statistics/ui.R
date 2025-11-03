@@ -651,13 +651,36 @@ navbarPage(
   tabPanel("Maternal-Infant Health",
            div(style = "padding: 40px 20px;",
                div(style = "text-align: center; margin-bottom: 40px; 
-                            background: white; padding: 30px; 
-                            border-radius: 15px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);",
+                          background: white; padding: 30px; 
+                          border-radius: 15px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);",
                    h1("Maternal & Infant Mortality Rates", 
-                      style = "color: 
-#2C3E50; font-weight: 700; margin-bottom: 10px;"),
+                      style = "color: #2C3E50; font-weight: 700; margin-bottom: 10px;"),
                    p("Statement TBD",
                      style = "color: #555; font-size: 18px; margin: 0;")
+               ),
+               
+               # Maternal Mortality Map Section
+               div(style = "background: white; padding: 30px; margin-bottom: 30px;
+                          border-radius: 15px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);",
+                   h3("Maternal Mortality by State", 
+                      style = "color: #2C3E50; margin-bottom: 20px;"),
+                   
+                   fluidRow(
+                     column(6,
+                            selectInput("maternal_race_filter",
+                                        "Filter by Race:",
+                                        choices = c("All"),
+                                        selected = "All")
+                     ),
+                     column(6,
+                            selectInput("maternal_year_filter",
+                                        "Filter by Year:",
+                                        choices = c("All"),
+                                        selected = "All")
+                     )
+                   ),
+                   
+                   leafletOutput("maternal_map", height = 600)
                )
            )
   ),
