@@ -7,19 +7,18 @@ library(sf)
 library(ggplot2)
 
 states <- read_sf("us-states.geojson")
-breast_cancer_long <- read.csv("breast_cancer_long.csv") 
-cervical_cancer_long <- read.csv("cervical_cancer_long.csv") 
+breast_cancer_long <- read.csv("breast_cancer_long.csv")
+cervical_cancer_long <- read.csv("cervical_cancer_long.csv")
 sex_infect_years <- read.csv("sex_infect_years.csv")
 syphilis <- read.csv("syphilis_long.csv")
-chlamydia <- read.csv("chlamydia_long.csv") 
+chlamydia <- read.csv("chlamydia_long.csv")
 gonorrhea <- read.csv("gonorrhea_long.csv")
-infant_mortality_long<- read.csv("infant_mortality_long.csv")
-mortality_race_long<- read.csv("mortality_race_long.csv")
+
 
 
 server <- function(input, output, session) {
   
- # Breast Cancer Map 
+  # Breast Cancer Map
   
   # Update race filter choices
   updateSelectInput(session,
@@ -122,13 +121,13 @@ server <- function(input, output, session) {
     )
     
     # Create ggplot
-    ggplot(state_data, aes(x = reorder(race_label, -breast_cancer), 
-                           y = breast_cancer, 
+    ggplot(state_data, aes(x = reorder(race_label, -breast_cancer),
+                           y = breast_cancer,
                            fill = race)) +
       geom_col(width = 0.7, alpha = 0.9) +
-      geom_text(aes(label = round(breast_cancer, 1)), 
-                vjust = -0.5, 
-                size = 4, 
+      geom_text(aes(label = round(breast_cancer, 1)),
+                vjust = -0.5,
+                size = 4,
                 fontface = "bold",
                 color = "#2C3E50") +
       scale_fill_manual(values = race_colors) +
@@ -167,9 +166,9 @@ server <- function(input, output, session) {
     # Create ggplot with horizontal bars
     ggplot(rank_data, aes(x = reorder(state, breast_cancer), y = breast_cancer)) +
       geom_col(fill = "#FF8BA0", alpha = 0.9, width = 0.7) +
-      geom_text(aes(label = round(breast_cancer, 1)), 
-                hjust = -0.2, 
-                size = 4, 
+      geom_text(aes(label = round(breast_cancer, 1)),
+                hjust = -0.2,
+                size = 4,
                 fontface = "bold",
                 color = "#2C3E50") +
       coord_flip() +
@@ -299,13 +298,13 @@ server <- function(input, output, session) {
     )
     
     # Create ggplot
-    ggplot(state_data, aes(x = reorder(race_label, -cervical_cancer), 
-                           y = cervical_cancer, 
+    ggplot(state_data, aes(x = reorder(race_label, -cervical_cancer),
+                           y = cervical_cancer,
                            fill = race)) +
       geom_col(width = 0.7, alpha = 0.9) +
-      geom_text(aes(label = round(cervical_cancer, 1)), 
-                vjust = -0.5, 
-                size = 4, 
+      geom_text(aes(label = round(cervical_cancer, 1)),
+                vjust = -0.5,
+                size = 4,
                 fontface = "bold",
                 color = "#2C3E50") +
       scale_fill_manual(values = race_colors) +
@@ -344,9 +343,9 @@ server <- function(input, output, session) {
     # Create ggplot with horizontal bars
     ggplot(rank_data, aes(x = reorder(state, cervical_cancer), y = cervical_cancer)) +
       geom_col(fill = "#1E9C99", alpha = 0.9, width = 0.7) +
-      geom_text(aes(label = round(cervical_cancer, 1)), 
-                hjust = -0.2, 
-                size = 4, 
+      geom_text(aes(label = round(cervical_cancer, 1)),
+                hjust = -0.2,
+                size = 4,
                 fontface = "bold",
                 color = "#2C3E50") +
       coord_flip() +
@@ -480,13 +479,13 @@ server <- function(input, output, session) {
     
     # Filter data for selected state and race, all diseases
     plot_data <- sex_infect_years %>%
-      filter(state == input$sti_state, 
+      filter(state == input$sti_state,
              race == input$sti_race,
              !is.na(rate))
     
     # Check if we have data
     if(nrow(plot_data) == 0) {
-      plot(1, type="n", xlim=c(0, 10), ylim=c(0, 10), 
+      plot(1, type="n", xlim=c(0, 10), ylim=c(0, 10),
            xlab="", ylab="", main="No data available")
       text(5, 5, "No data available\nfor the selected filters", cex=1.5, col="red")
       return()
@@ -507,19 +506,19 @@ server <- function(input, output, session) {
     ggplot(plot_data, aes(x = year, y = rate, color = disease_label, group = disease_label)) +
       geom_line(size = 2.5, alpha = 0.9) +
       geom_point(size = 4.5, alpha = 0.95) +
-      geom_text(data = plot_data %>% 
-                  group_by(disease_label) %>% 
+      geom_text(data = plot_data %>%
+                  group_by(disease_label) %>%
                   filter(year == max(year)),
-                aes(label = round(rate, 1)), 
-                vjust = -1.2, 
+                aes(label = round(rate, 1)),
+                vjust = -1.2,
                 hjust = 0.5,
-                size = 4.5, 
+                size = 4.5,
                 fontface = "bold",
                 show.legend = FALSE) +
       scale_color_manual(values = disease_colors) +
       scale_x_continuous(breaks = unique(plot_data$year)) +
       labs(title = paste("STI Trends in", input$sti_state),
-           subtitle = paste("Race:", input$sti_race, "| Years", 
+           subtitle = paste("Race:", input$sti_race, "| Years",
                             min(plot_data$year), "-", max(plot_data$year)),
            x = "Year",
            y = "Rate per 100,000",
@@ -550,7 +549,7 @@ server <- function(input, output, session) {
   }, bg = "white")
   
   
-
+  
   
   # STI Chart 2: One Disease by Race
   output$sti_race_plot <- renderPlot({
@@ -576,7 +575,7 @@ server <- function(input, output, session) {
     
     # Check if we have data
     if(nrow(plot_data) == 0) {
-      plot(1, type="n", xlim=c(0, 10), ylim=c(0, 10), 
+      plot(1, type="n", xlim=c(0, 10), ylim=c(0, 10),
            xlab="", ylab="", main="No data available")
       text(5, 5, "No data available\nfor the selected filters", cex=1.5, col="red")
       return()
@@ -605,13 +604,13 @@ server <- function(input, output, session) {
     )
     
     # Create ggplot
-    ggplot(plot_data, aes(x = reorder(race_label, -rate), 
-                          y = rate, 
+    ggplot(plot_data, aes(x = reorder(race_label, -rate),
+                          y = rate,
                           fill = race)) +
       geom_col(width = 0.7, alpha = 0.9) +
-      geom_text(aes(label = round(rate, 1)), 
-                vjust = -0.5, 
-                size = 4.5, 
+      geom_text(aes(label = round(rate, 1)),
+                vjust = -0.5,
+                size = 4.5,
                 fontface = "bold",
                 color = "#2C3E50") +
       scale_fill_manual(values = race_colors) +
@@ -638,209 +637,98 @@ server <- function(input, output, session) {
     
   }, bg = "white")
   
+  # Maternal Mortality State Plot
+  # Load maternal mortality data from CSV
+  # Replace "maternal_mortality.csv" with your actual file path
+  maternal_mortality <- read.csv("mortality_year_long.csv", stringsAsFactors = FALSE)
+  maternal_mortality <- as.data.frame(maternal_mortality)
+  maternal_mortality$year <- as.numeric(maternal_mortality$year)
+  maternal_mortality$maternal_mortality <- as.numeric(maternal_mortality$maternal_mortality)
   
+  # Remove rows with NA in race column
+  maternal_mortality <- maternal_mortality %>%
+    filter(!is.na(race))
   
+  # Update maternal mortality race filter choices
+  updateSelectInput(session,
+                    "maternal_race_filter",
+                    choices = c("All", unique(maternal_mortality$race)))
   
+  # Update maternal mortality year filter choices
+  updateSelectInput(session,
+                    "maternal_year_filter",
+                    choices = c("All", unique(maternal_mortality$year)))
   
-  
-  
-  
-  
- #Over Time Plots
+  # MATERNAL MORTALITY REACTIVE DATA - This recalculates automatically when filters change
+  maternal_mortality_filtered <- reactive({
+    result <- maternal_mortality  
     
-    # Fill in the spot we created for a plot
-    output$diseasePlot <- renderPlot({
-      
-      # Filter data based on selected state, disease, and race
-      filtered_data <- sex_infect_years[sex_infect_years$state == input$state & 
-                                          sex_infect_years$disease == input$disease & 
-                                          sex_infect_years$race == input$race, ]
-      # Check if we have data
-      if(nrow(filtered_data) == 0) {
-        plot(1, type="n", xlim=c(0, 10), ylim=c(0, 10), 
-             xlab="", ylab="", main="No data available for this combination")
-        text(5, 5, "No data available\nfor the selected filters", cex=1.5, col="red")
-        return() }
-      
-      # Create a named vector for barplot (years as names, rates as values)
-      plot_data <- filtered_data$rate
-      names(plot_data) <- filtered_data$year
-      
-      # Render a barplot
-      barplot(plot_data, 
-              main=paste(input$state, "-", input$disease, "-", input$race),
-              ylab="Rate per 100,000",
-              xlab="Year",
-              col="steelblue")
-    })
+    if (input$maternal_race_filter != "All") {
+      result <- result %>%
+        filter(race == input$maternal_race_filter)
+    }
+    
+    if (input$maternal_year_filter != "All") {
+      result <- result %>%
+        filter(year == as.numeric(input$maternal_year_filter))
+    }
+    
+    result
+  })
   
+  # MATERNAL MORTALITY REACTIVE MAP DATA - Aggregate data before joining
+  maternal_map_data <- reactive({
+    # First, aggregate the filtered data by state
+    aggregated <- maternal_mortality_filtered() %>%
+      group_by(state) %>%
+      summarise(maternal_mortality = mean(maternal_mortality, na.rm = TRUE), .groups = 'drop')
     
-      #Pie Chart - Maternal and Infant
-      # Update state choices based on chart type
-      observe({
-        if (input$chartType == "infant") {
-          states <- unique(infant_mortality_long$state)
-        } else {
-          states <- unique(mortality_race_long$state)
-        }
-        
-        updateSelectInput(session,
-                          "selectedState",
-                          choices = states,
-                          selected = states[1])
-      })
-      
-      # REACTIVE DATA - Filter and aggregate by state and race
-      chart_data <- reactive({
-        req(input$selectedState)
-        
-        # Select appropriate dataset and value column
-        if (input$chartType == "infant") {
-          data <- infant_mortality_long
-          value_col <- "infant_mortality"
-        } else {
-          data <- mortality_race_long
-          value_col <- "maternal_mortality"
-        }
-        
-        # Filter by state and remove NA values
-        filtered <- data %>%
-          filter(state == input$selectedState,
-                 !is.na(.data[[value_col]]))
-        
-        # Group by race and calculate mean (handles multiple rows per state/race)
-        aggregated <- filtered %>%
-          group_by(race) %>%
-          summarise(
-            value = mean(.data[[value_col]], na.rm = TRUE),
-            .groups = 'drop'
-          ) %>%
-          arrange(desc(value))
-        
-        # Add colors for each race
-        race_colors <- c(
-          "White" = "#3b82f6",
-          "Black" = "#ef4444",
-          "Hispanic" = "#10b981",
-          "Asian_NativeHawaiian" = "#f59e0b",
-          "AmericanIndian_AlaskaNative" = "#8b5cf6",
-          "Overall" = "#6b7280"
-        )
-        
-        aggregated$color <- race_colors[aggregated$race]
-        aggregated$color[is.na(aggregated$color)] <- "#6b7280"
-        
-        aggregated
-      })
-      
-      # RENDER PIE CHART
-      output$mortality_pie <- renderPlotly({
-        data <- chart_data()
-        
-        if (nrow(data) == 0) {
-          return(NULL)
-        }
-        
-        # Determine units based on chart type
-        unit <- if(input$chartType == "infant") "1,000" else "100,000"
-        
-        # Create interactive pie chart
-        plot_ly(data,
-                labels = ~race,
-                values = ~value,
-                type = 'pie',
-                marker = list(colors = ~color),
-                textposition = 'inside',
-                textinfo = 'label+percent',
-                hovertemplate = paste0(
-                  '<b>%{label}</b><br>',
-                  '%{value:.2f} per ', unit, ' live births<br>',
-                  '<extra></extra>'
-                )) %>%
-          layout(
-            title = list(
-              text = paste("Mortality Rates in", input$selectedState),
-              font = list(size = 20, color = "#1e293b")
-            ),
-            showlegend = TRUE,
-            legend = list(
-              orientation = "h",
-              x = 0.5,
-              xanchor = "center",
-              y = -0.1
-            ),
-            paper_bgcolor = 'rgba(0,0,0,0)',
-            plot_bgcolor = 'rgba(0,0,0,0)'
-          )
-      })
-      
-      # RENDER SUMMARY CARDS
-      output$summary_cards <- renderUI({
-        data <- chart_data()
-        
-        if (nrow(data) == 0) {
-          return(NULL)
-        }
-        
-        unit <- if(input$chartType == "infant") "1,000" else "100,000"
-        
-        # Create a card for each race
-        cards <- lapply(1:nrow(data), function(i) {
-          row <- data[i, ]
-          
-          column(4,
-                 div(
-                   style = paste0(
-                     "padding: 16px; ",
-                     "border: 2px solid ", row$color, "; ",
-                     "border-radius: 8px; ",
-                     "margin: 10px 0; ",
-                     "transition: box-shadow 0.3s;"
-                   ),
-                   div(
-                     style = "display: flex; align-items: center; gap: 8px; margin-bottom: 8px;",
-                     div(
-                       style = paste0(
-                         "width: 16px; ",
-                         "height: 16px; ",
-                         "border-radius: 50%; ",
-                         "background-color: ", row$color
-                       )
-                     ),
-                     h4(style = "margin: 0; color: #1e293b;", row$race)
-                   ),
-                   p(
-                     style = paste0("font-size: 28px; font-weight: bold; color: ", row$color, "; margin: 8px 0;"),
-                     sprintf("%.2f", row$value)
-                   ),
-                   p(
-                     style = "font-size: 12px; color: #64748b; margin: 0;",
-                     paste("per", unit, "live births")
-                   )
-                 )
-          )
-        })
-        
-        do.call(fluidRow, cards)
-      })
-      
-      # RENDER DATA INFO
-      output$data_info <- renderUI({
-        data <- chart_data()
-        
-        unit <- if(input$chartType == "infant") "1,000" else "100,000"
-        type_name <- if(input$chartType == "infant") "Infant" else "Maternal"
-        
-        p(class = "info-text",
-          paste0(
-            type_name, " mortality rates showing deaths per ", unit, " live births. ",
-            "Displaying data for ", nrow(data), " racial group(s) in ", input$selectedState, "."
-          )
-        )
-      })
-      
- 
+    # Then join with states
+    states %>%
+      left_join(aggregated, by = c("name" = "state"))
+  })
+  
+  # RENDER THE MATERNAL MORTALITY MAP
+  output$maternal_map <- renderLeaflet({
+    data <- maternal_map_data()
     
+    # Make sure maternal_mortality is numeric, not a list
+    if (is.list(data$maternal_mortality)) {
+      data$maternal_mortality <- as.numeric(unlist(data$maternal_mortality))
+    }
     
+    bins <- c(0, 5, 10, 15, 20, 25, 30, Inf)
+    pal <- colorBin("YlOrRd", domain = data$maternal_mortality, bins = bins)
     
+    labels <- sprintf(
+      "<strong>%s</strong><br/>%.1f per 100,000 live births",
+      data$name, data$maternal_mortality
+    ) %>% lapply(HTML)
+    
+    leaflet(data) %>%
+      setView(-96, 37.8, 4) %>%
+      addProviderTiles("CartoDB.Positron") %>%
+      addPolygons(
+        fillColor = ~pal(maternal_mortality),
+        weight = 2,
+        opacity = 1,
+        color = "white",
+        dashArray = "3",
+        fillOpacity = 0.7,
+        highlightOptions = highlightOptions(
+          weight = 5,
+          color = "#666",
+          dashArray = "",
+          fillOpacity = 0.7,
+          bringToFront = TRUE),
+        label = labels,
+        labelOptions = labelOptions(
+          style = list("font-weight" = "normal", padding = "3px 8px"),
+          textsize = "15px",
+          direction = "auto")) %>%
+      addLegend(pal = pal, values = ~maternal_mortality, opacity = 0.7,
+                title = "Maternal Mortality<br/>(per 100,000)",
+                position = "bottomright")
+  })
+  
 }
