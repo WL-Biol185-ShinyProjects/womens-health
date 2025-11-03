@@ -473,32 +473,14 @@ server <- function(input, output, session) {
   })
   
   
-  # STI Chart: All Three Diseases Side-by-Side
+  # STI Time Series: All Three Diseases Over Years (OPTION 1 - Single Chart)
   output$sti_plot <- renderPlot({
     
-    # Get rates for each disease for selected state and race
-    chlamydia_rate <- chlamydia %>%
-      filter(state == input$sti_state, race == input$sti_race) %>%
-      pull(chlamydia)
-    
-    syphilis_rate <- syphilis %>%
-      filter(state == input$sti_state, race == input$sti_race) %>%
-      pull(syphilis)
-    
-    gonorrhea_rate <- gonorrhea %>%
-      filter(state == input$sti_state, race == input$sti_race) %>%
-      pull(gonorrhea)
-
-    
-    # Create data frame for plotting
-    plot_data <- data.frame(
-      disease = c("Chlamydia", "Syphilis", "Gonorrhea"),
-      rate = c(chlamydia_rate, syphilis_rate, gonorrhea_rate)
-    )
-    
-    # Remove any NA values
-    plot_data <- plot_data %>%
-      filter(!is.na(rate))
+    # Filter data for selected state and race, all diseases
+    plot_data <- sex_infect_years %>%
+      filter(state == input$sti_state, 
+             race == input$sti_race,
+             !is.na(rate))
     
     # Check if we have data
     if(nrow(plot_data) == 0) {
@@ -508,6 +490,10 @@ server <- function(input, output, session) {
       return()
     }
     
+    # Capitalize disease names for better display
+    plot_data <- plot_data %>%
+      mutate(disease_label = tools::toTitleCase(disease))
+    
     # Define colors for diseases
     disease_colors <- c(
       "Chlamydia" = "#9B59B6",
@@ -515,39 +501,54 @@ server <- function(input, output, session) {
       "Gonorrhea" = "#1ABC9C"
     )
     
-    # Create ggplot
-    ggplot(plot_data, aes(x = disease, y = rate, fill = disease)) +
-      geom_col(width = 0.7, alpha = 0.9) +
-      geom_text(aes(label = round(rate, 1)), 
-                vjust = -0.5, 
-                size = 5, 
+    # Create ggplot line graph
+    ggplot(plot_data, aes(x = year, y = rate, color = disease_label, group = disease_label)) +
+      geom_line(size = 2.5, alpha = 0.9) +
+      geom_point(size = 4.5, alpha = 0.95) +
+      geom_text(data = plot_data %>% 
+                  group_by(disease_label) %>% 
+                  filter(year == max(year)),
+                aes(label = round(rate, 1)), 
+                vjust = -1.2, 
+                hjust = 0.5,
+                size = 4.5, 
                 fontface = "bold",
-                color = "#2C3E50") +
-      scale_fill_manual(values = disease_colors) +
-      labs(title = paste("STI Rates in", input$sti_state),
-           subtitle = paste("Race:", input$sti_race),
-           x = NULL,
-           y = "Rate per 100,000") +
+                show.legend = FALSE) +
+      scale_color_manual(values = disease_colors) +
+      scale_x_continuous(breaks = unique(plot_data$year)) +
+      labs(title = paste("STI Trends in", input$sti_state),
+           subtitle = paste("Race:", input$sti_race, "| Years", 
+                            min(plot_data$year), "-", max(plot_data$year)),
+           x = "Year",
+           y = "Rate per 100,000",
+           color = "Disease") +
       theme_minimal(base_size = 14) +
       theme(
         plot.title = element_text(face = "bold", size = 20, color = "#2C3E50", hjust = 0.5),
         plot.subtitle = element_text(size = 14, color = "#555", hjust = 0.5, margin = margin(b = 20)),
         axis.text.x = element_text(size = 13, color = "#2C3E50", face = "bold"),
         axis.text.y = element_text(size = 12, color = "#2C3E50"),
+        axis.title.x = element_text(size = 14, face = "bold", margin = margin(t = 15)),
         axis.title.y = element_text(size = 14, face = "bold", margin = margin(r = 15)),
-        legend.position = "none",
-        panel.grid.major.x = element_blank(),
+        legend.position = "top",
+        legend.title = element_text(size = 13, face = "bold"),
+        legend.text = element_text(size = 12),
+        legend.background = element_rect(fill = "white", color = "#E0E0E0", linewidth = 1),
+        legend.margin = margin(b = 10),
+        legend.key.size = unit(1.5, "lines"),
+        panel.grid.major.x = element_line(color = "#E0E0E0", linetype = "dashed"),
         panel.grid.minor = element_blank(),
         panel.grid.major.y = element_line(color = "#E0E0E0", linetype = "dashed"),
         plot.background = element_rect(fill = "white", color = NA),
         panel.background = element_rect(fill = "#FAFAFA", color = NA),
         plot.margin = margin(20, 20, 20, 20)
       ) +
-      scale_y_continuous(expand = expansion(mult = c(0, 0.15)))
+      scale_y_continuous(expand = expansion(mult = c(0.05, 0.15)))
     
   }, bg = "white")
   
   
+
   
   # STI Chart 2: One Disease by Race
   output$sti_race_plot <- renderPlot({
