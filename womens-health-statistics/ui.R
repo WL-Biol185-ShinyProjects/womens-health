@@ -15,6 +15,7 @@ sex_infect_years <- read.csv("sex_infect_years.csv")
 syphilis <- read.csv("syphilis_long.csv")
 chlamydia <- read.csv("chlamydia_long.csv") 
 gonorrhea <- read.csv("gonorrhea_long.csv")
+maternal_mortality <- ("mortality_year_long.csv")
 
 navbarPage(
   title = "Women's Health in the United States",
@@ -480,8 +481,6 @@ navbarPage(
   ),
   
   # Sexual infections
-  
-  
   tabPanel("Sexual Infections",
            div(style = "background: linear-gradient(135deg, #F3E5F5 0%, #E1BEE7 100%); 
                min-height: 100vh; padding: 40px 20px;",
@@ -642,9 +641,7 @@ navbarPage(
            )
   ),
   
-  
 
-  
   # Maternal-Infant Health
   tabPanel("Maternal-Infant Health",
            div(style = "padding: 40px 20px;",
@@ -652,7 +649,8 @@ navbarPage(
                             background: white; padding: 30px; 
                             border-radius: 15px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);",
                    h1("Maternal & Infant Mortality Rates", 
-                      style = "color: #2C3E50; font-weight: 700; margin-bottom: 10px;"),
+                      style = "color: 
+#2C3E50; font-weight: 700; margin-bottom: 10px;"),
                    p("Statement TBD",
                      style = "color: #555; font-size: 18px; margin: 0;")
                )
