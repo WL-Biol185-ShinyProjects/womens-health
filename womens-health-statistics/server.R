@@ -637,40 +637,4 @@ server <- function(input, output, session) {
     
   }, bg = "white")
   
-  
-  
-  
-  
-  
-  
-  
-  
- #Over Time Plots
-    
-    # Fill in the spot we created for a plot
-    output$diseasePlot <- renderPlot({
-      
-      # Filter data based on selected state, disease, and race
-      filtered_data <- sex_infect_years[sex_infect_years$state == input$state & 
-                                          sex_infect_years$disease == input$disease & 
-                                          sex_infect_years$race == input$race, ]
-      # Check if we have data
-      if(nrow(filtered_data) == 0) {
-        plot(1, type="n", xlim=c(0, 10), ylim=c(0, 10), 
-             xlab="", ylab="", main="No data available for this combination")
-        text(5, 5, "No data available\nfor the selected filters", cex=1.5, col="red")
-        return() }
-      
-      # Create a named vector for barplot (years as names, rates as values)
-      plot_data <- filtered_data$rate
-      names(plot_data) <- filtered_data$year
-      
-      # Render a barplot
-      barplot(plot_data, 
-              main=paste(input$state, "-", input$disease, "-", input$race),
-              ylab="Rate per 100,000",
-              xlab="Year",
-              col="steelblue")
-    })
-  
 }

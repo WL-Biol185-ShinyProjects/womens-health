@@ -662,45 +662,18 @@ navbarPage(
            )
   ),
   
-  # All health combined
-  tabPanel("Changes in Health",
+  # Resource Page 
+  tabPanel("Resource Page",
            div(style = "padding: 40px 20px;",
                div(style = "text-align: center; margin-bottom: 40px; 
                           background: white; padding: 30px; 
                           border-radius: 15px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);",
-                   h1("Women's Health Over Time", 
+                   h1("Resources for More Information or Help", 
                       style = "color: #2C3E50; font-weight: 700; margin-bottom: 10px;"),
                    p("Statement TBD",
                      style = "color: #555; font-size: 18px; margin: 0;")
                ),
-               
-               # STD Rates Section
-               div(style = "background: white; padding: 30px; 
-                          border-radius: 15px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);",
-                   h2("STI Rates by Race and Year", 
-                      style = "color: #2C3E50; margin-bottom: 20px;"),
-                   
-                   sidebarLayout(      
-                     # Define the sidebar with inputs
-                     sidebarPanel(
-                       selectInput("state", "State:", 
-                                   choices=unique(sex_infect_years$state)),
-                       selectInput("disease", "Disease:", 
-                                   choices=c("chlamydia", "syphilis", "gonorrhea")),
-                       selectInput("race", "Race:", 
-                                   choices=c("White", "Black", "Hispanic", "AmericanIndian_AlaskaNative", 
-                                             "Asian", "Native_Hawaiian_or_PacificIslander", "Multiple races", "Overall")),
-                       hr(),
-                       helpText("Data showing STI rates by race from 2020-2023.")
-                     ),
-                     
-                     # Create a spot for the barplot
-                     mainPanel(
-                       plotOutput("diseasePlot")  
-                     )
-                   )
-               )
-           )
+           )   
   ),
   
   # About Tab
