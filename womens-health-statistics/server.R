@@ -10,6 +10,10 @@ states <- read_sf("us-states.geojson")
 breast_cancer_long <- read.csv("breast_cancer_long.csv") 
 cervical_cancer_long <- read.csv("cervical_cancer_long.csv") 
 sex_infect_years <- read.csv("sex_infect_years.csv")
+syphilis <- read.csv("syphilis_long.csv")
+chlamydia <- read.csv("chlamydia_long.csv") 
+gonorrhea <- read.csv("gonorrhea_long.csv")
+
 
 server <- function(input, output, session) {
   
@@ -365,6 +369,279 @@ server <- function(input, output, session) {
       scale_y_continuous(expand = expansion(mult = c(0, 0.15)))
     
   }, bg = "white")
+  
+  
+  # STI map
+  # Update race filter choices for STI map
+  updateSelectInput(session,
+                    "sti_race_filter",
+                    choices = c("All", unique(syphilis$race)))
+  
+  # Update disease filter choices for STI map
+  updateSelectInput(session,
+                    "sti_disease_filter",
+                    choices = c("syphilis", "chlamydia", "gonorrhea"))
+  
+  # REACTIVE DATA - Filter by race
+  sti_filtered_race <- reactive({
+    # Select dataset based on disease
+    if(input$sti_disease_filter == "syphilis") {
+      result <- syphilis %>%
+        rename(rate = syphilis)
+    } else if(input$sti_disease_filter == "chlamydia") {
+      result <- chlamydia %>%
+        rename(rate = chlamydia)
+    } else {  # gonorrhea
+      result <- gonorrhea %>%
+        rename(rate = gonorrhea)
+    }
+    
+    # Filter by race if not "All"
+    if (input$sti_race_filter != "All") {
+      result <- result %>%
+        filter(race == input$sti_race_filter)
+    }
+    
+    result
+  })
+  
+  # REACTIVE MAP DATA - Aggregate data before joining with states
+  sti_map_data <- reactive({
+    # Aggregate the filtered data by state
+    aggregated <- sti_filtered_race() %>%
+      group_by(state) %>%
+      summarise(sti_rate = mean(rate, na.rm = TRUE), .groups = 'drop')
+    
+    # Join with states shapefile
+    states %>%
+      left_join(aggregated, by = c("name" = "state"))
+  })
+  
+  # RENDER THE STI MAP
+  output$sti_map <- renderLeaflet({
+    data <- sti_map_data()
+    
+    # Make sure sti_rate is numeric, not a list
+    if (is.list(data$sti_rate)) {
+      data$sti_rate <- as.numeric(unlist(data$sti_rate))
+    }
+    
+    # Define bins based on disease type (different scales)
+    if(input$sti_disease_filter == "chlamydia") {
+      bins <- c(0, 200, 400, 600, 800, 1000, 1200, Inf)
+      pal <- colorBin("Purples", domain = data$sti_rate, bins = bins)
+    } else if(input$sti_disease_filter == "syphilis") {
+      bins <- c(0, 10, 20, 30, 40, 50, 60, Inf)
+      pal <- colorBin("Oranges", domain = data$sti_rate, bins = bins)
+    } else {  # gonorrhea
+      bins <- c(0, 100, 200, 300, 400, 500, 600, Inf)
+      pal <- colorBin("Greens", domain = data$sti_rate, bins = bins)
+    }
+    
+    # Create labels
+    disease_name <- tools::toTitleCase(input$sti_disease_filter)
+    labels <- sprintf(
+      "<strong>%s</strong><br/>%s: %.1f per 100,000",
+      data$name, disease_name, data$sti_rate
+    ) %>% lapply(HTML)
+    
+    # Create map
+    leaflet(data) %>%
+      setView(-96, 37.8, 4) %>%
+      addProviderTiles("CartoDB.Positron") %>%
+      addPolygons(
+        fillColor = ~pal(sti_rate),
+        weight = 2,
+        opacity = 1,
+        color = "white",
+        dashArray = "3",
+        fillOpacity = 0.7,
+        highlightOptions = highlightOptions(
+          weight = 5,
+          color = "#666",
+          dashArray = "",
+          fillOpacity = 0.7,
+          bringToFront = TRUE),
+        label = labels,
+        labelOptions = labelOptions(
+          style = list("font-weight" = "normal", padding = "3px 8px"),
+          textsize = "15px",
+          direction = "auto")) %>%
+      addLegend(pal = pal, values = ~sti_rate, opacity = 0.7,
+                title = paste(disease_name, "<br/>Rate per 100,000"),
+                position = "bottomright")
+  })
+  
+  
+  # STI Chart: All Three Diseases Side-by-Side
+  output$sti_plot <- renderPlot({
+    
+    # Get rates for each disease for selected state and race
+    chlamydia_rate <- chlamydia %>%
+      filter(state == input$sti_state, race == input$sti_race) %>%
+      pull(chlamydia)
+    
+    syphilis_rate <- syphilis %>%
+      filter(state == input$sti_state, race == input$sti_race) %>%
+      pull(syphilis)
+    
+    gonorrhea_rate <- gonorrhea %>%
+      filter(state == input$sti_state, race == input$sti_race) %>%
+      pull(gonorrhea)
+
+    
+    # Create data frame for plotting
+    plot_data <- data.frame(
+      disease = c("Chlamydia", "Syphilis", "Gonorrhea"),
+      rate = c(chlamydia_rate, syphilis_rate, gonorrhea_rate)
+    )
+    
+    # Remove any NA values
+    plot_data <- plot_data %>%
+      filter(!is.na(rate))
+    
+    # Check if we have data
+    if(nrow(plot_data) == 0) {
+      plot(1, type="n", xlim=c(0, 10), ylim=c(0, 10), 
+           xlab="", ylab="", main="No data available")
+      text(5, 5, "No data available\nfor the selected filters", cex=1.5, col="red")
+      return()
+    }
+    
+    # Define colors for diseases
+    disease_colors <- c(
+      "Chlamydia" = "#9B59B6",
+      "Syphilis" = "#E67E22",
+      "Gonorrhea" = "#1ABC9C"
+    )
+    
+    # Create ggplot
+    ggplot(plot_data, aes(x = disease, y = rate, fill = disease)) +
+      geom_col(width = 0.7, alpha = 0.9) +
+      geom_text(aes(label = round(rate, 1)), 
+                vjust = -0.5, 
+                size = 5, 
+                fontface = "bold",
+                color = "#2C3E50") +
+      scale_fill_manual(values = disease_colors) +
+      labs(title = paste("STI Rates in", input$sti_state),
+           subtitle = paste("Race:", input$sti_race),
+           x = NULL,
+           y = "Rate per 100,000") +
+      theme_minimal(base_size = 14) +
+      theme(
+        plot.title = element_text(face = "bold", size = 20, color = "#2C3E50", hjust = 0.5),
+        plot.subtitle = element_text(size = 14, color = "#555", hjust = 0.5, margin = margin(b = 20)),
+        axis.text.x = element_text(size = 13, color = "#2C3E50", face = "bold"),
+        axis.text.y = element_text(size = 12, color = "#2C3E50"),
+        axis.title.y = element_text(size = 14, face = "bold", margin = margin(r = 15)),
+        legend.position = "none",
+        panel.grid.major.x = element_blank(),
+        panel.grid.minor = element_blank(),
+        panel.grid.major.y = element_line(color = "#E0E0E0", linetype = "dashed"),
+        plot.background = element_rect(fill = "white", color = NA),
+        panel.background = element_rect(fill = "#FAFAFA", color = NA),
+        plot.margin = margin(20, 20, 20, 20)
+      ) +
+      scale_y_continuous(expand = expansion(mult = c(0, 0.15)))
+    
+  }, bg = "white")
+  
+  
+  
+  # STI Chart 2: One Disease by Race
+  output$sti_race_plot <- renderPlot({
+    
+    # Select the appropriate dataset based on chosen disease
+    if(input$sti_disease == "chlamydia") {
+      plot_data <- chlamydia %>%
+        filter(state == input$sti_state2) %>%
+        select(race, rate = chlamydia)
+    } else if(input$sti_disease == "syphilis") {
+      plot_data <- syphilis %>%
+        filter(state == input$sti_state2) %>%
+        select(race, rate = syphilis)
+    } else {  # gonorrhea
+      plot_data <- gonorrhea %>%
+        filter(state == input$sti_state2) %>%
+        select(race, rate = gonorrhea)
+    }
+    
+    # Remove NA values
+    plot_data <- plot_data %>%
+      filter(!is.na(rate))
+    
+    # Check if we have data
+    if(nrow(plot_data) == 0) {
+      plot(1, type="n", xlim=c(0, 10), ylim=c(0, 10), 
+           xlab="", ylab="", main="No data available")
+      text(5, 5, "No data available\nfor the selected filters", cex=1.5, col="red")
+      return()
+    }
+    
+    # Improve race labels for display
+    plot_data <- plot_data %>%
+      mutate(race_label = case_when(
+        race == "White" ~ "White",
+        race == "Black" ~ "Black",
+        race == "Hispanic" ~ "Hispanic",
+        race == "Asian_NativeHawaiian" ~ "Asian/Native\nHawaiian",
+        race == "AmericanIndian_AlaskaNative" ~ "American Indian/\nAlaska Native",
+        race == "Overall" ~ "Overall",
+        TRUE ~ gsub("_", " ", race)
+      ))
+    
+    # Define colors for races
+    race_colors <- c(
+      "White" = "#4A90E2",
+      "Black" = "#E74C3C",
+      "Hispanic" = "#27AE60",
+      "Asian_NativeHawaiian" = "#F39C12",
+      "AmericanIndian_AlaskaNative" = "#9B59B6",
+      "Overall" = "#34495E"
+    )
+    
+    # Create ggplot
+    ggplot(plot_data, aes(x = reorder(race_label, -rate), 
+                          y = rate, 
+                          fill = race)) +
+      geom_col(width = 0.7, alpha = 0.9) +
+      geom_text(aes(label = round(rate, 1)), 
+                vjust = -0.5, 
+                size = 4.5, 
+                fontface = "bold",
+                color = "#2C3E50") +
+      scale_fill_manual(values = race_colors) +
+      labs(title = paste(tools::toTitleCase(input$sti_disease), "Rates in", input$sti_state2),
+           subtitle = "By Race",
+           x = NULL,
+           y = "Rate per 100,000") +
+      theme_minimal(base_size = 14) +
+      theme(
+        plot.title = element_text(face = "bold", size = 20, color = "#2C3E50", hjust = 0.5),
+        plot.subtitle = element_text(size = 14, color = "#555", hjust = 0.5, margin = margin(b = 20)),
+        axis.text.x = element_text(angle = 0, hjust = 0.5, size = 11, color = "#2C3E50"),
+        axis.text.y = element_text(size = 12, color = "#2C3E50"),
+        axis.title.y = element_text(size = 14, face = "bold", margin = margin(r = 15)),
+        legend.position = "none",
+        panel.grid.major.x = element_blank(),
+        panel.grid.minor = element_blank(),
+        panel.grid.major.y = element_line(color = "#E0E0E0", linetype = "dashed"),
+        plot.background = element_rect(fill = "white", color = NA),
+        panel.background = element_rect(fill = "#FAFAFA", color = NA),
+        plot.margin = margin(20, 20, 20, 20)
+      ) +
+      scale_y_continuous(expand = expansion(mult = c(0, 0.15)))
+    
+  }, bg = "white")
+  
+  
+  
+  
+  
+  
+  
+  
   
  #Over Time Plots
     

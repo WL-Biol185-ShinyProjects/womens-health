@@ -477,18 +477,170 @@ navbarPage(
   ),
   
   # Sexual infections
+  
+  
   tabPanel("Sexual Infections",
-           div(style = "padding: 40px 20px;",
+           div(style = "background: linear-gradient(135deg, #F3E5F5 0%, #E1BEE7 100%); 
+               min-height: 100vh; padding: 40px 20px;",
+               
+               # Header Section
                div(style = "text-align: center; margin-bottom: 40px; 
-                            background: white; padding: 30px; 
-                            border-radius: 15px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);",
+                   background: white; padding: 30px; 
+                   border-radius: 15px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);",
                    h1("Sexually Transmitted Infection Rates", 
                       style = "color: #2C3E50; font-weight: 700; margin-bottom: 10px;"),
-                   p("Chlamydia, Syphilis, Gonorrhea",
+                   p("Chlamydia, Syphilis, and Gonorrhea by State and Race",
                      style = "color: #555; font-size: 18px; margin: 0;")
+               ),
+               
+               # Map Section
+               div(style = "background: white; padding: 30px; 
+             border-radius: 15px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+             margin-bottom: 30px;",
+                   
+                   h2("STI Rates by State and Race", 
+                      style = "color: #2C3E50; margin-bottom: 20px;"),
+                   
+                   fluidRow(
+                     column(12,
+                            p("Explore sexually transmitted infection rates across the United States. 
+               Use the dropdowns to select a disease and filter by race to see 
+               how rates vary geographically.",
+                              style = "color: #555; font-size: 16px; margin-bottom: 20px;")
+                     )
+                   ),
+                   
+                   sidebarLayout(
+                     sidebarPanel(
+                       style = "background: #F3E5F5; border-radius: 10px; padding: 20px;",
+                       
+                       selectInput("sti_disease_filter", 
+                                   "Select Disease:",
+                                   choices = c("syphilis", "chlamydia", "gonorrhea"),
+                                   selected = "syphilis"),
+                       
+                       selectInput("sti_race_filter", 
+                                   "Select Race:",
+                                   choices = c("All"),
+                                   selected = "All"),
+                       
+                       hr(style = "border-color: #CE93D8;"),
+                       
+                       div(style = "background: white; padding: 15px; border-radius: 8px;",
+                           h4("Map Guide", style = "color: #2C3E50; margin-top: 0;"),
+                           tags$ul(
+                             style = "color: #555; line-height: 1.8;",
+                             tags$li("Hover over states for exact rates"),
+                             tags$li("Purple = Chlamydia"),
+                             tags$li("Orange = Syphilis"),
+                             tags$li("Green = Gonorrhea"),
+                             tags$li("Darker colors = higher rates")
+                           )
+                       )
+                     ),
+                     
+                     mainPanel(
+                       leafletOutput("sti_map", height = "550px")
+                     )
+                   )
+               ),
+               
+               
+               
+               # Chart 1: All Three Diseases
+               div(style = "background: white; padding: 30px; 
+                   border-radius: 15px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+                   margin-bottom: 30px;",
+                   
+                   h2("Compare All Three STIs", 
+                      style = "color: #2C3E50; margin-bottom: 20px;"),
+                   
+                   fluidRow(
+                     column(12,
+                            p("View rates for chlamydia, syphilis, and gonorrhea side-by-side 
+                     for a specific state and race.",
+                              style = "color: #555; font-size: 16px; margin-bottom: 20px;")
+                     )
+                   ),
+                   
+                   sidebarLayout(
+                     sidebarPanel(
+                       style = "background: #F3E5F5; border-radius: 10px; padding: 20px;",
+                       
+                       selectInput("sti_state", 
+                                   "Select State:",
+                                   choices = unique(syphilis$state),
+                                   selected = "United States"),
+                       
+                       selectInput("sti_race", 
+                                   "Select Race:",
+                                   choices = unique(syphilis$race),
+                                   selected = "White"),
+                       
+                       hr(style = "border-color: #CE93D8;"),
+                       
+                       div(style = "background: white; padding: 15px; border-radius: 8px;",
+                           h4("About This Chart", style = "color: #2C3E50; margin-top: 0;"),
+                           p("This visualization allows you to compare the rates of all 
+                    three major STIs for a specific demographic group.",
+                             style = "color: #555; margin: 0; font-size: 14px;")
+                       )
+                     ),
+                     
+                     mainPanel(
+                       plotOutput("sti_plot", height = "500px")
+                     )
+                   )
+               ),
+               
+               # Chart 2: One Disease by Race
+               div(style = "background: white; padding: 30px; 
+                   border-radius: 15px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);",
+                   
+                   h2("STI Rates by Race", 
+                      style = "color: #2C3E50; margin-bottom: 20px;"),
+                   
+                   fluidRow(
+                     column(12,
+                            p("Examine racial and ethnic disparities for a specific STI in your selected state.",
+                              style = "color: #555; font-size: 16px; margin-bottom: 20px;")
+                     )
+                   ),
+                   
+                   sidebarLayout(
+                     sidebarPanel(
+                       style = "background: #F3E5F5; border-radius: 10px; padding: 20px;",
+                       
+                       selectInput("sti_state2", 
+                                   "Select State:",
+                                   choices = unique(syphilis$state),
+                                   selected = "United States"),
+                       
+                       selectInput("sti_disease", 
+                                   "Select Disease:",
+                                   choices = c("chlamydia", "syphilis", "gonorrhea"),
+                                   selected = "syphilis"),
+                       
+                       hr(style = "border-color: #CE93D8;"),
+                       
+                       div(style = "background: white; padding: 15px; border-radius: 8px;",
+                           h4("Understanding Disparities", style = "color: #2C3E50; margin-top: 0;"),
+                           p("This chart demonstrates how different racial and ethnic groups 
+                    are disproportionately affected by STIs.",
+                             style = "color: #555; margin: 0; font-size: 14px;")
+                       )
+                     ),
+                     
+                     mainPanel(
+                       plotOutput("sti_race_plot", height = "500px")
+                     )
+                   )
                )
            )
   ),
+  
+  
+
   
   # Maternal-Infant Health
   tabPanel("Maternal-Infant Health",
