@@ -548,20 +548,18 @@ navbarPage(
                    )
                ),
                
-               
-               
-               # Chart 1: All Three Diseases
+             #Line graph  
                div(style = "background: white; padding: 30px; 
-                   border-radius: 15px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-                   margin-bottom: 30px;",
+             border-radius: 15px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+             margin-bottom: 30px;",
                    
-                   h2("Compare All Three STIs", 
+                   h2("STI Trends Over Time", 
                       style = "color: #2C3E50; margin-bottom: 20px;"),
                    
                    fluidRow(
                      column(12,
-                            p("View rates for chlamydia, syphilis, and gonorrhea side-by-side 
-                     for a specific state and race.",
+                            p("View how chlamydia, syphilis, and gonorrhea rates have changed 
+               over time for a specific state and racial group.",
                               style = "color: #555; font-size: 16px; margin-bottom: 20px;")
                      )
                    ),
@@ -572,21 +570,27 @@ navbarPage(
                        
                        selectInput("sti_state", 
                                    "Select State:",
-                                   choices = unique(syphilis$state),
+                                   choices = unique(sex_infect_years$state),
                                    selected = "United States"),
                        
                        selectInput("sti_race", 
                                    "Select Race:",
-                                   choices = unique(syphilis$race),
+                                   choices = unique(sex_infect_years$race),
                                    selected = "White"),
                        
                        hr(style = "border-color: #CE93D8;"),
                        
                        div(style = "background: white; padding: 15px; border-radius: 8px;",
                            h4("About This Chart", style = "color: #2C3E50; margin-top: 0;"),
-                           p("This visualization allows you to compare the rates of all 
-                    three major STIs for a specific demographic group.",
-                             style = "color: #555; margin: 0; font-size: 14px;")
+                           tags$ul(
+                             style = "color: #555; line-height: 1.8; font-size: 14px;",
+                             tags$li("Lines show trends from 2020-2023"),
+                             tags$li("Purple = Chlamydia (highest rates)"),
+                             tags$li("Orange = Syphilis (lowest rates)"),
+                             tags$li("Green = Gonorrhea (medium rates)"),
+                             tags$li("Numbers show most recent year values"),
+                             tags$li("Upward trends indicate increasing rates")
+                           )
                        )
                      ),
                      
@@ -595,6 +599,7 @@ navbarPage(
                      )
                    )
                ),
+             
                
                # Chart 2: One Disease by Race
                div(style = "background: white; padding: 30px; 
