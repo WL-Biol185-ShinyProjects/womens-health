@@ -652,15 +652,18 @@ navbarPage(
   
   # Maternal-Infant Health
   tabPanel("Maternal-Infant Health",
-           div(style = "padding: 40px 20px;",
+           div(style = "background: linear-gradient(135deg, #F0ADAD 0%, #F3E5F5 100%);
+               min-height: 100vh; padding: 40px 20px;",
+               # Header Section
                div(style = "text-align: center; margin-bottom: 40px;
-                          background: white; padding: 30px;
-                          border-radius: 15px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);",
+                   background: white; padding: 30px;
+                   border-radius: 15px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);",
                    h1("Maternal & Infant Mortality Rates",
                       style = "color: #2C3E50; font-weight: 700; margin-bottom: 10px;"),
-                   p("Statement TBD",
+                   p("Maternal and Infant Death by State and Race",
                      style = "color: #555; font-size: 18px; margin: 0;")
                ),
+               
                
                # Maternal Mortality Map Section
                div(style = "background: white; padding: 30px; margin-bottom: 30px;
@@ -806,32 +809,34 @@ navbarPage(
            
   
   # Resource Page
-  tabPanel("Resource Page",
-           div(style = "padding: 40px 20px;",
+  tabPanel("Resources",
+           div(style = "background: linear-gradient(135deg, #CECDF7 0%, #F3E5F5 100%);
+               min-height: 100vh; padding: 40px 20px;",
+               # Header Section
                div(style = "text-align: center; margin-bottom: 40px;
-                          background: white; padding: 30px;
-                          border-radius: 15px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);",
-                   h1("Resources for More Information or Help",
+                   background: white; padding: 30px;
+                   border-radius: 15px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);",
+                   h1("Connecting to Available Resources",
                       style = "color: #2C3E50; font-weight: 700; margin-bottom: 10px;"),
-                   p("Statement TBD",
+                   p("We Found Resources to Provide More Information and Help",
                      style = "color: #555; font-size: 18px; margin: 0;")
-               ),
+               )
            )  
   ),
   
   # About Tab
   tabPanel("About",
-           div(style = "padding: 40px 20px;",
-               fluidRow(
-                 column(12,
-                        div(style = "background: white; padding: 30px;
-                                     border-radius: 15px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);",
-                            h2("About This Data", style = "color: #2C3E50; font-weight: 700;"),
-                            p("Detailed information about data sources, methodology, and limitations...",
-                              style = "font-size: 16px;")
-                        )
-                 )
+           div(style = "background: linear-gradient(135deg, #f8f9fa 0%, #f8f9fa 100%);
+               min-height: 100vh; padding: 40px 20px;",
+               # Header Section
+               div(style = "text-align: center; margin-bottom: 40px;
+                   background: white; padding: 30px;
+                   border-radius: 15px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);",
+                   h1("About Us",
+                      style = "color: #2C3E50; font-weight: 700; margin-bottom: 10px;"),
+                   p("Meet the People Who Created this Website!",
+                     style = "color: #555; font-size: 18px; margin: 0;")
                )
-           )
-  )
+            )
+          )
 )
