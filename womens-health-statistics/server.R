@@ -13,6 +13,8 @@ sex_infect_years <- read.csv("sex_infect_years.csv")
 syphilis <- read.csv("syphilis_long.csv")
 chlamydia <- read.csv("chlamydia_long.csv")
 gonorrhea <- read.csv("gonorrhea_long.csv")
+mortality_race_long <- read.csv("mortality_race_long.csv")
+infant_mortality_long <- read.csv("infant_mortality_long.csv")
 
 
 
@@ -730,5 +732,275 @@ server <- function(input, output, session) {
                 title = "Maternal Mortality<br/>(per 100,000)",
                 position = "bottomright")
   })
+  
+  
+  # Populate state choices based on available data
+  # Populate state choices based on available data
+  observe({
+    if(input$mortality_type == "Maternal Mortality") {
+      states <- unique(mortality_race_long$state)
+    } else {
+      states <- unique(infant_mortality_long$state)
+    }
+    states <- sort(states[!is.na(states)])
+    
+    # Make sure "United States" is in the list and set it as default
+    if("United States" %in% states) {
+      updateSelectInput(session, "mortality_disparity_state",
+                        choices = states,
+                        selected = "United States")
+    } else {
+      # If "United States" doesn't exist, select the first state
+      updateSelectInput(session, "mortality_disparity_state",
+                        choices = states,
+                        selected = states[1])
+    }
+  })
+  
+  # COMBINED DIVERGING BAR CHART: Maternal & Infant Mortality
+  output$mortality_disparity_plot <- renderPlot({
+    
+    # Select dataset based on user choice
+    if(input$mortality_type == "Maternal Mortality") {
+      # Aggregate maternal mortality data (average across years if multiple rows)
+      state_data <- mortality_race_long %>%
+        filter(state == input$mortality_disparity_state, !is.na(maternal_mortality)) %>%
+        group_by(state, race) %>%
+        summarise(rate = mean(maternal_mortality, na.rm = TRUE), .groups = 'drop')
+      
+      y_label <- "Difference from Overall Rate (per 100,000 live births)"
+      rate_label <- "per 100,000 live births"
+      chart_title <- "Maternal Mortality"
+    } else {  # Infant Mortality
+      # Aggregate infant mortality data (average across years if multiple rows)
+      state_data <- infant_mortality_long %>%
+        filter(state == input$mortality_disparity_state, !is.na(infant_mortality)) %>%
+        group_by(state, race) %>%
+        summarise(rate = mean(infant_mortality, na.rm = TRUE), .groups = 'drop')
+      
+      y_label <- "Difference from Overall Rate (per 1,000 live births)"
+      rate_label <- "per 1,000 live births"
+      chart_title <- "Infant Mortality"
+    }
+    
+    # Check if we have data
+    if(nrow(state_data) == 0) {
+      plot(1, type="n", xlim=c(0, 10), ylim=c(0, 10), 
+           xlab="", ylab="", main="No data available")
+      text(5, 5, "No data available\nfor the selected state", cex=1.5, col="red")
+      return()
+    }
+    
+    # Get the overall/baseline rate
+    overall_rate <- state_data %>%
+      filter(race == "Overall") %>%
+      pull(rate)
+    
+    # If no overall rate, calculate mean
+    if(length(overall_rate) == 0) {
+      overall_rate <- mean(state_data$rate, na.rm = TRUE)
+    } else {
+      overall_rate <- overall_rate[1]
+    }
+    
+    # Calculate difference from overall rate
+    plot_data <- state_data %>%
+      filter(race != "Overall") %>%
+      mutate(difference = rate - overall_rate,
+             direction = ifelse(difference > 0, "Above Average", "Below Average")) %>%
+      arrange(difference)
+    
+    # Check if we have plot data after filtering
+    if(nrow(plot_data) == 0) {
+      plot(1, type="n", xlim=c(0, 10), ylim=c(0, 10), 
+           xlab="", ylab="", main="No data available")
+      text(5, 5, "No racial data available\nfor the selected state", cex=1.5, col="red")
+      return()
+    }
+    
+    # Improve race labels for display
+    plot_data <- plot_data %>%
+      mutate(race_label = case_when(
+        race == "White" ~ "White",
+        race == "Black" ~ "Black",
+        race == "Hispanic" ~ "Hispanic",
+        race == "Asian_NativeHawaiian" ~ "Asian/Native Hawaiian",
+        race == "AmericanIndian_AlaskaNative" ~ "American Indian/Alaska Native",
+        race == "Asian" ~ "Asian",
+        race == "Native_Hawaiian_or_PacificIslander" ~ "Native Hawaiian/Pacific Islander",
+        race == "Multiple races" ~ "Multiple Races",
+        race == "Multiple.races" ~ "Multiple Races",
+        race == "Overall" ~ "Overall",
+        TRUE ~ gsub("_", " ", race)
+      ))
+    
+    # Create ggplot diverging bar chart
+    ggplot(plot_data, aes(x = reorder(race_label, difference), y = difference, fill = direction)) +
+      geom_col(width = 0.7, alpha = 0.9) +
+      geom_hline(yintercept = 0, color = "#2C3E50", size = 1.5, linetype = "solid") +
+      geom_text(aes(label = paste0(ifelse(difference > 0, "+", ""), round(difference, 1))),
+                hjust = ifelse(plot_data$difference > 0, -0.2, 1.2),
+                size = 4.5,
+                fontface = "bold",
+                color = "#2C3E50") +
+      coord_flip() +
+      scale_fill_manual(values = c("Above Average" = "#E74C3C", "Below Average" = "#27AE60")) +
+      labs(title = paste(chart_title, "Disparity Analysis:", input$mortality_disparity_state),
+           subtitle = paste0("Difference from Overall Rate (", round(overall_rate, 1), " ", rate_label, ")"),
+           x = NULL,
+           y = y_label,
+           fill = NULL) +
+      theme_minimal(base_size = 14) +
+      theme(
+        plot.title = element_text(face = "bold", size = 20, color = "#2C3E50", hjust = 0.5),
+        plot.subtitle = element_text(size = 13, color = "#555", hjust = 0.5, margin = margin(b = 20)),
+        axis.text.y = element_text(size = 12, color = "#2C3E50", face = "bold"),
+        axis.text.x = element_text(size = 12, color = "#2C3E50"),
+        axis.title.x = element_text(size = 13, face = "bold", margin = margin(t = 15)),
+        legend.position = "top",
+        legend.text = element_text(size = 12, face = "bold"),
+        legend.key.size = unit(1, "cm"),
+        panel.grid.major.y = element_blank(),
+        panel.grid.minor = element_blank(),
+        panel.grid.major.x = element_line(color = "#E0E0E0", linetype = "dashed"),
+        plot.background = element_rect(fill = "white", color = NA),
+        panel.background = element_rect(fill = "#FAFAFA", color = NA),
+        plot.margin = margin(20, 40, 20, 20)
+      ) +
+      scale_y_continuous(expand = expansion(mult = c(0.15, 0.15)))
+    
+  }, bg = "white")
+  
+  
+  
+  # Populate pie chart state choices
+  # Populate pie chart state choices
+  observe({
+    if(input$pie_mortality_type == "Maternal Mortality") {
+      states <- unique(mortality_race_long$state)
+    } else {
+      states <- unique(infant_mortality_long$state)
+    }
+    states <- sort(states[!is.na(states)])
+    
+    # Keep "United States" selected if it exists in the list
+    if("United States" %in% states) {
+      updateSelectInput(session, "pie_state",
+                        choices = states,
+                        selected = "United States")
+    } else {
+      updateSelectInput(session, "pie_state",
+                        choices = states,
+                        selected = states[1])
+    }
+  })
+  
+  # Render Pie Chart
+  output$mortality_pie_chart <- renderPlot({
+    
+    # Select dataset based on user choice
+    if(input$pie_mortality_type == "Maternal Mortality") {
+      # Aggregate maternal mortality data
+      pie_data <- mortality_race_long %>%
+        filter(state == input$pie_state, 
+               race != "Overall",
+               !is.na(maternal_mortality)) %>%
+        group_by(race) %>%
+        summarise(rate = mean(maternal_mortality, na.rm = TRUE), .groups = 'drop')
+      
+      chart_title <- paste("Maternal Mortality Rates in", input$pie_state)
+      rate_label <- "per 100,000 live births"
+    } else {  # Infant Mortality
+      # Aggregate infant mortality data
+      pie_data <- infant_mortality_long %>%
+        filter(state == input$pie_state, 
+               race != "Overall",
+               !is.na(infant_mortality)) %>%
+        group_by(race) %>%
+        summarise(rate = mean(infant_mortality, na.rm = TRUE), .groups = 'drop')
+      
+      chart_title <- paste("Infant Mortality Rates in", input$pie_state)
+      rate_label <- "per 1,000 live births"
+    }
+    
+    # Check if we have data
+    if(nrow(pie_data) == 0) {
+      plot(1, type="n", xlim=c(0, 10), ylim=c(0, 10), 
+           xlab="", ylab="", main="No data available")
+      text(5, 5, "No data available\nfor the selected state", cex=1.5, col="red")
+      return()
+    }
+    
+    # Clean up race labels for display
+    pie_data <- pie_data %>%
+      mutate(race_label = case_when(
+        race == "White" ~ "White",
+        race == "Black" ~ "Black",
+        race == "Hispanic" ~ "Hispanic",
+        race == "Asian_NativeHawaiian" ~ "Asian/Native Hawaiian",
+        race == "American Indian and Alaska Native" ~ "American Indian/Alaska Native",
+        race == "Asian" ~ "Asian",
+        race == "Asian or Native Hawaiian" ~ "Native Hawaiian/Pacific Islander",
+        race == "Multiple races" ~ "Multiple Races",
+        race == "Multiple.races" ~ "Multiple Races",
+        TRUE ~ gsub("_", " ", race)
+      ))
+    
+    # Define colors for races
+    race_colors <- c(
+      "White" = "#FFCDD2",
+      "Black" = "#ff7169",
+      "Hispanic" = "#ffa178",
+      "Asian/Native Hawaiian" = "#fffcc1",
+      "American Indian/Alaska Native" = "#ffca93",
+      "Asian" = "#F44336",
+      "Native Hawaiian/Pacific Islander" = "#ffe3af",
+      "Multiple Races" = "#B71C1C"
+    )
+    
+    # Calculate percentages for labels
+    pie_data <- pie_data %>%
+      mutate(percentage = round((rate / sum(rate)) * 100, 1),
+             label_text = paste0(race_label, "\n", round(rate, 1), "\n(", percentage, "%)"))
+    
+    # Create pie chart using base R
+    par(bg = "white", mar = c(2, 2, 4, 2))
+    
+    # Get colors for the data
+    slice_colors <- sapply(pie_data$race_label, function(r) {
+      if(r %in% names(race_colors)) {
+        return(race_colors[r])
+      } else {
+        return("#95A5A6")
+      }
+    })
+    
+    # Create the pie chart
+    pie(pie_data$rate,
+        labels = pie_data$label_text,
+        col = slice_colors,
+        main = chart_title,
+        cex.main = 1.8,
+        font.main = 2,
+        col.main = "#2C3E50",
+        cex = 1.1,
+        radius = 0.9)
+    
+    # Add subtitle
+    mtext(paste("Rates", rate_label), 
+          side = 3, line = 0.5, cex = 1.1, col = "#555")
+    
+    # Add legend
+    legend("bottomright",
+           legend = pie_data$race_label,
+           fill = slice_colors,
+           cex = 0.9,
+           bg = "white",
+           box.col = "#E0E0E0")
+    
+  }, bg = "white")
+  
+  
+  
   
 }

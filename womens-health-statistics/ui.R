@@ -15,7 +15,10 @@ sex_infect_years <- read.csv("sex_infect_years.csv")
 syphilis <- read.csv("syphilis_long.csv")
 chlamydia <- read.csv("chlamydia_long.csv")
 gonorrhea <- read.csv("gonorrhea_long.csv")
-maternal_mortality <- ("mortality_year_long.csv")
+maternal_mortality <- read.csv("mortality_year_long.csv")
+mortality_race_long <- read.csv("mortality_race_long.csv")
+infant_mortality_long <- read.csv("infant_mortality_long.csv")
+
 
 navbarPage(
   title = "Women's Health in the United States",
@@ -682,8 +685,125 @@ navbarPage(
                    
                    leafletOutput("maternal_map", height = 600)
                )
+           ),
+           
+           
+           
+           
+           
+           
+           
+           # Mortality Disparity Section
+           div(style = "background: white; padding: 30px; 
+                   border-radius: 15px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);",
+               
+               h2("Mortality Health Equity Analysis", 
+                  style = "color: #2C3E50; margin-bottom: 20px;"),
+               
+               fluidRow(
+                 column(12,
+                        p("This chart shows how mortality rates differ from the overall 
+                     average for each racial group. Red bars indicate groups with 
+                     disproportionately higher rates (above average), while green bars show 
+                     groups with lower rates (below average).",
+                          style = "color: #555; font-size: 16px; margin-bottom: 20px;")
+                 )
+               ),
+               
+               sidebarLayout(
+                 sidebarPanel(
+                   style = "background: #FFF9E6; border-radius: 10px; padding: 20px;",
+                   
+                   selectInput("mortality_type",
+                               "Select Mortality Type:",
+                               choices = c("Maternal Mortality", "Infant Mortality"),
+                               selected = "Maternal Mortality"),
+                   
+                   selectInput("mortality_disparity_state", 
+                               "Select State:",
+                               choices = c("United States"),
+                               selected = "United States"),
+                   
+                   hr(style = "border-color: #FFD700;"),
+                   
+                   div(style = "background: white; padding: 15px; border-radius: 8px;",
+                       h4("Understanding This Chart", style = "color: #2C3E50; margin-top: 0;"),
+                       tags$ul(
+                         style = "color: #555; line-height: 1.8; font-size: 14px;",
+                         tags$li(strong("Black line at zero"), " = overall average rate"),
+                         tags$li(strong("Red bars (right)"), " = higher than average"),
+                         tags$li(strong("Green bars (left)"), " = lower than average"),
+                         tags$li("Longer bars = bigger disparities"),
+                         tags$li("Numbers show exact difference from average")
+                       ),
+                       tags$div(
+                         style = "background: #FEF3CD; padding: 10px; border-radius: 5px; margin-top: 10px;",
+                         p(strong("Why This Matters:"), style = "color: #856404; margin: 0; margin-bottom: 5px;"),
+                         p(strong("Maternal:"), " Identifies which groups face highest pregnancy death risk", 
+                           style = "color: #856404; margin: 0; font-size: 13px;"),
+                         p(strong("Infant:"), " Shows disparities in deaths before age 1",
+                           style = "color: #856404; margin: 5px 0 0 0; font-size: 13px;")
+                       )
+                   )
+                 ),
+                 
+                 mainPanel(
+                   plotOutput("mortality_disparity_plot", height = "550px")
+                 )
+               )
+           ),
+           
+           # Pie Chart Section
+           div(style = "background: white; padding: 30px; margin-bottom: 30px;
+           border-radius: 15px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);",
+               
+               h2("Mortality Distribution by Race",
+                  style = "color: #2C3E50; margin-bottom: 20px;"),
+               
+               fluidRow(
+                 column(12,
+                        p("This pie chart shows how mortality rates vary across different racial 
+               and ethnic groups. Larger slices indicate higher mortality rates.",
+                          style = "color: #555; font-size: 16px; margin-bottom: 20px;")
+                 )
+               ),
+               
+               sidebarLayout(
+                 sidebarPanel(
+                   style = "background: #FFF9E6; border-radius: 10px; padding: 20px;",
+                   
+                   selectInput("pie_mortality_type",
+                               "Select Mortality Type:",
+                               choices = c("Maternal Mortality", "Infant Mortality"),
+                               selected = "Maternal Mortality"),
+                   
+                   selectInput("pie_state",
+                               "Select State:",
+                               choices = NULL,  # Will be populated by server
+                               selected = "United States"),
+                   
+                   hr(style = "border-color: #FFD700;"),
+                   
+                   div(style = "background: white; padding: 15px; border-radius: 8px;",
+                       h4("Understanding This Chart", style = "color: #2C3E50; margin-top: 0;"),
+                       tags$ul(
+                         style = "color: #555; line-height: 1.8; font-size: 14px;",
+                         tags$li("Each slice represents a racial/ethnic group"),
+                         tags$li("Larger slices = higher mortality rates")
+                       )
+                   )
+                 ),
+                 
+                 mainPanel(
+                   plotOutput("mortality_pie_chart", height = "600px")
+                 )
+               )
            )
+           
+           
+           
   ),
+           
   
   # Resource Page
   tabPanel("Resource Page",
