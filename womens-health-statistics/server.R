@@ -994,8 +994,72 @@ server <- function(input, output, session) {
            box.col = "#E0E0E0")
     
   }, bg = "white")
+
+  # Breast Cancer vs STI Scatter Plot
+  output$breast_sti_scatter <- renderPlot({
+    # Calculate averages
+    sex_infect_avg <- sex_infect_years %>%
+      group_by(state) %>%
+      summarise(sti_rate = mean(rate, na.rm = TRUE))
+    
+    breast_cancer_avg <- breast_cancer_long %>%
+      group_by(state) %>%
+      summarise(breast_rate = mean(breast_cancer, na.rm = TRUE))
+    
+    # Merge datasets
+    breast_sti <- breast_cancer_avg %>%
+      inner_join(sex_infect_avg, by = "state")
+    
+    # Create scatter plot
+    ggplot(breast_sti, aes(x = breast_rate, y = sti_rate)) +
+      geom_point(color = "#7B68EE", size = 3, alpha = 0.7) +
+      geom_smooth(method = "lm", se = TRUE, color = "#2C3E50", linetype = "dashed") +
+      geom_text(aes(label = state), size = 2.5, vjust = -0.5, hjust = 0.5) +
+      labs(
+        title = "Breast Cancer Incidence vs Sexual Infection Rate by State",
+        x = "Breast Cancer Incidence Rate (per 100,000)",
+        y = "Sexual Infection Rate (per 100,000)",
+        caption = paste("Correlation:", round(cor(breast_sti$breast_rate, breast_sti$sti_rate, use = "complete.obs"), 3))
+      ) +
+      theme_minimal() +
+      theme(
+        plot.title = element_text(face = "bold", size = 14),
+        axis.title = element_text(face = "bold"),
+        panel.grid.minor = element_blank()
+      )
+  })
   
-  
-  
-  
-}
+  # Cervical Cancer vs STI Scatter Plot
+  output$cervical_sti_scatter <- renderPlot({
+    # Calculate averages
+    sex_infect_avg <- sex_infect_years %>%
+      group_by(state) %>%
+      summarise(sti_rate = mean(rate, na.rm = TRUE))
+    
+    cervical_cancer_avg <- cervical_cancer_long %>%
+      group_by(state) %>%
+      summarise(cervical_rate = mean(cervical_cancer, na.rm = TRUE))
+    
+    # Merge datasets
+    cervical_sti <- cervical_cancer_avg %>%
+      inner_join(sex_infect_avg, by = "state")
+    
+    # Create scatter plot
+    ggplot(cervical_sti, aes(x = cervical_rate, y = sti_rate)) +
+      geom_point(color = "#E91E63", size = 3, alpha = 0.7) +
+      geom_smooth(method = "lm", se = TRUE, color = "#2C3E50", linetype = "dashed") +
+      geom_text(aes(label = state), size = 2.5, vjust = -0.5, hjust = 0.5) +
+      labs(
+        title = "Cervical Cancer Incidence vs Sexual Infection Rate by State",
+        x = "Cervical Cancer Incidence Rate (per 100,000)",
+        y = "Sexual Infection Rate (per 100,000)",
+        caption = paste("Correlation:", round(cor(cervical_sti$cervical_rate, cervical_sti$sti_rate, use = "complete.obs"), 3))
+      ) +
+      theme_minimal() +
+      theme(
+        plot.title = element_text(face = "bold", size = 14),
+        axis.title = element_text(face = "bold"),
+        panel.grid.minor = element_blank()
+      )
+  })
+  }

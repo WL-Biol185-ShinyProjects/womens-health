@@ -817,11 +817,32 @@ navbarPage(
                  background: white; padding: 30px;
                  border-radius: 15px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);",
                    h1("Insights and Exploring Correlation Analysis",
-                      style = "color: #2C3E50; font-weight: 700; margin-bottom: 10px;"),
+                      style = "color: #2C3E50; font-weight: 700; margin-bottom: 10px;")
+               ),
+               
+               sidebarLayout(
+                 sidebarPanel(width = 0),  # Empty sidebar
+                 mainPanel(
+                   width = 12,
+                   # Plot Section
+                   div(style = "background: white; padding: 30px; margin-bottom: 30px;
+                     border-radius: 15px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);",
+                       h2("Breast Cancer vs Sexual Infection Rate",
+                          style = "color: #2C3E50; font-weight: 600; margin-bottom: 20px;"),
+                       plotOutput("breast_sti_scatter", height = "600px")
+                   ),
+                   
+                   # Second Plot Section
+                   div(style = "background: white; padding: 30px; margin-bottom: 30px;
+                     border-radius: 15px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);",
+                       h2("Cervical Cancer vs Sexual Infection Rate",
+                          style = "color: #2C3E50; font-weight: 600; margin-bottom: 20px;"),
+                       plotOutput("cervical_sti_scatter", height = "600px")
+                   )
+                 )
                )
            )
   ),
-           
   
   # Resource Page
   tabPanel("Resources",
