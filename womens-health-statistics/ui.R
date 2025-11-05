@@ -811,15 +811,120 @@ navbarPage(
   # Resource Page
   tabPanel("Resources",
            div(style = "background: linear-gradient(135deg, #CECDF7 0%, #F3E5F5 100%);
-               min-height: 100vh; padding: 40px 20px;",
+             min-height: 100vh; padding: 40px 20px;",
+               
                # Header Section
                div(style = "text-align: center; margin-bottom: 40px;
-                   background: white; padding: 30px;
-                   border-radius: 15px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);",
+                 background: white; padding: 30px;
+                 border-radius: 15px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);",
                    h1("Connecting to Available Resources",
                       style = "color: #2C3E50; font-weight: 700; margin-bottom: 10px;"),
                    p("We Found Resources to Provide More Information and Help",
                      style = "color: #555; font-size: 18px; margin: 0;")
+               ),
+               
+               # Breast Cancer Self Screening Section
+               div(style = "background: white; padding: 30px; margin-bottom: 30px;
+                 border-radius: 15px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);",
+                   h2("Breast Cancer Self Screening", 
+                      style = "color: #2C3E50; font-weight: 600; margin-bottom: 15px;"),
+                   p("Breast cancer self screenings are vital ways to examine if you may have breast abnormalities that may be caused by cancer. Self exams should not replace exams done by medical providers, but serve as an additional way to be knowledgeable about potential abnormalities that may arise.",
+                     style = "color: #555; font-size: 16px; line-height: 1.6; margin-bottom: 15px;"),
+                   p(strong("National Breast Cancer Website: "), 
+                     a("https://www.nationalbreastcancer.org/breast-self-exam/", 
+                       href = "https://www.nationalbreastcancer.org/breast-self-exam/", 
+                       target = "_blank",
+                       style = "color: #7B68EE;"),
+                     style = "color: #555; font-size: 16px; margin-bottom: 15px;"),
+                   p(strong("Symptoms to Watch Out For:"),
+                     style = "color: #555; font-size: 16px; margin-bottom: 10px;"),
+                   tags$ul(style = "color: #555; font-size: 16px; line-height: 1.6; margin-bottom: 15px;",
+                           tags$li("Change in how the breast or nipple looks"),
+                           tags$li("Change in how the breast or nipple feels"),
+                           tags$li("Change in breast or nipple appearance"),
+                           tags$li("Any unexpected discharge not as a result of breastfeeding")
+                   ),
+                   p(strong("Mayo Clinic Facts and Information: "), 
+                     a("https://www.mayoclinic.org/tests-procedures/breast-exam/about/pac-20393237", 
+                       href = "https://www.mayoclinic.org/tests-procedures/breast-exam/about/pac-20393237", 
+                       target = "_blank",
+                       style = "color: #7B68EE;"),
+                     style = "color: #555; font-size: 16px;")
+               ),
+               
+               # STD Tests Section
+               div(style = "background: white; padding: 30px; margin-bottom: 30px;
+                 border-radius: 15px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);",
+                   h2("Sexually Transmitted Disease (STD) Tests", 
+                      style = "color: #2C3E50; font-weight: 600; margin-bottom: 15px;"),
+                   p("Sexually transmitted diseases are conditions that develop as a result of sexually transmitted infections. Though they are highly similar, it is important that sexually transmitted infections may not always develop into diseases with proper care and treatment.",
+                     style = "color: #555; font-size: 16px; line-height: 1.6; margin-bottom: 15px;"),
+                   p("Full STD panels generally involve testing for Chlamydia, Gonorrhea, Syphilis, HIV (HIV-1 and HIV-2), Hepatitis B, Hepatitis C, and Trichomoniasis.",
+                     style = "color: #555; font-size: 16px; line-height: 1.6; margin-bottom: 15px;"),
+                   p(strong("Get tested!"),
+                     style = "color: #555; font-size: 16px; margin-bottom: 10px;"),
+                   p(strong("Planned Parenthood: "), 
+                     a("https://www.plannedparenthood.org/get-care/our-services/std-testing-and-treatment", 
+                       href = "https://www.plannedparenthood.org/get-care/our-services/std-testing-and-treatment", 
+                       target = "_blank",
+                       style = "color: #7B68EE;"),
+                     style = "color: #555; font-size: 16px; margin-bottom: 10px;"),
+                   p(strong("CVS: "), 
+                     a("https://www.cvs.com/minuteclinic/services/std-evaluate-and-treat", 
+                       href = "https://www.cvs.com/minuteclinic/services/std-evaluate-and-treat", 
+                       target = "_blank",
+                       style = "color: #7B68EE;"),
+                     style = "color: #555; font-size: 16px;")
+               ),
+               
+               # Birth Centers/Hospitals Section
+               div(style = "background: white; padding: 30px; margin-bottom: 30px;
+                 border-radius: 15px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);",
+                   h2("Birth Centers/Hospitals", 
+                      style = "color: #2C3E50; font-weight: 600; margin-bottom: 15px;"),
+                   p("Choosing a place to give birth is an important part of the pregnancy process. There are many reasons to choose a place other than a standard hospital, and it is important to do sufficient research to see what options may be best for you.",
+                     style = "color: #555; font-size: 16px; line-height: 1.6; margin-bottom: 15px;"),
+                   p(strong("Choosing a place to give birth: "), 
+                     a("https://nationalpartnership.org/childbirthconnection/healthy-pregnancy/choosing-a-place-of-birth/your-options/", 
+                       href = "https://nationalpartnership.org/childbirthconnection/healthy-pregnancy/choosing-a-place-of-birth/your-options/", 
+                       target = "_blank",
+                       style = "color: #7B68EE;"),
+                     style = "color: #555; font-size: 16px; margin-bottom: 10px;"),
+                   p(strong("Find a birthing center near you: "), 
+                     a("https://www.birthcenters.org/find-a-birth-center", 
+                       href = "https://www.birthcenters.org/find-a-birth-center", 
+                       target = "_blank",
+                       style = "color: #7B68EE;"),
+                     style = "color: #555; font-size: 16px; margin-bottom: 10px;"),
+                   p(strong("Infant mortality: "), 
+                     a("https://www.cdc.gov/maternal-infant-health/infant-mortality/index.html", 
+                       href = "https://www.cdc.gov/maternal-infant-health/infant-mortality/index.html", 
+                       target = "_blank",
+                       style = "color: #7B68EE;"),
+                     style = "color: #555; font-size: 16px;")
+               ),
+               
+               # Cervical Cancer Section
+               div(style = "background: white; padding: 30px; margin-bottom: 30px;
+                 border-radius: 15px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);",
+                   h2("Cervical Cancer (Papanicolaou Smear)", 
+                      style = "color: #2C3E50; font-weight: 600; margin-bottom: 15px;"),
+                   p(strong("What is a Papanicolaou (Pap) Smear? "), "A Pap smear is an exam that identifies abnormal cervical cells. It is a great preventative measure to identifying cancer, even if there may be no family history present.",
+                     style = "color: #555; font-size: 16px; line-height: 1.6; margin-bottom: 15px;"),
+                   p(strong("When to get a Pap smear? "), "Generally, Pap smears should be administered every three years, starting at age 21 until 29. They may be administered more often due to family history of cervical cancer. After age 30 (until 65), they can be administered every five years alongside an HPV test.",
+                     style = "color: #555; font-size: 16px; line-height: 1.6; margin-bottom: 15px;"),
+                   p(strong("Pap Smear General Information: "), 
+                     a("https://www.mayoclinic.org/tests-procedures/pap-smear/about/pac-20394841", 
+                       href = "https://www.mayoclinic.org/tests-procedures/pap-smear/about/pac-20394841", 
+                       target = "_blank",
+                       style = "color: #7B68EE;"),
+                     style = "color: #555; font-size: 16px; margin-bottom: 10px;"),
+                   p(strong("Planned Parenthood: "), 
+                     a("https://www.plannedparenthood.org/learn/cancer/cervical-cancer/whats-pap-test", 
+                       href = "https://www.plannedparenthood.org/learn/cancer/cervical-cancer/whats-pap-test", 
+                       target = "_blank",
+                       style = "color: #7B68EE;"),
+                     style = "color: #555; font-size: 16px;")
                )
            )  
   ),
