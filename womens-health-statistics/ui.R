@@ -806,6 +806,21 @@ navbarPage(
            
            
   ),
+  
+  # Insights Page
+  tabPanel("Insights",
+           div(style = "background: linear-gradient(135deg, #CECDF7 0%, #F3E5F5 100%);
+             min-height: 100vh; padding: 40px 20px;",
+               
+               # Header
+               div(style = "text-align: center; margin-bottom: 40px;
+                 background: white; padding: 30px;
+                 border-radius: 15px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);",
+                   h1("Insights and Exploring Correlation Analysis",
+                      style = "color: #2C3E50; font-weight: 700; margin-bottom: 10px;"),
+               )
+           )
+  ),
            
   
   # Resource Page
