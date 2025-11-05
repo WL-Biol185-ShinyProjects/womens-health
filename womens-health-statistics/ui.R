@@ -813,7 +813,7 @@ navbarPage(
            div(style = "background: linear-gradient(135deg, #CECDF7 0%, #F3E5F5 100%);
              min-height: 100vh; padding: 40px 20px;",
                
-               # Header Section
+               # Header
                div(style = "text-align: center; margin-bottom: 40px;
                  background: white; padding: 30px;
                  border-radius: 15px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);",
@@ -933,7 +933,6 @@ navbarPage(
   tabPanel("About",
            div(style = "background: linear-gradient(135deg, #f8f9fa 0%, #f8f9fa 100%);
                min-height: 100vh; padding: 40px 20px;",
-               # Header Section
                div(style = "text-align: center; margin-bottom: 40px;
                    background: white; padding: 30px;
                    border-radius: 15px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);",
