@@ -6,6 +6,7 @@ library(htmltools)
 library(sf)
 library(ggplot2)
 
+# Load Data
 states <- read_sf("us-states.geojson")
 breast_cancer_long <- read.csv("breast_cancer_long.csv")
 cervical_cancer_long <- read.csv("cervical_cancer_long.csv")
@@ -22,12 +23,11 @@ server <- function(input, output, session) {
   
   # Breast Cancer Map
   
-  # Update race filter choices
   updateSelectInput(session,
                     "race_filter",
                     choices = c("All", unique(breast_cancer_long$race)))  
   
-  # REACTIVE DATA - This recalculates automatically when race_filter changes
+  # REACTIVE DATA
   breast_cancer_filtered_race <- reactive({
     result <- breast_cancer_long  
     
@@ -38,14 +38,11 @@ server <- function(input, output, session) {
     result
   })
   
-  # REACTIVE MAP DATA - Aggregate data before joining
+  # REACTIVE MAP DATA
   map_data <- reactive({
-    # First, aggregate the filtered data by state
     aggregated <- breast_cancer_filtered_race() %>%
       group_by(state) %>%
       summarise(breast_cancer = mean(breast_cancer, na.rm = TRUE), .groups = 'drop')
-    
-    # Then join with states
     states %>%
       left_join(aggregated, by = c("name" = "state"))
   })
@@ -53,8 +50,6 @@ server <- function(input, output, session) {
   # RENDER THE MAP
   output$cancer_map <- renderLeaflet({
     data <- map_data()
-    
-    # Make sure breast_cancer is numeric, not a list
     if (is.list(data$breast_cancer)) {
       data$breast_cancer <- as.numeric(unlist(data$breast_cancer))
     }
