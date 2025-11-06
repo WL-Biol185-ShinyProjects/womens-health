@@ -635,8 +635,8 @@ server <- function(input, output, session) {
   }, bg = "white")
   
   # Maternal Mortality State Plot
-  # Load maternal mortality data from CSV
-  # Replace "maternal_mortality.csv" with your actual file path
+
+  # Maternal Mortality State Plot
   maternal_mortality <- read.csv("mortality_year_long.csv", stringsAsFactors = FALSE)
   maternal_mortality <- as.data.frame(maternal_mortality)
   maternal_mortality$year <- as.numeric(maternal_mortality$year)
@@ -651,12 +651,7 @@ server <- function(input, output, session) {
                     "maternal_race_filter",
                     choices = c("All", unique(maternal_mortality$race)))
   
-  # Update maternal mortality year filter choices
-  updateSelectInput(session,
-                    "maternal_year_filter",
-                    choices = c("All", unique(maternal_mortality$year)))
-  
-  # MATERNAL MORTALITY REACTIVE DATA - This recalculates automatically when filters change
+  # MATERNAL MORTALITY REACTIVE DATA - Filter by race and year
   maternal_mortality_filtered <- reactive({
     result <- maternal_mortality  
     
@@ -665,10 +660,9 @@ server <- function(input, output, session) {
         filter(race == input$maternal_race_filter)
     }
     
-    if (input$maternal_year_filter != "All") {
-      result <- result %>%
-        filter(year == as.numeric(input$maternal_year_filter))
-    }
+    # Filter by the year from the slider
+    result <- result %>%
+      filter(year == input$maternal_year_slider)
     
     result
   })
@@ -698,8 +692,8 @@ server <- function(input, output, session) {
     pal <- colorBin("YlOrRd", domain = data$maternal_mortality, bins = bins)
     
     labels <- sprintf(
-      "<strong>%s</strong><br/>%.1f per 100,000 live births",
-      data$name, data$maternal_mortality
+      "<strong>%s</strong><br/>%.1f per 100,000 live births<br/>Year: %d",
+      data$name, data$maternal_mortality, input$maternal_year_slider
     ) %>% lapply(HTML)
     
     leaflet(data) %>%
@@ -724,12 +718,10 @@ server <- function(input, output, session) {
           textsize = "15px",
           direction = "auto")) %>%
       addLegend(pal = pal, values = ~maternal_mortality, opacity = 0.7,
-                title = "Maternal Mortality<br/>(per 100,000)",
+                title = paste0("Maternal Mortality<br/>(per 100,000)<br/>Year: ", input$maternal_year_slider),
                 position = "bottomright")
   })
   
-  
-  # Populate state choices based on available data
   # Populate state choices based on available data
   observe({
     if(input$mortality_type == "Maternal Mortality") {
@@ -748,8 +740,7 @@ server <- function(input, output, session) {
       # If "United States" doesn't exist, select the first state
       updateSelectInput(session, "mortality_disparity_state",
                         choices = states,
-                        selected = states[1])
-    }
+                        selected = states[1]) }
   })
   
   # COMBINED DIVERGING BAR CHART: Maternal & Infant Mortality
@@ -1062,4 +1053,205 @@ server <- function(input, output, session) {
         panel.grid.minor = element_blank()
       )
   })
+  
+  # Populate state choices for correlation plot
+  observe({
+    states_regions <- unique(maternal_mortality$state)
+    states_regions <- sort(states_regions[!is.na(states_regions)])
+    
+    # Prioritize National at the top if it exists
+    if("National" %in% states_regions) {
+      states_regions <- c("National", states_regions[states_regions != "National"])
+    }
+    
+    updateSelectInput(session, "maternal_corr_state",
+                      choices = states_regions,
+                      selected = "National")
+  })
+  
+  # MATERNAL MORTALITY RACE CORRELATION PLOT
+  output$maternal_race_correlation <- renderPlot({
+    
+    # Validate inputs
+    req(input$maternal_corr_state)
+    req(input$maternal_races_select)
+    req(input$maternal_year_range)
+    
+    # Filter data
+    plot_data <- maternal_mortality %>%
+      filter(state == input$maternal_corr_state,
+             race %in% input$maternal_races_select,
+             year >= input$maternal_year_range[1],
+             year <= input$maternal_year_range[2],
+             !is.na(maternal_mortality))
+    
+    # Check if we have data
+    if(nrow(plot_data) == 0) {
+      plot(1, type="n", xlim=c(0, 10), ylim=c(0, 10),
+           xlab="", ylab="", main="No data available")
+      text(5, 5, "No data available\nfor the selected filters", cex=1.5, col="red")
+      return()
+    }
+    
+    # Define colors for races
+    race_colors <- c(
+      "White" = "#4A90E2",
+      "Black" = "#E74C3C",
+      "Hispanic" = "#27AE60",
+      "Asian or Native Hawaiian" = "#F39C12",
+      "American Indian and Alaska Native" = "#9B59B6"
+    )
+    
+    # Create ggplot line graph
+    ggplot(plot_data, aes(x = year, y = maternal_mortality, 
+                          color = race, group = race)) +
+      geom_line(size = 2, alpha = 0.9) +
+      geom_point(size = 3.5, alpha = 0.8) +
+      geom_smooth(method = "loess", se = TRUE, alpha = 0.15, size = 0.8, 
+                  linetype = "dashed") +
+      scale_color_manual(values = race_colors) +
+      scale_x_continuous(breaks = seq(input$maternal_year_range[1], 
+                                      input$maternal_year_range[2], 
+                                      by = 2)) +
+      labs(title = paste("Maternal Mortality Trends by Race:", input$maternal_corr_state),
+           subtitle = paste("Years", input$maternal_year_range[1], "-", 
+                            input$maternal_year_range[2]),
+           x = "Year",
+           y = "Maternal Mortality Rate (per 100,000 live births)",
+           color = "Race/Ethnicity") +
+      theme_minimal(base_size = 14) +
+      theme(
+        plot.title = element_text(face = "bold", size = 20, color = "#2C3E50", 
+                                  hjust = 0.5),
+        plot.subtitle = element_text(size = 14, color = "#555", hjust = 0.5, 
+                                     margin = margin(b = 20)),
+        axis.text.x = element_text(size = 11, color = "#2C3E50", angle = 45, 
+                                   hjust = 1),
+        axis.text.y = element_text(size = 12, color = "#2C3E50"),
+        axis.title.x = element_text(size = 14, face = "bold", 
+                                    margin = margin(t = 15)),
+        axis.title.y = element_text(size = 14, face = "bold", 
+                                    margin = margin(r = 15)),
+        legend.position = "right",
+        legend.title = element_text(size = 13, face = "bold"),
+        legend.text = element_text(size = 11),
+        legend.background = element_rect(fill = "white", color = "#E0E0E0", 
+                                         linewidth = 1),
+        legend.key.size = unit(1.2, "lines"),
+        panel.grid.major = element_line(color = "#E0E0E0", linetype = "dashed"),
+        panel.grid.minor = element_blank(),
+        plot.background = element_rect(fill = "white", color = NA),
+        panel.background = element_rect(fill = "#FAFAFA", color = NA),
+        plot.margin = margin(20, 20, 20, 20)
+      ) +
+      scale_y_continuous(expand = expansion(mult = c(0.05, 0.1)))
+    
+  }, bg = "white")
+  
+  
+  # Populate state choices for infant mortality
+  observe({
+    available_states <- c("All States", sort(unique(infant_mortality_long$state[!is.na(infant_mortality_long$state)])))
+    
+    updateSelectInput(session, "infant_corr_state",
+                      choices = available_states,
+                      selected = "All States")
+  })
+  
+  # INFANT MORTALITY RACE CORRELATION ANALYSIS
+  output$infant_race_correlation <- renderPlot({
+    
+    # Validate inputs
+    req(input$infant_corr_state)
+    
+    # Filter data based on state selection
+    if(input$infant_corr_state == "All States") {
+      plot_data <- infant_mortality_long %>%
+        filter(race != "Overall",
+               !is.na(infant_mortality),
+               !is.na(state))
+    } else {
+      plot_data <- infant_mortality_long %>%
+        filter(state == input$infant_corr_state,
+               race != "Overall",
+               !is.na(infant_mortality))
+    }
+    
+    # Check if we have data
+    if(nrow(plot_data) == 0) {
+      plot(1, type="n", xlim=c(0, 10), ylim=c(0, 10),
+           xlab="", ylab="", main="No data available")
+      text(5, 5, "No data available\nfor the selected filters", cex=1.5, col="red")
+      return()
+    }
+    
+    # Calculate mean and confidence intervals for each race
+    summary_data <- plot_data %>%
+      group_by(race) %>%
+      summarise(
+        mean_mortality = mean(infant_mortality, na.rm = TRUE),
+        median_mortality = median(infant_mortality, na.rm = TRUE),
+        sd_mortality = sd(infant_mortality, na.rm = TRUE),
+        n = n(),
+        se = sd_mortality / sqrt(n),
+        ci_lower = mean_mortality - 1.96 * se,
+        ci_upper = mean_mortality + 1.96 * se
+      ) %>%
+      arrange(desc(mean_mortality))
+    
+    # Define colors for races
+    race_colors <- c(
+      "White" = "#4A90E2",
+      "Black" = "#E74C3C",
+      "Hispanic" = "#27AE60",
+      "Asian or Native Hawaiian" = "#F39C12",
+      "Asian" = "#F39C12",
+      "American Indian and Alaska Native" = "#9B59B6",
+      "Native Hawaiian or Pacific Islander" = "#E67E22",
+      "Native_Hawaiian_or_PacificIslander" = "#E67E22",
+      "Multiple races" = "#95A5A6",
+      "Multiple.races" = "#95A5A6"
+    )
+    
+    # Create the plot
+    ggplot(summary_data, aes(x = reorder(race, mean_mortality), 
+                             y = mean_mortality, 
+                             fill = race)) +
+      geom_col(alpha = 0.9, width = 0.7) +
+      geom_errorbar(aes(ymin = ci_lower, ymax = ci_upper),
+                    width = 0.3, size = 1, color = "#2C3E50") +
+      geom_text(aes(label = sprintf("%.2f", mean_mortality)),
+                vjust = -2.5, size = 4.5, fontface = "bold", color = "#2C3E50") +
+      geom_text(aes(label = paste0("n=", n)),
+                vjust = -1, size = 3.5, color = "#555555") +
+      scale_fill_manual(values = race_colors) +
+      labs(title = ifelse(input$infant_corr_state == "All States",
+                          "Correlation: Race and Infant Mortality Rates (All States)",
+                          paste("Correlation: Race and Infant Mortality Rates -", input$infant_corr_state)),
+           subtitle = "Mean rates with 95% confidence intervals",
+           x = "Race/Ethnicity",
+           y = "Mean Infant Mortality Rate (per 1,000 live births)",
+           fill = "Race/Ethnicity") +
+      theme_minimal(base_size = 14) +
+      theme(
+        plot.title = element_text(face = "bold", size = 18, color = "#2C3E50", 
+                                  hjust = 0.5, margin = margin(b = 5)),
+        plot.subtitle = element_text(size = 12, color = "#555555", 
+                                     hjust = 0.5, margin = margin(b = 20)),
+        axis.text.x = element_text(size = 11, color = "#2C3E50", angle = 45, 
+                                   hjust = 1),
+        axis.text.y = element_text(size = 12, color = "#2C3E50"),
+        axis.title = element_text(size = 14, face = "bold"),
+        legend.position = "none",
+        panel.grid.major.x = element_blank(),
+        panel.grid.minor = element_blank(),
+        panel.grid.major.y = element_line(color = "#E0E0E0", linetype = "dashed"),
+        plot.background = element_rect(fill = "white", color = NA),
+        panel.background = element_rect(fill = "#FAFAFA", color = NA),
+        plot.margin = margin(20, 20, 20, 20)
+      ) +
+      scale_y_continuous(expand = expansion(mult = c(0, 0.2)))
+    
+  }, bg = "white")
+  
   }

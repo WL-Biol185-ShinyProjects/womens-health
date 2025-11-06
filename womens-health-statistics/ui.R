@@ -30,6 +30,7 @@ navbarPage(
   ),
   
   # Home Page Tab
+  
   # Clean, Simple Home Page - No Gradients or Emojis
   tabPanel("Home",
            tags$head(
@@ -218,7 +219,6 @@ navbarPage(
   ),
   
   navbarMenu("Cancer",
-             
              tabPanel("Breast Cancer",
                       div(style = "background: linear-gradient(135deg, #FFF5F7 0%, #FFE4E9 100%);
                                    min-height: 100vh; padding: 40px 20px;",
@@ -349,7 +349,6 @@ navbarPage(
                           )
                       )
              ),
-             
              
              tabPanel("Cervical Cancer",
                       div(style = "background: linear-gradient(135deg, #E0F7FA 0%, #B2EBF2 100%);
@@ -602,7 +601,6 @@ navbarPage(
                    )
                ),
                
-               
                # Chart 2: One Disease by Race
                div(style = "background: white; padding: 30px;
                    border-radius: 15px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);",
@@ -664,7 +662,6 @@ navbarPage(
                      style = "color: #555; font-size: 18px; margin: 0;")
                ),
                
-               
                # Maternal Mortality Map Section
                div(style = "background: white; padding: 30px; margin-bottom: 30px;
                           border-radius: 15px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);",
@@ -679,22 +676,20 @@ navbarPage(
                                         selected = "All")
                      ),
                      column(6,
-                            selectInput("maternal_year_filter",
-                                        "Filter by Year:",
-                                        choices = c("All"),
-                                        selected = "All")
-                     )
+                            sliderInput("maternal_year_slider",
+                                        "Select Year:",
+                                        min = 1999,
+                                        max = 2019,
+                                        value = 1999,
+                                        step = 1,
+                                        animate = animationOptions(interval = 1500, loop = TRUE),
+                                        sep = "")
+                     ) 
                    ),
                    
                    leafletOutput("maternal_map", height = 600)
                )
            ),
-           
-           
-           
-           
-           
-           
            
            # Mortality Disparity Section
            div(style = "background: white; padding: 30px; 
@@ -802,9 +797,6 @@ navbarPage(
                  )
                )
            )
-           
-           
-           
   ),
   
   # Insights Page
@@ -824,7 +816,8 @@ navbarPage(
                  sidebarPanel(width = 0),  # Empty sidebar
                  mainPanel(
                    width = 12,
-                   # Plot Section
+                   
+                   # Breast Cancer vs STI Plot Section
                    div(style = "background: white; padding: 30px; margin-bottom: 30px;
                      border-radius: 15px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);",
                        h2("Breast Cancer vs Sexual Infection Rate",
@@ -832,16 +825,128 @@ navbarPage(
                        plotOutput("breast_sti_scatter", height = "600px")
                    ),
                    
-                   # Second Plot Section
+                   # Cervical Cancer vs STI Plot Section
                    div(style = "background: white; padding: 30px; margin-bottom: 30px;
                      border-radius: 15px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);",
                        h2("Cervical Cancer vs Sexual Infection Rate",
                           style = "color: #2C3E50; font-weight: 600; margin-bottom: 20px;"),
                        plotOutput("cervical_sti_scatter", height = "600px")
+                   ),
+                   
+                   # Maternal Mortality by Race Correlation Section
+                   div(style = "background: white; padding: 30px; margin-bottom: 30px;
+                            border-radius: 15px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);",
+                       
+                       h2("Maternal Mortality Trends by Race",
+                          style = "color: #2C3E50; font-weight: 600; margin-bottom: 20px;"),
+                       
+                       fluidRow(
+                         column(12,
+                                p("Explore how maternal mortality rates vary across racial groups over time. 
+                                This visualization helps identify disparities and trends in maternal health outcomes.",
+                                  style = "color: #555; font-size: 16px; margin-bottom: 20px;")
+                         )
+                       ),
+                       
+                       sidebarLayout(
+                         sidebarPanel(
+                           style = "background: #FFF0F0; border-radius: 10px; padding: 20px;",
+                           
+                           selectInput("maternal_corr_state",
+                                       "Select State or Region:",
+                                       choices = NULL,  # Will be populated by server
+                                       selected = "National"),
+                           
+                           sliderInput("maternal_year_range",
+                                       "Select Year Range:",
+                                       min = 1999,
+                                       max = 2019,
+                                       value = c(1999, 2019),
+                                       step = 1,
+                                       sep = ""),
+                           
+                           checkboxGroupInput("maternal_races_select",
+                                              "Select Races to Display:",
+                                              choices = c("Hispanic", "Black", "White", 
+                                                          "American Indian and Alaska Native", 
+                                                          "Asian or Native Hawaiian"),
+                                              selected = c("Hispanic", "Black", "White")),
+                           
+                           hr(style = "border-color: #FFB6C1;"),
+                           
+                           div(style = "background: white; padding: 15px; border-radius: 8px;",
+                               h4("Chart Guide", style = "color: #2C3E50; margin-top: 0;"),
+                               tags$ul(
+                                 style = "color: #555; line-height: 1.8; font-size: 14px;",
+                                 tags$li("Each line represents a different racial group"),
+                                 tags$li("Higher lines indicate higher mortality rates"),
+                                 tags$li("Upward trends show worsening outcomes"),
+                                 tags$li("Gaps between lines reveal disparities"),
+                                 tags$li("Select/deselect races to compare specific groups")
+                               )
+                           )
+                         ),
+                         
+                         mainPanel(
+                           plotOutput("maternal_race_correlation", height = "550px")
+                         )
+                       )
+                   ),
+                   # Infant Mortality by Race Correlation Section
+                   div(style = "background: white; padding: 30px; margin-bottom: 30px;
+    border-radius: 15px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);",
+                       
+                       h2("Correlation: Race and Infant Mortality Rates",
+                          style = "color: #2C3E50; font-weight: 600; margin-bottom: 20px;"),
+                       
+                       fluidRow(
+                         column(12,
+                                p("Analyze the correlation between race/ethnicity and infant mortality rates. 
+               This visualization shows mean rates with confidence intervals to identify significant disparities.",
+                                  style = "color: #555; font-size: 16px; margin-bottom: 20px;")
+                         )
+                       ),
+                       
+                       sidebarLayout(
+                         sidebarPanel(
+                           style = "background: #F0F8FF; border-radius: 10px; padding: 20px;",
+                           
+                           selectInput("infant_corr_state",
+                                       "Select State or Region:",
+                                       choices = NULL,  # Will be populated by server
+                                       selected = "All States"),
+                           
+                           hr(style = "border-color: #B0E0E6;"),
+                           
+                           div(style = "background: white; padding: 15px; border-radius: 8px;",
+                               h4("Chart Guide", style = "color: #2C3E50; margin-top: 0;"),
+                               tags$ul(
+                                 style = "color: #555; line-height: 1.8; font-size: 14px;",
+                                 tags$li("Rate measured per 1,000 live births"),
+                                 tags$li("Bars show mean (average) infant mortality rate"),
+                                 tags$li("Error bars show 95% confidence intervals"),
+                                 tags$li("Higher bars indicate stronger correlation with mortality"),
+                                 tags$li("Non-overlapping error bars suggest statistically significant differences"),
+                                 tags$li("'n=' shows number of data points for each race")
+                               ),
+                               tags$div(
+                                 style = "background: #E3F2FD; padding: 10px; border-radius: 5px; margin-top: 10px;",
+                                 p(strong("Interpretation:"), " This chart reveals which racial groups have higher or lower infant mortality rates on average. 
+                Large differences indicate health disparities that may result from systemic inequities in healthcare access, 
+                socioeconomic factors, and social determinants of health.",
+                                   style = "color: #1565C0; margin: 0; font-size: 13px;")
+                               )
+                           )
+                         ),
+                         
+                         mainPanel(
+                           plotOutput("infant_race_correlation", height = "550px")
+                         )
+                       )
                    )
-                 )
                )
-           )
+            )
+        )
   ),
   
   # Resource Page
