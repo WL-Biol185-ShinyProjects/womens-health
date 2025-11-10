@@ -1,16 +1,7 @@
 # maternity-mortality-rates
-This website provides information on maternity mortality rates in the US across states. We pay special attention to race/ethnicity.
 
+Our website aims to highlight Womens Health Data from the CDC WONDER Online Database grouped by state and race to assess the quality of health and living for women across the United States.
+We make sure of interactive maps and graphs that aim to highlight important differences that may exist when comparing between state and race. 
 
-This file has changed now!
+We hope to bring attention to health disparities and share resources with those in need. 
 
-No real change
-
-<<<<<<< HEAD
-=======
-New attempt
-
-i am attempting again
-
-
->>>>>>> 65181f5580cfc4a9d22c0b8ac73b753e1a49ec49
