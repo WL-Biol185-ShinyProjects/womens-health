@@ -601,133 +601,382 @@ navbarPage(
              ),
              
              tabPanel("Cervical Cancer",
-                      div(style = "background: linear-gradient(135deg, #E0F7FA 0%, #B2EBF2 100%);
-                                   min-height: 100vh; padding: 40px 20px;",
-                          
-                          # Header Section
-                          div(style = "text-align: center; margin-bottom: 40px;
-                                       background: white; padding: 30px;
-                                       border-radius: 15px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);",
-                              h1("Cervical Cancer Incidence Rates",
-                                 style = "color: #2C3E50; font-weight: 700; margin-bottom: 10px;"),
-                              p("Understanding cervical cancer disparities across the United States",
-                                style = "color: #555; font-size: 18px; margin: 0;")
-                          ),
-                          
-                          # Map Section
-                          div(style = "background: white; padding: 30px;
-                                       border-radius: 15px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-                                       margin-bottom: 30px;",
-                              
-                              h2("Cervical Cancer Rates by State and Race",
-                                 style = "color: #2C3E50; margin-bottom: 20px;"),
-                              
-                              fluidRow(
-                                column(12,
-                                       p("Explore cervical cancer incidence rates across the United States.
-                                         Use the dropdown to filter by race/ethnicity and see how rates
-                                         vary geographically.",
-                                         style = "color: #555; font-size: 16px; margin-bottom: 20px;")
-                                )
-                              ),
-                              
-                              sidebarLayout(
-                                sidebarPanel(
-                                  style = "background: #E0F7FA; border-radius: 10px; padding: 20px;",
-                                  
-                                  selectInput("cervical_race_filter",
-                                              "Select Race/Ethnicity:",
-                                              choices = c("Overall"),
-                                              selected = "Overall"),
-                                  
-                                  hr(style = "border-color: #80DEEA;"),
-                                  
-                                  div(style = "background: white; padding: 15px; border-radius: 8px;",
-                                      h4("Map Guide", style = "color: #00838F; margin-top: 0;"),
-                                      tags$ul(
-                                        style = "color: #555; line-height: 1.8;",
-                                        tags$li("Hover over states for exact rates"),
-                                        tags$li("Change race filter to update map"),
-                                        tags$li("Darker colors = higher rates")
-                                      )
-                                  )
-                                ),
-                                
-                                mainPanel(
-                                  leafletOutput("cervical_map", height = "550px")
-                                )
-                              )
-                          ),
-                          
-                          # Chart Section - By Race
-                          div(style = "background: white; padding: 30px;
-                                       border-radius: 15px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-                                       margin-bottom: 30px;",
-                              
-                              h2("Cervical Cancer Incidence by Race",
-                                 style = "color: #2C3E50; margin-bottom: 20px;"),
-                              
-                              sidebarLayout(
-                                sidebarPanel(
-                                  style = "background: #E0F7FA; border-radius: 10px; padding: 20px;",
-                                  
-                                  selectInput("cervical_state",
-                                              "Choose a state:",
-                                              choices = unique(cervical_cancer_long$state),
-                                              selected = "United States"),
-                                  
-                                  hr(style = "border-color: #80DEEA;"),
-                                  
-                                  div(style = "background: white; padding: 15px; border-radius: 8px;",
-                                      p("This chart shows cervical cancer incidence rates by race/ethnicity
-                                        for your selected state.",
-                                        style = "color: #555; margin: 0;")
-                                  )
-                                ),
-                                
-                                mainPanel(
-                                  plotOutput("cervical_race_plot", height = "500px")
-                                )
-                              )
-                          ),
-                          
-                          # Top States Ranking Section
-                          div(style = "background: white; padding: 30px;
-                                       border-radius: 15px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);",
-                              
-                              h2("Top States by Cervical Cancer Rates",
-                                 style = "color: #2C3E50; margin-bottom: 20px;"),
-                              
-                              sidebarLayout(
-                                sidebarPanel(
-                                  style = "background: #E0F7FA; border-radius: 10px; padding: 20px;",
-                                  
-                                  sliderInput("cervical_top_n",
-                                              "Number of states to show:",
-                                              min = 5,
-                                              max = 20,
-                                              value = 10,
-                                              step = 1),
-                                  
-                                  selectInput("cervical_rank_race",
-                                              "Select Race/Ethnicity:",
-                                              choices = unique(cervical_cancer_long$race),
-                                              selected = "Overall"),
-                                  
-                                  hr(style = "border-color: #80DEEA;"),
-                                  
-                                  div(style = "background: white; padding: 15px; border-radius: 8px;",
-                                      p("This chart ranks states by cervical cancer incidence rates,
-                                        helping identify areas with the highest rates for targeted interventions.",
-                                        style = "color: #555; margin: 0;")
-                                  )
-                                ),
-                                
-                                mainPanel(
-                                  plotOutput("cervical_top_states_plot", height = "600px")
-                                )
-                              )
-                          )
+                      tags$head(
+                        tags$style(HTML("
+             /* Tab styling */
+             .nav-tabs {
+               background: white;
+               border-bottom: 2px solid #00838F;
+               padding: 0;
+               margin: 0;
+             }
+             .nav-tabs > li > a {
+               color: #6b7280;
+               font-weight: 600;
+               padding: 16px 24px;
+               border: none;
+               border-bottom: 2px solid transparent;
+               margin-bottom: -2px;
+               transition: all 0.3s ease;
+             }
+             .nav-tabs > li > a:hover {
+               background-color: #E0F7FA;
+               color: #2C3E50;
+               border: none;
+               border-bottom: 2px solid #00838F;
+             }
+             .nav-tabs > li.active > a,
+             .nav-tabs > li.active > a:hover,
+             .nav-tabs > li.active > a:focus {
+               color: #00838F;
+               background-color: #E0F7FA;
+               border: none;
+               border-bottom: 2px solid #00838F;
+             }
+             .tab-content {
+               padding: 30px 20px;
+               background: #E0F7FA;
+             }
+             /* Header styling */
+             .cc-header {
+               background: white;
+               padding: 40px 20px;
+               text-align: center;
+               border-bottom: 1px solid #80DEEA;
+               margin-bottom: 0;
+             }
+             .cc-header h1 {
+               color: #2C3E50;
+               font-weight: 700;
+               font-size: 36px;
+               margin: 0 0 10px 0;
+             }
+             .cc-header p {
+               color: #555;
+               font-size: 18px;
+               margin: 0;
+             }
+             /* Card styling */
+             .cc-insight-card {
+               background: #E0F7FA;
+               border-left: 4px solid #00838F;
+               padding: 20px;
+               border-radius: 8px;
+               margin-bottom: 20px;
+             }
+             .cc-stat-card {
+               background: white;
+               border: 1px solid #80DEEA;
+               border-radius: 12px;
+               padding: 24px;
+               text-align: center;
+               box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+             }
+             .cc-stat-value {
+               font-size: 48px;
+               font-weight: 700;
+               color: #00838F;
+               margin: 10px 0;
+             }
+             .cc-stat-label {
+               color: #6b7280;
+               font-size: 14px;
+               font-weight: 600;
+               text-transform: uppercase;
+               letter-spacing: 0.05em;
+             }
+           "))
+                      ),
+                      
+                      # Header
+                      div(class = "cc-header",
+                          h1("Cervical Cancer Incidence Rates"),
+                          p("Understanding cervical cancer disparities across the United States")
+                      ),
+                      
+                      # Tabset
+                      tabsetPanel(
+                        id = "cc_tabs",
+                        type = "tabs",
+                        
+                        # OVERVIEW TAB
+                        tabPanel("Overview",
+                                 div(style = "max-width: 1200px; margin: 0 auto; padding: 20px;",
+                                     
+                                     # Key Stats Row
+                                     fluidRow(
+                                       column(4,
+                                              div(class = "cc-stat-card",
+                                                  div(class = "cc-stat-label", "Most Affected Group"),
+                                                  div(class = "cc-stat-value", style = "font-size: 32px;", "Hispanic Women"),
+                                                  div(style = "color: #6b7280; font-size: 14px;", 
+                                                      "Highest incidence rates")
+                                              )
+                                       ),
+                                       column(4,
+                                              div(class = "cc-stat-card",
+                                                  div(class = "cc-stat-label", "Preventable"),
+                                                  div(class = "cc-stat-value", "90%+"),
+                                                  div(style = "color: #6b7280; font-size: 14px;", 
+                                                      "with HPV vaccination")
+                                              )
+                                       ),
+                                       column(4,
+                                              div(class = "cc-stat-card",
+                                                  div(class = "cc-stat-label", "Screening Saves Lives"),
+                                                  div(class = "cc-stat-value", style = "font-size: 32px;", "Pap Tests"),
+                                                  div(style = "color: #6b7280; font-size: 14px;", 
+                                                      "Detect early changes")
+                                              )
+                                       )
+                                     ),
+                                     
+                                     # About Section
+                                     div(style = "margin-top: 40px;",
+                                         div(style = "background: white; padding: 30px; border-radius: 12px; 
+                                   box-shadow: 0 2px 8px rgba(0,0,0,0.05);",
+                                             h2("About This Data", 
+                                                style = "color: #2C3E50; margin-top: 0; font-size: 28px; margin-bottom: 20px;"),
+                                             p("Cervical cancer is one of the most preventable cancers, yet it remains a significant 
+                                  health concern, particularly for certain populations. Regular screening through Pap tests 
+                                  and HPV testing can detect precancerous changes early, when treatment is most effective.",
+                                               style = "color: #4b5563; font-size: 16px; line-height: 1.8; margin-bottom: 16px;"),
+                                             p("This page provides an overview of cervical cancer incidence rates by state and race, 
+                                  revealing important disparities in screening access and health outcomes. Understanding 
+                                  these patterns helps target prevention efforts and improve access to life-saving screenings 
+                                  in underserved communities.",
+                                               style = "color: #4b5563; font-size: 16px; line-height: 1.8;")
+                                         )
+                                     ),
+                                     
+                                     # Key Insights
+                                     div(style = "margin-top: 30px;",
+                                         h3("Key Insights", style = "color: #2C3E50; font-size: 24px; margin-bottom: 20px;"),
+                                         fluidRow(
+                                           column(4,
+                                                  div(class = "cc-insight-card",
+                                                      h4("Racial Disparities", 
+                                                         style = "color: #2C3E50; margin-top: 0; font-size: 18px;"),
+                                                      p("Hispanic women have the highest cervical cancer incidence rates, 
+                                           highlighting screening access gaps.",
+                                                        style = "color: #555; margin: 0; font-size: 15px; line-height: 1.6;")
+                                                  )
+                                           ),
+                                           column(4,
+                                                  div(class = "cc-insight-card",
+                                                      h4("Prevention Works", 
+                                                         style = "color: #2C3E50; margin-top: 0; font-size: 18px;"),
+                                                      p("HPV vaccination and regular Pap tests can prevent most cervical cancers 
+                                           when administered appropriately.",
+                                                        style = "color: #555; margin: 0; font-size: 15px; line-height: 1.6;")
+                                                  )
+                                           ),
+                                           column(4,
+                                                  div(class = "cc-insight-card",
+                                                      h4("Geographic Variation", 
+                                                         style = "color: #2C3E50; margin-top: 0; font-size: 18px;"),
+                                                      p("Rates vary significantly by state, reflecting differences in screening 
+                                           programs and healthcare access.",
+                                                        style = "color: #555; margin: 0; font-size: 15px; line-height: 1.6;")
+                                                  )
+                                           )
+                                         )
+                                     ),
+                                     
+                                     # Explore Data CTA
+                                     div(style = "margin-top: 40px; background: linear-gradient(135deg, #00838F 0%, #00ACC1 100%); 
+                                   padding: 40px; border-radius: 12px; text-align: center;",
+                                         h3("Explore the Data", 
+                                            style = "color: white; margin: 0 0 16px 0; font-size: 28px;"),
+                                         p("Use the tabs above to dive deeper into state rankings, racial disparities, and geographic patterns.",
+                                           style = "color: #E0F7FA; font-size: 16px; margin-bottom: 24px;"),
+                                         div(style = "display: flex; justify-content: center; gap: 16px; flex-wrap: wrap;",
+                                             tags$button("View Map", 
+                                                         onclick = "$('#cc_tabs a[href=\"#shiny-tab-map\"]').tab('show');",
+                                                         style = "background: white; color: #00838F; border: none; 
+                                                   padding: 12px 32px; border-radius: 8px; font-weight: 600; 
+                                                   cursor: pointer; font-size: 16px;"),
+                                             tags$button("View By Race",
+                                                         onclick = "$('#cc_tabs a[href=\"#shiny-tab-by_race\"]').tab('show');",
+                                                         style = "background: rgba(255,255,255,0.2); color: white; border: 2px solid white; 
+                                                   padding: 12px 32px; border-radius: 8px; font-weight: 600; 
+                                                   cursor: pointer; font-size: 16px;"),
+                                             tags$button("View Rankings",
+                                                         onclick = "$('#cc_tabs a[href=\"#shiny-tab-by_state\"]').tab('show');",
+                                                         style = "background: rgba(255,255,255,0.2); color: white; border: 2px solid white; 
+                                                   padding: 12px 32px; border-radius: 8px; font-weight: 600; 
+                                                   cursor: pointer; font-size: 16px;")
+                                         )
+                                     )
+                                 )
+                        ),
+                        
+                        # MAP TAB
+                        tabPanel("Map",
+                                 div(style = "max-width: 1400px; margin: 0 auto;",
+                                     div(style = "background: white; padding: 30px; border-radius: 12px; 
+                                   box-shadow: 0 2px 8px rgba(0,0,0,0.05);",
+                                         
+                                         h2("Cervical Cancer Rates by State and Race",
+                                            style = "color: #2C3E50; margin-top: 0; margin-bottom: 8px;"),
+                                         p("Explore cervical cancer incidence rates across the United States. Use the dropdown 
+                              to filter by race/ethnicity and see how rates vary geographically.",
+                                           style = "color: #555; font-size: 16px; margin-bottom: 24px;"),
+                                         
+                                         fluidRow(
+                                           column(3,
+                                                  div(style = "background: #E0F7FA; padding: 20px; border-radius: 8px;",
+                                                      selectInput("cervical_race_filter",
+                                                                  "Select Race/Ethnicity:",
+                                                                  choices = c("Overall"),
+                                                                  selected = "Overall"),
+                                                      
+                                                      hr(style = "border-color: #80DEEA;"),
+                                                      
+                                                      div(style = "background: white; padding: 15px; border-radius: 6px;",
+                                                          h4("Map Guide", style = "color: #00838F; margin-top: 0; font-size: 16px;"),
+                                                          tags$ul(
+                                                            style = "color: #555; line-height: 1.8; padding-left: 20px; margin: 0;",
+                                                            tags$li("Hover over states for exact rates"),
+                                                            tags$li("Change race filter to update map"),
+                                                            tags$li("Darker colors = higher rates")
+                                                          )
+                                                      )
+                                                  )
+                                           ),
+                                           column(9,
+                                                  leafletOutput("cervical_map", height = "600px")
+                                           )
+                                         )
+                                     ),
+                                     
+                                     # Geographic Patterns
+                                     div(style = "margin-top: 24px; background: linear-gradient(135deg, #00838F 0%, #00ACC1 100%); 
+                                   padding: 24px; border-radius: 8px;",
+                                         h4("Geographic Patterns", style = "color: white; margin-top: 0;"),
+                                         p("Cervical cancer rates vary across states, reflecting differences in screening access, 
+                              HPV vaccination rates, and healthcare infrastructure. Identifying high-rate areas helps 
+                              prioritize prevention programs.",
+                                           style = "color: #E0F7FA; margin: 0; line-height: 1.6;")
+                                     )
+                                 )
+                        ),
+                        
+                        # BY RACE TAB
+                        tabPanel("By Race",
+                                 div(style = "max-width: 1200px; margin: 0 auto;",
+                                     div(style = "background: white; padding: 30px; border-radius: 12px; 
+                                   box-shadow: 0 2px 8px rgba(0,0,0,0.05);",
+                                         
+                                         h2("Cervical Cancer Incidence by Race",
+                                            style = "color: #2C3E50; margin-top: 0; margin-bottom: 8px;"),
+                                         p("Disparities across demographic groups reveal inequities in screening and prevention access",
+                                           style = "color: #555; font-size: 16px; margin-bottom: 24px;"),
+                                         
+                                         fluidRow(
+                                           column(3,
+                                                  div(style = "background: #E0F7FA; padding: 20px; border-radius: 8px;",
+                                                      selectInput("cervical_state",
+                                                                  "Choose a state:",
+                                                                  choices = unique(cervical_cancer_long$state),
+                                                                  selected = "United States"),
+                                                      
+                                                      hr(style = "border-color: #80DEEA;"),
+                                                      
+                                                      div(style = "background: white; padding: 15px; border-radius: 6px;",
+                                                          h4("Understanding Disparities", 
+                                                             style = "color: #00838F; margin-top: 0; font-size: 16px;"),
+                                                          p("This chart shows cervical cancer incidence rates by race/ethnicity 
+                                               for your selected state.",
+                                                            style = "color: #555; margin: 0; font-size: 14px; line-height: 1.6;")
+                                                      )
+                                                  )
+                                           ),
+                                           column(9,
+                                                  plotOutput("cervical_race_plot", height = "500px")
+                                           )
+                                         )
+                                     ),
+                                     
+                                     # Key Finding
+                                     div(style = "margin-top: 24px;",
+                                         fluidRow(
+                                           column(6,
+                                                  div(style = "background: #FFF9E6; border-left: 4px solid #f59e0b; 
+                                                padding: 20px; border-radius: 8px; height: 100%;",
+                                                      h4("Highest Risk Group", style = "color: #2C3E50; margin-top: 0;"),
+                                                      p("Hispanic women experience the highest cervical cancer incidence rates, 
+                                           often due to barriers in accessing regular screening and preventive care.",
+                                                        style = "color: #78350f; margin: 0; line-height: 1.6;")
+                                                  )
+                                           ),
+                                           column(6,
+                                                  div(style = "background: #E0F7FA; border-left: 4px solid #00838F; 
+                                                padding: 20px; border-radius: 8px; height: 100%;",
+                                                      h4("Prevention is Key", style = "color: #2C3E50; margin-top: 0;"),
+                                                      p("Regular Pap tests and HPV vaccination significantly reduce cervical cancer 
+                                           risk across all populations when access barriers are addressed.",
+                                                        style = "color: #004d5c; margin: 0; line-height: 1.6;")
+                                                  )
+                                           )
+                                         )
+                                     )
+                                 )
+                        ),
+                        
+                        # BY STATE TAB
+                        tabPanel("By State",
+                                 div(style = "max-width: 1200px; margin: 0 auto;",
+                                     div(style = "background: white; padding: 30px; border-radius: 12px; 
+                                   box-shadow: 0 2px 8px rgba(0,0,0,0.05);",
+                                         
+                                         h2("Top States by Cervical Cancer Rates",
+                                            style = "color: #2C3E50; margin-top: 0; margin-bottom: 8px;"),
+                                         p("Identifying high-risk regions for targeted intervention and resource allocation",
+                                           style = "color: #555; font-size: 16px; margin-bottom: 24px;"),
+                                         
+                                         fluidRow(
+                                           column(3,
+                                                  div(style = "background: #E0F7FA; padding: 20px; border-radius: 8px;",
+                                                      sliderInput("cervical_top_n",
+                                                                  "Number of states:",
+                                                                  min = 5,
+                                                                  max = 20,
+                                                                  value = 10,
+                                                                  step = 1),
+                                                      
+                                                      selectInput("cervical_rank_race",
+                                                                  "Select Race:",
+                                                                  choices = unique(cervical_cancer_long$race),
+                                                                  selected = "Overall"),
+                                                      
+                                                      hr(style = "border-color: #80DEEA;"),
+                                                      
+                                                      div(style = "background: white; padding: 15px; border-radius: 6px;",
+                                                          h4("💡 Insight", style = "color: #00838F; margin-top: 0; font-size: 16px;"),
+                                                          p("This chart ranks states by cervical cancer incidence rates, helping 
+                                               identify areas with the highest rates for targeted interventions.",
+                                                            style = "color: #555; margin: 0; font-size: 14px; line-height: 1.6;")
+                                                      )
+                                                  )
+                                           ),
+                                           column(9,
+                                                  plotOutput("cervical_top_states_plot", height = "600px")
+                                           )
+                                         )
+                                     ),
+                                     
+                                     # Why This Matters
+                                     div(style = "margin-top: 24px; background: #FFF9E6; border-left: 4px solid #f59e0b; 
+                                   padding: 20px; border-radius: 8px;",
+                                         h4("Why This Matters", style = "color: #2C3E50; margin-top: 0;"),
+                                         p("State-level data reveals where screening programs and HPV vaccination efforts need 
+                              strengthening. High-rate states benefit most from increased access to preventive care 
+                              and public health education.",
+                                           style = "color: #78350f; margin: 0; line-height: 1.6;")
+                                     )
+                                 )
+                        )
                       )
              )
   ),
