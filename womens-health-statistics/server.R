@@ -23,9 +23,21 @@ server <- function(input, output, session) {
   
   # Breast Cancer Map
   
+  # Create named vector for clean race labels
+  race_choices <- c(
+    "Overall" = "Overall",
+    "White" = "White",
+    "Black" = "Black",
+    "Hispanic" = "Hispanic",
+    "Asian/Native Hawaiian" = "Asian_NativeHawaiian",
+    "American Indian/Alaska Native" = "AmericanIndian_AlaskaNative"
+  )
+  
+  # Update selectInput with clean labels
   updateSelectInput(session,
                     "race_filter",
-                    choices = c("Overall", unique(breast_cancer_long$race)))  
+                    choices = race_choices,
+                    selected = "Overall")
   
   # REACTIVE DATA
   breast_cancer_filtered_race <- reactive({
@@ -194,10 +206,21 @@ server <- function(input, output, session) {
   
   # Cervical Cancer Plot
   
-  # Update cervical race filter choices
+  # Create named vector for clean race labels (same as breast cancer)
+  cervical_race_choices <- c(
+    "Overall" = "Overall",
+    "White" = "White",
+    "Black" = "Black",
+    "Hispanic" = "Hispanic",
+    "Asian/Native Hawaiian" = "Asian_NativeHawaiian",
+    "American Indian/Alaska Native" = "AmericanIndian_AlaskaNative"
+  )
+  
+  # Update cervical race filter choices with clean labels
   updateSelectInput(session,
                     "cervical_race_filter",
-                    choices = c("Overall", unique(cervical_cancer_long$race)))
+                    choices = cervical_race_choices,
+                    selected = "Overall")
   
   # CERVICAL REACTIVE DATA - This recalculates automatically when cervical_race_filter changes
   cervical_cancer_filtered_race <- reactive({
@@ -370,10 +393,28 @@ server <- function(input, output, session) {
   
   
   # STI map
+  
+  # Create named vector for clean race labels (same as breast cancer)
+  std_race_choices <- c(
+    "Overall" = "Overall",
+    "White" = "White",
+    "Black" = "Black",
+    "Hispanic" = "Hispanic",
+    "Asian/Native Hawaiian" = "Asian_NativeHawaiian",
+    "American Indian/Alaska Native" = "AmericanIndian_AlaskaNative"
+  )
+  
+  # Update cervical race filter choices with clean labels
+  updateSelectInput(session,
+                    "cervical_race_filter",
+                    choices = cervical_race_choices,
+                    selected = "Overall")
+  
   # Update race filter choices for STI map
   updateSelectInput(session,
                     "sti_race_filter",
-                    choices = c("Overall", unique(syphilis$race)))
+                    choices = std_race_choices,
+                    selected = "Overall")
   
   # Update disease filter choices for STI map
   updateSelectInput(session,
@@ -646,10 +687,22 @@ server <- function(input, output, session) {
   maternal_mortality <- maternal_mortality %>%
     filter(!is.na(race))
   
-  # Update maternal mortality race filter choices
+  # Create named vector for clean race labels
+  maternal_race_choices <- c(
+    "Overall" = "Overall",
+    "White" = "White",
+    "Black" = "Black",
+    "Hispanic" = "Hispanic",
+    "Asian/Native Hawaiian" = "Asian_NativeHawaiian",
+    "American Indian/Alaska Native" = "AmericanIndian_AlaskaNative"
+  )
+  
+  # Update maternal mortality race filter choices with clean labels
   updateSelectInput(session,
                     "maternal_race_filter",
-                    choices = c("Overall", unique(maternal_mortality$race)))
+                    choices = maternal_race_choices,
+                    selected = "Overall")
+  
   
   # MATERNAL MORTALITY REACTIVE DATA - Filter by race and year
   maternal_mortality_filtered <- reactive({

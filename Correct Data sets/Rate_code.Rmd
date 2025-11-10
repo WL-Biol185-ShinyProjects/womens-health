@@ -313,6 +313,13 @@ syphilis_long <- syphilis %>%
                names_to = "race", 
                values_to = "syphilis")
 
+mortality_race_long <- mortality_race_long %>%
+  mutate(race = case_when(
+    race == "Asian or Native Hawaiian" ~ "Asian_NativeHawaiian",
+    race == "American Indian and Alaska Native" ~ "AmericanIndian_AlaskaNative",
+    TRUE ~ race
+  ))
+
 
 ```
 
