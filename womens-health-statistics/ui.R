@@ -220,204 +220,383 @@ navbarPage(
   
   navbarMenu("Cancer",
              tabPanel("Breast Cancer",
-                      div(style = "background: linear-gradient(135deg, #FFF5F7 0%, #FFE4E9 100%);
-                                   min-height: 100vh; padding: 40px 20px;",
-                          
-                          # Header Section
-                          div(style = "text-align: center; margin-bottom: 40px;
-                                       background: white; padding: 30px;
-                                       border-radius: 15px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);",
-                              h1("Breast Cancer Incidence Rates",
-                                 style = "color: #2C3E50; font-weight: 700; margin-bottom: 10px;"),
-                              p("Understanding breast cancer disparities across the United States",
-                                style = "color: #555; font-size: 18px; margin: 0;")
-                          ),
-                          
-                          # Introduction Section
-                          div(style = "max-width: 900px; margin: 0 auto 30px auto; padding: 20px;",
+                      tags$head(
+                        tags$style(HTML("
+             /* Tab styling */
+             .nav-tabs {
+               background: white;
+               border-bottom: 2px solid #ec4899;
+               padding: 0;
+               margin: 0;
+             }
+             .nav-tabs > li > a {
+               color: #6b7280;
+               font-weight: 600;
+               padding: 16px 24px;
+               border: none;
+               border-bottom: 2px solid transparent;
+               margin-bottom: -2px;
+               transition: all 0.3s ease;
+             }
+             .nav-tabs > li > a:hover {
+               background-color: #fdf2f8;
+               color: #2C3E50;
+               border: none;
+               border-bottom: 2px solid #ec4899;
+             }
+             .nav-tabs > li.active > a,
+             .nav-tabs > li.active > a:hover,
+             .nav-tabs > li.active > a:focus {
+               color: #ec4899;
+               background-color: #fdf2f8;
+               border: none;
+               border-bottom: 2px solid #ec4899;
+             }
+             .tab-content {
+               padding: 30px 20px;
+               background: #fefcfd;
+             }
+             /* Header styling */
+             .bc-header {
+               background: white;
+               padding: 40px 20px;
+               text-align: center;
+               border-bottom: 1px solid #fce7f3;
+               margin-bottom: 0;
+             }
+             .bc-header h1 {
+               color: #2C3E50;
+               font-weight: 700;
+               font-size: 36px;
+               margin: 0 0 10px 0;
+             }
+             .bc-header p {
+               color: #6b7280;
+               font-size: 18px;
+               margin: 0;
+             }
+             /* Card styling */
+             .insight-card {
+               background: #fdf2f8;
+               border-left: 4px solid #ec4899;
+               padding: 20px;
+               border-radius: 8px;
+               margin-bottom: 20px;
+             }
+             .stat-card {
+               background: white;
+               border: 1px solid #fce7f3;
+               border-radius: 12px;
+               padding: 24px;
+               text-align: center;
+               box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+             }
+             .stat-value {
+               font-size: 48px;
+               font-weight: 700;
+               color: #ec4899;
+               margin: 10px 0;
+             }
+             .stat-label {
+               color: #6b7280;
+               font-size: 14px;
+               font-weight: 600;
+               text-transform: uppercase;
+               letter-spacing: 0.05em;
+             }
+           "))
+                      ),
+                      
+                      # Header
+                      div(class = "bc-header",
+                          h1("Breast Cancer Incidence Rates"),
+                          p("Interactive exploration of geographic and demographic patterns")
+                      ),
+                      
+                      # Tabset
+                      tabsetPanel(
+                        id = "bc_tabs",
+                        type = "tabs",
                         
-                              p("Breast cancer is the most commonly diagnosed cancer in the United States and a leading
-                              cause of cancer-related deaths.  While advances in screening, early detection, and treatment have
-                              improved survival rates, incidence and outcomes continue to vary widely across different 
-                              populations and geographic regions.",
-                                style = "color: #2C3E50; font-size: 16px; line-height: 1.8; margin-bottom: 12px;"),
-                              p("This page provides an overview of breast cancer incidence rates by state and race, highlighting
-                              the patterns that reveal disparities in health outcomes.  By analyzing this data, we can better 
-                              understand how factors such as access to healthcare, socioeconomic conditions, genetics, and 
-                              public health initiatives contribute to differences in breast cancer risk and detection across the
-                              United States.",
-                                style = "color: #2C3E50; font-size: 16px; line-height: 1.8; margin-bottom: 12px;"),
-                              p("The visualizations below explore breast cancer incidence rates across the United States, 
-                                showing variations by state and race.  The goal is to promote awareness and guide efforts 
-                                toward equitable prevention, screening, and treatment strategies for all women,
-                                regardless of where they live or their racial background.",
-                                style = "color: #2C3E50; font-size: 16px; line-height: 1.8;")
-                          ),
-                          
-                          # Map Section
-                          div(style = "background: white; padding: 30px;
-                                       border-radius: 15px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-                                       margin-bottom: 30px;",
-                              
-                              h2("Geographic Distribution of Breast Cancer",
-                                 style = "color: #2C3E50; margin-bottom: 20px;"),
-                              
-                              fluidRow(
-                                column(12,
-                                       p("The interactive map below displays breast cancer incidence rates across all 50 states. 
-                                         Geographic variations in breast cancer rates can reflect differences in risk factors, 
-                                         screening practices, demographics, and access to healthcare. States with higher incidence 
-                                         rates may benefit from enhanced screening programs and targeted prevention efforts.",
-                                         style = "color: #2C3E50; font-size: 15px; margin-bottom: 20px; line-height: 1.7;")
-                                )
-                              ),
-                              
-                              sidebarLayout(
-                                sidebarPanel(
-                                  style = "background: #FFF5F7; border-radius: 10px; padding: 20px;",
-                                  
-                                  selectInput("race_filter",
-                                              "Select Race/Ethnicity:",
-                                              choices = c("Overall"),
-                                              selected = "Overall"),
-                                  
-                                  hr(style = "border-color: #FFB6C1;"),
-                                  
-                                  div(style = "background: white; padding: 15px; border-radius: 8px;",
-                                      h4("Map Guide", style = "color: #2C3E50; margin-top: 0;"),
-                                      tags$ul(
-                                        style = "color: #555; line-height: 1.8;",
-                                        tags$li("Hover over states for exact rates"),
-                                        tags$li("Change race filter to update map"),
-                                        tags$li("Darker colors = higher rates")
-                                      )
-                                  )
-                                ),
-                                
-                                mainPanel(
-                                  leafletOutput("cancer_map", height = "550px")
-                                )
-                              )
-                          ),
-                          
-                          # Transition Text: Map to Race Chart
-                          div(style = "max-width: 900px; margin: 0 auto 30px auto; padding: 15px 25px;
-                                       background: rgba(255, 139, 160, 0.08); 
-                                       border-left: 4px solid #FF8BA0; border-radius: 8px;",
-                              p(style = "color: #2C3E50; font-size: 15px; line-height: 1.7; margin: 0;",
-                                strong("Racial and Ethnic Disparities: "),
-                                "Breast cancer affects different racial and ethnic groups at varying rates. 
-                                While White women have the highest incidence rates overall, Black women are more 
-                                likely to be diagnosed at younger ages and with more aggressive forms of the disease. 
-                                Understanding these disparities is essential for reducing inequities in breast cancer outcomes.")
-                          ),
-                          
-                          # Chart Section - By Race
-                          div(style = "background: white; padding: 30px;
-                                       border-radius: 15px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-                                       margin-bottom: 30px;",
-                              
-                              h2("Breast Cancer Incidence by Race and Ethnicity",
-                                 style = "color: #2C3E50; margin-bottom: 20px;"),
-                              
-                              fluidRow(
-                                column(12,
-                                       p("This chart compares breast cancer incidence rates across different racial and ethnic 
-                                         groups within your selected state. Disparities in incidence rates can be influenced by 
-                                         genetic factors, socioeconomic status, healthcare access, and cultural differences in 
-                                         screening behaviors. These variations underscore the need for culturally tailored 
-                                         prevention and screening programs.",
-                                         style = "color: #2C3E50; font-size: 15px; margin-bottom: 20px; line-height: 1.7;")
-                                )
-                              ),
-                              
-                              sidebarLayout(
-                                sidebarPanel(
-                                  style = "background: #FFF5F7; border-radius: 10px; padding: 20px;",
-                                  
-                                  selectInput("state",
-                                              "Choose a state:",
-                                              choices = unique(breast_cancer_long$state),
-                                              selected = "United States"),
-                                  
-                                  hr(style = "border-color: #FFB6C1;"),
-                                  
-                                  div(style = "background: white; padding: 15px; border-radius: 8px;",
-                                      p("Select a state to compare breast cancer incidence rates across racial 
-                                        and ethnic groups. The 'Overall' category represents the combined rate 
-                                        for all groups in that state.",
-                                        style = "color: #555; margin: 0; line-height: 1.6;")
-                                  )
-                                ),
-                                
-                                mainPanel(
-                                  plotOutput("breast_race_plot", height = "500px")
-                                )
-                              )
-                          ),
-                          
-                          # Transition Text: Race Chart to Rankings
-                          div(style = "max-width: 900px; margin: 0 auto 30px auto; padding: 15px 25px;
-                                       background: rgba(255, 139, 160, 0.08); 
-                                       border-left: 4px solid #FF8BA0; border-radius: 8px;",
-                              p(style = "color: #2C3E50; font-size: 15px; line-height: 1.7; margin: 0;",
-                                strong("Identifying High-Risk Regions: "),
-                                "Some states consistently show higher breast cancer incidence rates than others. 
-                                These geographic patterns can help public health officials prioritize resources, 
-                                implement screening initiatives, and investigate potential environmental or lifestyle 
-                                factors contributing to elevated rates. The ranking below highlights states where 
-                                intervention efforts may have the greatest impact.")
-                          ),
-                          
-                          # Top States Ranking Section
-                          div(style = "background: white; padding: 30px;
-                                       border-radius: 15px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);",
-                              
-                              h2("States with Highest Breast Cancer Incidence",
-                                 style = "color: #2C3E50; margin-bottom: 20px;"),
-                              
-                              fluidRow(
-                                column(12,
-                                       p("This ranking identifies states with the highest breast cancer incidence rates for 
-                                         the selected racial group. These data can guide resource allocation for 
-                                         prevention programs, screening campaigns, and support services. States at the top 
-                                         of the list may benefit from increased investment in early detection infrastructure 
-                                         and community outreach initiatives.",
-                                         style = "color: #2C3E50; font-size: 15px; margin-bottom: 20px; line-height: 1.7;")
-                                )
-                              ),
-                              
-                              sidebarLayout(
-                                sidebarPanel(
-                                  style = "background: #FFF5F7; border-radius: 10px; padding: 20px;",
-                                  
-                                  sliderInput("top_n",
-                                              "Number of states to show:",
-                                              min = 5,
-                                              max = 20,
-                                              value = 10,
-                                              step = 1),
-                                  
-                                  selectInput("rank_race",
-                                              "Select Race:",
-                                              choices = unique(breast_cancer_long$race),
-                                              selected = "Overall"),
-                                  
-                                  hr(style = "border-color: #FFB6C1;"),
-                                  
-                                  div(style = "background: white; padding: 15px; border-radius: 8px;",
-                                      p("Adjust the slider to view more or fewer states in the ranking. 
-                                        Filter by race to identify disparities within specific populations.",
-                                        style = "color: #555; margin: 0; line-height: 1.6;")
-                                  )
-                                ),
-                                
-                                mainPanel(
-                                  plotOutput("top_states_plot", height = "600px")
-                                )
-                              )
-                          )
-                    
+                        # OVERVIEW TAB
+                        tabPanel("Overview",
+                                 div(style = "max-width: 1200px; margin: 0 auto; padding: 20px;",
+                                     
+                                     # Key Stats Row
+                                     fluidRow(
+                                       column(4,
+                                              div(class = "stat-card",
+                                                  div(class = "stat-label", "National Average"),
+                                                  div(class = "stat-value", "133.8"),
+                                                  div(style = "color: #6b7280; font-size: 14px;", 
+                                                      "cases per 100,000 women")
+                                              )
+                                       ),
+                                       column(4,
+                                              div(class = "stat-card",
+                                                  div(class = "stat-label", "Highest Rate State"),
+                                                  div(class = "stat-value", style = "font-size: 32px;", "Connecticut"),
+                                                  div(style = "color: #6b7280; font-size: 14px;", 
+                                                      "157.9 per 100,000")
+                                              )
+                                       ),
+                                       column(4,
+                                              div(class = "stat-card",
+                                                  div(class = "stat-label", "Highest Risk Group"),
+                                                  div(class = "stat-value", style = "font-size: 32px;", "White Women"),
+                                                  div(style = "color: #6b7280; font-size: 14px;", 
+                                                      "139.2 per 100,000")
+                                              )
+                                       )
+                                     ),
+                                     
+                                     # About Section
+                                     div(style = "margin-top: 40px;",
+                                         div(style = "background: white; padding: 30px; border-radius: 12px; 
+                                box-shadow: 0 2px 8px rgba(0,0,0,0.05);",
+                                             h2("About This Data", 
+                                                style = "color: #2C3E50; margin-top: 0; font-size: 28px; margin-bottom: 20px;"),
+                                             p("Breast cancer is the most commonly diagnosed cancer in the United States and a leading 
+                                  cause of cancer-related deaths. While advances in screening, early detection, and treatment 
+                                  have improved survival rates, incidence and outcomes continue to vary widely across different 
+                                  populations and geographic regions.",
+                                               style = "color: #4b5563; font-size: 16px; line-height: 1.8; margin-bottom: 16px;"),
+                                             p("This page provides an overview of breast cancer incidence rates by state and race, highlighting 
+                                  the patterns that reveal disparities in health outcomes. By analyzing this data, we can better 
+                                  understand how factors such as access to healthcare, socioeconomic conditions, genetics, and 
+                                  public health initiatives contribute to differences in breast cancer risk and detection across 
+                                  the United States.",
+                                               style = "color: #4b5563; font-size: 16px; line-height: 1.8;")
+                                         )
+                                     ),
+                                     
+                                     # Key Insights
+                                     div(style = "margin-top: 30px;",
+                                         h3("Key Insights", style = "color: #2C3E50; font-size: 24px; margin-bottom: 20px;"),
+                                         fluidRow(
+                                           column(4,
+                                                  div(class = "insight-card",
+                                                      h4("Geographic Patterns", 
+                                                         style = "color: #2C3E50; margin-top: 0; font-size: 18px;"),
+                                                      p("Northeastern states show consistently higher incidence rates, 
+                                           suggesting regional factors at play.",
+                                                        style = "color: #6b7280; margin: 0; font-size: 15px; line-height: 1.6;")
+                                                  )
+                                           ),
+                                           column(4,
+                                                  div(class = "insight-card",
+                                                      h4("Racial Disparities", 
+                                                         style = "color: #2C3E50; margin-top: 0; font-size: 18px;"),
+                                                      p("While White women have highest overall rates, Black women face 
+                                           more aggressive disease at younger ages.",
+                                                        style = "color: #6b7280; margin: 0; font-size: 15px; line-height: 1.6;")
+                                                  )
+                                           ),
+                                           column(4,
+                                                  div(class = "insight-card",
+                                                      h4("Intervention Priority", 
+                                                         style = "color: #2C3E50; margin-top: 0; font-size: 18px;"),
+                                                      p("High-rate states benefit most from enhanced screening programs 
+                                           and targeted prevention efforts.",
+                                                        style = "color: #6b7280; margin: 0; font-size: 15px; line-height: 1.6;")
+                                                  )
+                                           )
+                                         )
+                                     ),
+                                     
+                                     # Explore Data CTA
+                                     div(style = "margin-top: 40px; background: linear-gradient(135deg, #ec4899 0%, #f43f5e 100%); 
+                            padding: 40px; border-radius: 12px; text-align: center;",
+                                         h3("Explore the Data", 
+                                            style = "color: white; margin: 0 0 16px 0; font-size: 28px;"),
+                                         p("Use the tabs above to dive deeper into state rankings, racial disparities, and geographic patterns.",
+                                           style = "color: #fce7f3; font-size: 16px; margin-bottom: 24px;"),
+                                         div(style = "display: flex; justify-content: center; gap: 16px; flex-wrap: wrap;",
+                                             tags$button("View By State", 
+                                                         onclick = "$('#bc_tabs a[href=\"#shiny-tab-by_state\"]').tab('show');",
+                                                         style = "background: white; color: #ec4899; border: none; 
+                                           padding: 12px 32px; border-radius: 8px; font-weight: 600; 
+                                           cursor: pointer; font-size: 16px;"),
+                                             tags$button("View By Race",
+                                                         onclick = "$('#bc_tabs a[href=\"#shiny-tab-by_race\"]').tab('show');",
+                                                         style = "background: rgba(255,255,255,0.2); color: white; border: 2px solid white; 
+                                           padding: 12px 32px; border-radius: 8px; font-weight: 600; 
+                                           cursor: pointer; font-size: 16px;"),
+                                             tags$button("View Map",
+                                                         onclick = "$('#bc_tabs a[href=\"#shiny-tab-map\"]').tab('show');",
+                                                         style = "background: rgba(255,255,255,0.2); color: white; border: 2px solid white; 
+                                           padding: 12px 32px; border-radius: 8px; font-weight: 600; 
+                                           cursor: pointer; font-size: 16px;")
+                                         )
+                                     )
+                                 )
+                        ),
+                        
+                        # BY STATE TAB
+                        tabPanel("By State",
+                                 div(style = "max-width: 1200px; margin: 0 auto;",
+                                     div(style = "background: white; padding: 30px; border-radius: 12px; 
+                            box-shadow: 0 2px 8px rgba(0,0,0,0.05);",
+                                         
+                                         h2("States with Highest Breast Cancer Incidence",
+                                            style = "color: #2C3E50; margin-top: 0; margin-bottom: 8px;"),
+                                         p("Identifying high-risk regions for targeted intervention and resource allocation",
+                                           style = "color: #6b7280; font-size: 16px; margin-bottom: 24px;"),
+                                         
+                                         fluidRow(
+                                           column(3,
+                                                  div(style = "background: #fdf2f8; padding: 20px; border-radius: 8px;",
+                                                      sliderInput("top_n",
+                                                                  "Number of states:",
+                                                                  min = 5,
+                                                                  max = 20,
+                                                                  value = 10,
+                                                                  step = 1),
+                                                      
+                                                      selectInput("rank_race",
+                                                                  "Select Race:",
+                                                                  choices = unique(breast_cancer_long$race),
+                                                                  selected = "Overall"),
+                                                      
+                                                      hr(style = "border-color: #fce7f3;"),
+                                                      
+                                                      div(style = "background: white; padding: 15px; border-radius: 6px;",
+                                                          h4("💡 Insight", style = "color: #ec4899; margin-top: 0; font-size: 16px;"),
+                                                          p("Connecticut leads with 157.9 cases per 100,000 women. Adjust the slider 
+                                               to explore more states and filter by race to identify disparities.",
+                                                            style = "color: #6b7280; margin: 0; font-size: 14px; line-height: 1.6;")
+                                                      )
+                                                  )
+                                           ),
+                                           column(9,
+                                                  plotOutput("top_states_plot", height = "600px")
+                                           )
+                                         )
+                                     ),
+                                     
+                                     # Why This Matters
+                                     div(style = "margin-top: 24px; background: #fef2f2; border-left: 4px solid #f43f5e; 
+                            padding: 20px; border-radius: 8px;",
+                                         h4("Why This Matters", style = "color: #2C3E50; margin-top: 0;"),
+                                         p("Geographic clusters help public health officials prioritize resources, implement screening 
+                              initiatives, and investigate potential environmental or lifestyle factors contributing to 
+                              elevated rates.",
+                                           style = "color: #6b7280; margin: 0; line-height: 1.6;")
+                                     )
+                                 )
+                        ),
+                        
+                        # BY RACE TAB
+                        tabPanel("By Race",
+                                 div(style = "max-width: 1200px; margin: 0 auto;",
+                                     div(style = "background: white; padding: 30px; border-radius: 12px; 
+                            box-shadow: 0 2px 8px rgba(0,0,0,0.05);",
+                                         
+                                         h2("Breast Cancer Incidence by Race and Ethnicity",
+                                            style = "color: #2C3E50; margin-top: 0; margin-bottom: 8px;"),
+                                         p("Disparities across demographic groups reveal inequities in screening and outcomes",
+                                           style = "color: #6b7280; font-size: 16px; margin-bottom: 24px;"),
+                                         
+                                         fluidRow(
+                                           column(3,
+                                                  div(style = "background: #fdf2f8; padding: 20px; border-radius: 8px;",
+                                                      selectInput("state",
+                                                                  "Choose a state:",
+                                                                  choices = unique(breast_cancer_long$state),
+                                                                  selected = "United States"),
+                                                      
+                                                      hr(style = "border-color: #fce7f3;"),
+                                                      
+                                                      div(style = "background: white; padding: 15px; border-radius: 6px;",
+                                                          h4("Understanding Disparities", 
+                                                             style = "color: #ec4899; margin-top: 0; font-size: 16px;"),
+                                                          p("Select a state to compare incidence rates across racial groups. 
+                                               The 'Overall' category shows the combined rate for all groups.",
+                                                            style = "color: #6b7280; margin: 0; font-size: 14px; line-height: 1.6;")
+                                                      )
+                                                  )
+                                           ),
+                                           column(9,
+                                                  plotOutput("breast_race_plot", height = "500px")
+                                           )
+                                         )
+                                     ),
+                                     
+                                     # Key Finding
+                                     div(style = "margin-top: 24px;",
+                                         fluidRow(
+                                           column(6,
+                                                  div(style = "background: #fef3c7; border-left: 4px solid #f59e0b; 
+                                         padding: 20px; border-radius: 8px; height: 100%;",
+                                                      h4("Highest Incidence", style = "color: #2C3E50; margin-top: 0;"),
+                                                      p("White women have the highest overall incidence at 139.2 per 100,000, 
+                                           though rates vary by age and subtype.",
+                                                        style = "color: #78350f; margin: 0; line-height: 1.6;")
+                                                  )
+                                           ),
+                                           column(6,
+                                                  div(style = "background: #fef2f2; border-left: 4px solid #ef4444; 
+                                         padding: 20px; border-radius: 8px; height: 100%;",
+                                                      h4("Mortality Disparity", style = "color: #2C3E50; margin-top: 0;"),
+                                                      p("Black women face higher mortality despite lower incidence, diagnosed at 
+                                           younger ages with more aggressive disease.",
+                                                        style = "color: #7f1d1d; margin: 0; line-height: 1.6;")
+                                                  )
+                                           )
+                                         )
+                                     )
+                                 )
+                        ),
+                        
+                        # MAP TAB
+                        tabPanel("Map",
+                                 div(style = "max-width: 1400px; margin: 0 auto;",
+                                     div(style = "background: white; padding: 30px; border-radius: 12px; 
+                            box-shadow: 0 2px 8px rgba(0,0,0,0.05);",
+                                         
+                                         h2("Geographic Distribution of Breast Cancer",
+                                            style = "color: #2C3E50; margin-top: 0; margin-bottom: 8px;"),
+                                         p("Interactive map showing breast cancer incidence rates across all 50 states",
+                                           style = "color: #6b7280; font-size: 16px; margin-bottom: 24px;"),
+                                         
+                                         fluidRow(
+                                           column(3,
+                                                  div(style = "background: #fdf2f8; padding: 20px; border-radius: 8px;",
+                                                      selectInput("race_filter",
+                                                                  "Select Race/Ethnicity:",
+                                                                  choices = c("Overall"),
+                                                                  selected = "Overall"),
+                                                      
+                                                      hr(style = "border-color: #fce7f3;"),
+                                                      
+                                                      div(style = "background: white; padding: 15px; border-radius: 6px;",
+                                                          h4("Map Guide", style = "color: #ec4899; margin-top: 0; font-size: 16px;"),
+                                                          tags$ul(
+                                                            style = "color: #6b7280; line-height: 1.8; padding-left: 20px; margin: 0;",
+                                                            tags$li("Hover over states for exact rates"),
+                                                            tags$li("Change race filter to update map"),
+                                                            tags$li("Darker colors = higher rates")
+                                                          )
+                                                      )
+                                                  )
+                                           ),
+                                           column(9,
+                                                  leafletOutput("cancer_map", height = "600px")
+                                           )
+                                         )
+                                     ),
+                                     
+                                     # Geographic Patterns
+                                     div(style = "margin-top: 24px; background: linear-gradient(135deg, #ec4899 0%, #f43f5e 100%); 
+                            padding: 24px; border-radius: 8px;",
+                                         h4("Geographic Patterns", style = "color: white; margin-top: 0;"),
+                                         p("Northeastern states consistently show higher breast cancer incidence rates. These patterns 
+                              help public health officials prioritize resources and investigate potential environmental or 
+                              lifestyle factors.",
+                                           style = "color: #fce7f3; margin: 0; line-height: 1.6;")
+                                     )
+                                 )
+                        )
                       )
              ),
              
