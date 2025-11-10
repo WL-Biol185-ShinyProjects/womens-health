@@ -461,7 +461,7 @@ navbarPage(
                                                       hr(style = "border-color: #fce7f3;"),
                                                       
                                                       div(style = "background: white; padding: 15px; border-radius: 6px;",
-                                                          h4("💡 Insight", style = "color: #ec4899; margin-top: 0; font-size: 16px;"),
+                                                          h4("Insight", style = "color: #ec4899; margin-top: 0; font-size: 16px;"),
                                                           p("Connecticut leads with 157.9 cases per 100,000 women. Adjust the slider 
                                                to explore more states and filter by race to identify disparities.",
                                                             style = "color: #6b7280; margin: 0; font-size: 14px; line-height: 1.6;")
@@ -953,7 +953,7 @@ navbarPage(
                                                       hr(style = "border-color: #80DEEA;"),
                                                       
                                                       div(style = "background: white; padding: 15px; border-radius: 6px;",
-                                                          h4("💡 Insight", style = "color: #00838F; margin-top: 0; font-size: 16px;"),
+                                                          h4("Insight", style = "color: #00838F; margin-top: 0; font-size: 16px;"),
                                                           p("This chart ranks states by cervical cancer incidence rates, helping 
                                                identify areas with the highest rates for targeted interventions.",
                                                             style = "color: #555; margin: 0; font-size: 14px; line-height: 1.6;")
