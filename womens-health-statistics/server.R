@@ -1254,4 +1254,63 @@ server <- function(input, output, session) {
     
   }, bg = "white")
   
+
+  
+  # Reactive dataset based on user selection
+  selected_dataset <- reactive({
+    switch(input$dataset_choice,
+           "breast_cancer" = breast_cancer_long,
+           "cervical_cancer" = cervical_cancer_long,  
+           "std_data" = sex_infect_years,  
+           "infant_mortality" = infant_mortality_long, 
+           "maternal_mortality" = mortality_race_long  
+    )
+  })
+  
+  # Display dataset information
+  output$dataset_info <- renderUI({
+    data <- selected_dataset()
+    
+    info_text <- switch(input$dataset_choice,
+                        "breast_cancer" = "Breast cancer incidence rates by state and race/ethnicity.",
+                        "cervical_cancer" = "Cervical cancer incidence rates across different demographics.",
+                        "std_data" = "Sexually transmitted disease rates and statistics.",
+                        "infant_mortality" = "Infant mortality rates by state and demographic factors.",
+                        "maternal_mortality" = "Maternal mortality rates and related health outcomes."
+    )
+    
+    tagList(
+      p(style = "color: #555; margin-bottom: 10px; line-height: 1.6;", info_text),
+      p(style = "color: #2C3E50; margin: 5px 0;", 
+        strong("Rows: "), nrow(data)),
+      p(style = "color: #2C3E50; margin: 5px 0;", 
+        strong("Columns: "), ncol(data))
+    )
+  })
+  
+  # Render the data table
+  output$data_table <- DT::renderDataTable({
+    DT::datatable(
+      selected_dataset(),
+      options = list(
+        pageLength = 25,
+        scrollX = TRUE,
+        autoWidth = TRUE,
+        columnDefs = list(list(className = 'dt-center', targets = "_all"))
+      ),
+      class = 'cell-border stripe',
+      rownames = FALSE
+    )
+  })
+  
+  # Download handler
+  output$download_data <- downloadHandler(
+    filename = function() {
+      paste0(input$dataset_choice, "_", Sys.Date(), ".csv")
+    },
+    content = function(file) {
+      write.csv(selected_dataset(), file, row.names = FALSE)
+    }
+  )
+  
   }

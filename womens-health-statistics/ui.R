@@ -233,20 +233,42 @@ navbarPage(
                                 style = "color: #555; font-size: 18px; margin: 0;")
                           ),
                           
+                          # Introduction Section
+                          div(style = "max-width: 900px; margin: 0 auto 30px auto; padding: 20px;",
+                        
+                              p("Breast cancer is the most commonly diagnosed cancer in the United States and a leading
+                              cause of cancer-related deaths.  While advances in screening, early detection, and treatment have
+                              improved survival rates, incidence and outcomes continue to vary widely across different 
+                              populations and geographic regions.",
+                                style = "color: #2C3E50; font-size: 16px; line-height: 1.8; margin-bottom: 12px;"),
+                              p("This page provides an overview of breast cancer incidence rates by state and race, highlighting
+                              the patterns that reveal disparities in health outcomes.  By analyzing this data, we can better 
+                              understand how factors such as access to healthcare, socioeconomic conditions, genetics, and 
+                              public health initiatives contribute to differences in breast cancer risk and detection across the
+                              United States.",
+                                style = "color: #2C3E50; font-size: 16px; line-height: 1.8; margin-bottom: 12px;"),
+                              p("The visualizations below explore breast cancer incidence rates across the United States, 
+                                showing variations by state and race.  The goal is to promote awareness and guide efforts 
+                                toward equitable prevention, screening, and treatment strategies for all women,
+                                regardless of where they live or their racial background.",
+                                style = "color: #2C3E50; font-size: 16px; line-height: 1.8;")
+                          ),
+                          
                           # Map Section
                           div(style = "background: white; padding: 30px;
                                        border-radius: 15px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);
                                        margin-bottom: 30px;",
                               
-                              h2("Breast Cancer Rates by State and Race",
+                              h2("Geographic Distribution of Breast Cancer",
                                  style = "color: #2C3E50; margin-bottom: 20px;"),
                               
                               fluidRow(
                                 column(12,
-                                       p("Explore breast cancer incidence rates across the United States.
-                                         Use the dropdown to filter by race/ethnicity and see how rates
-                                         vary geographically.",
-                                         style = "color: #555; font-size: 16px; margin-bottom: 20px;")
+                                       p("The interactive map below displays breast cancer incidence rates across all 50 states. 
+                                         Geographic variations in breast cancer rates can reflect differences in risk factors, 
+                                         screening practices, demographics, and access to healthcare. States with higher incidence 
+                                         rates may benefit from enhanced screening programs and targeted prevention efforts.",
+                                         style = "color: #2C3E50; font-size: 15px; margin-bottom: 20px; line-height: 1.7;")
                                 )
                               ),
                               
@@ -278,13 +300,36 @@ navbarPage(
                               )
                           ),
                           
+                          # Transition Text: Map to Race Chart
+                          div(style = "max-width: 900px; margin: 0 auto 30px auto; padding: 15px 25px;
+                                       background: rgba(255, 139, 160, 0.08); 
+                                       border-left: 4px solid #FF8BA0; border-radius: 8px;",
+                              p(style = "color: #2C3E50; font-size: 15px; line-height: 1.7; margin: 0;",
+                                strong("Racial and Ethnic Disparities: "),
+                                "Breast cancer affects different racial and ethnic groups at varying rates. 
+                                While White women have the highest incidence rates overall, Black women are more 
+                                likely to be diagnosed at younger ages and with more aggressive forms of the disease. 
+                                Understanding these disparities is essential for reducing inequities in breast cancer outcomes.")
+                          ),
+                          
                           # Chart Section - By Race
                           div(style = "background: white; padding: 30px;
                                        border-radius: 15px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);
                                        margin-bottom: 30px;",
                               
-                              h2("Breast Cancer Incidence by Race",
+                              h2("Breast Cancer Incidence by Race and Ethnicity",
                                  style = "color: #2C3E50; margin-bottom: 20px;"),
+                              
+                              fluidRow(
+                                column(12,
+                                       p("This chart compares breast cancer incidence rates across different racial and ethnic 
+                                         groups within your selected state. Disparities in incidence rates can be influenced by 
+                                         genetic factors, socioeconomic status, healthcare access, and cultural differences in 
+                                         screening behaviors. These variations underscore the need for culturally tailored 
+                                         prevention and screening programs.",
+                                         style = "color: #2C3E50; font-size: 15px; margin-bottom: 20px; line-height: 1.7;")
+                                )
+                              ),
                               
                               sidebarLayout(
                                 sidebarPanel(
@@ -298,9 +343,10 @@ navbarPage(
                                   hr(style = "border-color: #FFB6C1;"),
                                   
                                   div(style = "background: white; padding: 15px; border-radius: 8px;",
-                                      p("This chart shows breast cancer incidence rates by race/ethnicity
-                                        for your selected state.",
-                                        style = "color: #555; margin: 0;")
+                                      p("Select a state to compare breast cancer incidence rates across racial 
+                                        and ethnic groups. The 'Overall' category represents the combined rate 
+                                        for all groups in that state.",
+                                        style = "color: #555; margin: 0; line-height: 1.6;")
                                   )
                                 ),
                                 
@@ -310,12 +356,36 @@ navbarPage(
                               )
                           ),
                           
+                          # Transition Text: Race Chart to Rankings
+                          div(style = "max-width: 900px; margin: 0 auto 30px auto; padding: 15px 25px;
+                                       background: rgba(255, 139, 160, 0.08); 
+                                       border-left: 4px solid #FF8BA0; border-radius: 8px;",
+                              p(style = "color: #2C3E50; font-size: 15px; line-height: 1.7; margin: 0;",
+                                strong("Identifying High-Risk Regions: "),
+                                "Some states consistently show higher breast cancer incidence rates than others. 
+                                These geographic patterns can help public health officials prioritize resources, 
+                                implement screening initiatives, and investigate potential environmental or lifestyle 
+                                factors contributing to elevated rates. The ranking below highlights states where 
+                                intervention efforts may have the greatest impact.")
+                          ),
+                          
                           # Top States Ranking Section
                           div(style = "background: white; padding: 30px;
                                        border-radius: 15px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);",
                               
-                              h2("Top States by Breast Cancer Rates",
+                              h2("States with Highest Breast Cancer Incidence",
                                  style = "color: #2C3E50; margin-bottom: 20px;"),
+                              
+                              fluidRow(
+                                column(12,
+                                       p("This ranking identifies states with the highest breast cancer incidence rates for 
+                                         the selected racial group. These data can guide resource allocation for 
+                                         prevention programs, screening campaigns, and support services. States at the top 
+                                         of the list may benefit from increased investment in early detection infrastructure 
+                                         and community outreach initiatives.",
+                                         style = "color: #2C3E50; font-size: 15px; margin-bottom: 20px; line-height: 1.7;")
+                                )
+                              ),
                               
                               sidebarLayout(
                                 sidebarPanel(
@@ -329,16 +399,16 @@ navbarPage(
                                               step = 1),
                                   
                                   selectInput("rank_race",
-                                              "Select Race/Ethnicity:",
+                                              "Select Race:",
                                               choices = unique(breast_cancer_long$race),
                                               selected = "Overall"),
                                   
                                   hr(style = "border-color: #FFB6C1;"),
                                   
                                   div(style = "background: white; padding: 15px; border-radius: 8px;",
-                                      p("This chart ranks states by breast cancer incidence rates,
-                                        helping identify areas with the highest rates for targeted interventions.",
-                                        style = "color: #555; margin: 0;")
+                                      p("Adjust the slider to view more or fewer states in the ranking. 
+                                        Filter by race to identify disparities within specific populations.",
+                                        style = "color: #555; margin: 0; line-height: 1.6;")
                                   )
                                 ),
                                 
@@ -347,6 +417,7 @@ navbarPage(
                                 )
                               )
                           )
+                    
                       )
              ),
              
@@ -949,6 +1020,74 @@ navbarPage(
         )
   ),
   
+  tabPanel("Data",
+           div(style = "background: linear-gradient(135deg, #E8EAF6 0%, #C5CAE9 100%);
+                      min-height: 100vh; padding: 40px 20px;",
+               
+               # Header
+               div(style = "text-align: center; margin-bottom: 40px;
+                          background: white; padding: 30px;
+                          border-radius: 15px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);",
+                   h1("View Our Datasets",
+                      style = "color: #2C3E50; font-weight: 700; margin-bottom: 10px;"),
+                   p("Explore the raw data behind our visualizations",
+                     style = "color: #555; font-size: 18px; margin: 0;")
+               ),
+               
+               # Dataset Selection and Display
+               div(style = "background: white; padding: 30px;
+                          border-radius: 15px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);",
+                   
+                   fluidRow(
+                     column(12,
+                            p("Select a dataset below to view its contents. You can sort columns by clicking on the headers 
+                            and use the search box to filter specific values.",
+                              style = "color: #555; font-size: 16px; margin-bottom: 25px; line-height: 1.7;")
+                     )
+                   ),
+                   
+                   sidebarLayout(
+                     sidebarPanel(
+                       style = "background: #F5F5F5; border-radius: 10px; padding: 20px;",
+                       
+                       selectInput("dataset_choice",
+                                   "Choose a dataset:",
+                                   choices = c(
+                                     "Breast Cancer Data" = "breast_cancer",
+                                     "Cervical Cancer Data" = "cervical_cancer",
+                                     "STD Data" = "std_data",
+                                     "Infant Mortality Data" = "infant_mortality",
+                                     "Maternal Mortality Data" = "maternal_mortality"
+                                   ),
+                                   selected = "breast_cancer"),
+                       
+                       hr(style = "border-color: #BDBDBD;"),
+                       
+                       div(style = "background: white; padding: 15px; border-radius: 8px;",
+                           h4("Dataset Info", style = "color: #2C3E50; margin-top: 0;"),
+                           uiOutput("dataset_info")
+                       ),
+                       
+                       hr(style = "border-color: #BDBDBD;"),
+                       
+                       downloadButton("download_data", 
+                                      "Download Dataset",
+                                      style = "width: 100%; background-color: #5C6BC0; 
+                                             border: none; color: white; padding: 10px;
+                                             border-radius: 5px; font-weight: bold;")
+                     ),
+                     
+                     mainPanel(
+                       div(style = "overflow-x: auto;",
+                           DT::dataTableOutput("data_table")
+                       )
+                     )
+                   )
+               )
+           )
+  ),
+  
+  
   # Resource Page
   tabPanel("Resources",
            div(style = "background: linear-gradient(135deg, #CECDF7 0%, #F3E5F5 100%);
@@ -967,109 +1106,159 @@ navbarPage(
                # Breast Cancer Self Screening Section
                div(style = "background: white; padding: 30px; margin-bottom: 30px;
                  border-radius: 15px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);",
-                   h2("Breast Cancer Self Screening", 
-                      style = "color: #2C3E50; font-weight: 600; margin-bottom: 15px;"),
-                   p("Breast cancer self screenings are vital ways to examine if you may have breast abnormalities that may be caused by cancer. Self exams should not replace exams done by medical providers, but serve as an additional way to be knowledgeable about potential abnormalities that may arise.",
-                     style = "color: #555; font-size: 16px; line-height: 1.6; margin-bottom: 15px;"),
-                   p(strong("National Breast Cancer Website: "), 
-                     a("https://www.nationalbreastcancer.org/breast-self-exam/", 
-                       href = "https://www.nationalbreastcancer.org/breast-self-exam/", 
-                       target = "_blank",
-                       style = "color: #7B68EE;"),
-                     style = "color: #555; font-size: 16px; margin-bottom: 15px;"),
-                   p(strong("Symptoms to Watch Out For:"),
-                     style = "color: #555; font-size: 16px; margin-bottom: 10px;"),
-                   tags$ul(style = "color: #555; font-size: 16px; line-height: 1.6; margin-bottom: 15px;",
-                           tags$li("Change in how the breast or nipple looks"),
-                           tags$li("Change in how the breast or nipple feels"),
-                           tags$li("Change in breast or nipple appearance"),
-                           tags$li("Any unexpected discharge not as a result of breastfeeding")
-                   ),
-                   p(strong("Mayo Clinic Facts and Information: "), 
-                     a("https://www.mayoclinic.org/tests-procedures/breast-exam/about/pac-20393237", 
-                       href = "https://www.mayoclinic.org/tests-procedures/breast-exam/about/pac-20393237", 
-                       target = "_blank",
-                       style = "color: #7B68EE;"),
-                     style = "color: #555; font-size: 16px;")
+                   
+                   # Flexbox container for image and content
+                   div(style = "display: flex; gap: 30px; align-items: flex-start;",
+                       
+                       # Text content
+                       div(style = "flex: 1;",
+                           h2("Breast Cancer Self Screening", 
+                              style = "color: #2C3E50; font-weight: 600; margin-top: 0; margin-bottom: 15px;"),
+                           p("Breast cancer self screenings are vital ways to examine if you may have breast abnormalities that may be caused by cancer. Self exams should not replace exams done by medical providers, but serve as an additional way to be knowledgeable about potential abnormalities that may arise.",
+                             style = "color: #555; font-size: 16px; line-height: 1.6; margin-bottom: 15px;"),
+                           p(strong("National Breast Cancer Website: "), 
+                             a("https://www.nationalbreastcancer.org/breast-self-exam/", 
+                               href = "https://www.nationalbreastcancer.org/breast-self-exam/", 
+                               target = "_blank",
+                               style = "color: #7B68EE;"),
+                             style = "color: #555; font-size: 16px; margin-bottom: 15px;"),
+                           p(strong("Symptoms to Watch Out For:"),
+                             style = "color: #555; font-size: 16px; margin-bottom: 10px;"),
+                           tags$ul(style = "color: #555; font-size: 16px; line-height: 1.6; margin-bottom: 15px;",
+                                   tags$li("Change in how the breast or nipple looks"),
+                                   tags$li("Change in how the breast or nipple feels"),
+                                   tags$li("Change in breast or nipple appearance"),
+                                   tags$li("Any unexpected discharge not as a result of breastfeeding")
+                           ),
+                           p(strong("Mayo Clinic Facts and Information: "), 
+                             a("https://www.mayoclinic.org/tests-procedures/breast-exam/about/pac-20393237", 
+                               href = "https://www.mayoclinic.org/tests-procedures/breast-exam/about/pac-20393237", 
+                               target = "_blank",
+                               style = "color: #7B68EE;"),
+                             style = "color: #555; font-size: 16px;")
+                       ),
+                       
+                       # Image container (on the right)
+                       div(style = "flex-shrink: 0; display: flex; align-items: center;",
+                           img(src = "breast_cancer.png", 
+                               style = "width: 350px; height: auto;",
+                               alt = "Breast Cancer Ribbon")
+                       )
+                   )
                ),
                
                # STD Tests Section
                div(style = "background: white; padding: 30px; margin-bottom: 30px;
                  border-radius: 15px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);",
-                   h2("Sexually Transmitted Disease (STD) Tests", 
-                      style = "color: #2C3E50; font-weight: 600; margin-bottom: 15px;"),
-                   p("Sexually transmitted diseases are conditions that develop as a result of sexually transmitted infections. Though they are highly similar, it is important that sexually transmitted infections may not always develop into diseases with proper care and treatment.",
-                     style = "color: #555; font-size: 16px; line-height: 1.6; margin-bottom: 15px;"),
-                   p("Full STD panels generally involve testing for Chlamydia, Gonorrhea, Syphilis, HIV (HIV-1 and HIV-2), Hepatitis B, Hepatitis C, and Trichomoniasis.",
-                     style = "color: #555; font-size: 16px; line-height: 1.6; margin-bottom: 15px;"),
-                   p(strong("Get tested!"),
-                     style = "color: #555; font-size: 16px; margin-bottom: 10px;"),
-                   p(strong("Planned Parenthood: "), 
-                     a("https://www.plannedparenthood.org/get-care/our-services/std-testing-and-treatment", 
-                       href = "https://www.plannedparenthood.org/get-care/our-services/std-testing-and-treatment", 
-                       target = "_blank",
-                       style = "color: #7B68EE;"),
-                     style = "color: #555; font-size: 16px; margin-bottom: 10px;"),
-                   p(strong("CVS: "), 
-                     a("https://www.cvs.com/minuteclinic/services/std-evaluate-and-treat", 
-                       href = "https://www.cvs.com/minuteclinic/services/std-evaluate-and-treat", 
-                       target = "_blank",
-                       style = "color: #7B68EE;"),
-                     style = "color: #555; font-size: 16px;")
+                   
+                   div(style = "display: flex; gap: 30px; align-items: flex-start;",
+                       
+                       div(style = "flex: 1;",
+                           h2("Sexually Transmitted Disease (STD) Tests", 
+                              style = "color: #2C3E50; font-weight: 600; margin-top: 0; margin-bottom: 15px;"),
+                           p("Sexually transmitted diseases are conditions that develop as a result of sexually transmitted infections. Though they are highly similar, it is important that sexually transmitted infections may not always develop into diseases with proper care and treatment.",
+                             style = "color: #555; font-size: 16px; line-height: 1.6; margin-bottom: 15px;"),
+                           p("Full STD panels generally involve testing for Chlamydia, Gonorrhea, Syphilis, HIV (HIV-1 and HIV-2), Hepatitis B, Hepatitis C, and Trichomoniasis.",
+                             style = "color: #555; font-size: 16px; line-height: 1.6; margin-bottom: 15px;"),
+                           p(strong("Get tested!"),
+                             style = "color: #555; font-size: 16px; margin-bottom: 10px;"),
+                           p(strong("Planned Parenthood: "), 
+                             a("https://www.plannedparenthood.org/get-care/our-services/std-testing-and-treatment", 
+                               href = "https://www.plannedparenthood.org/get-care/our-services/std-testing-and-treatment", 
+                               target = "_blank",
+                               style = "color: #7B68EE;"),
+                             style = "color: #555; font-size: 16px; margin-bottom: 10px;"),
+                           p(strong("CVS: "), 
+                             a("https://www.cvs.com/minuteclinic/services/std-evaluate-and-treat", 
+                               href = "https://www.cvs.com/minuteclinic/services/std-evaluate-and-treat", 
+                               target = "_blank",
+                               style = "color: #7B68EE;"),
+                             style = "color: #555; font-size: 16px;")
+                       ),
+                       
+                       div(style = "flex-shrink: 0; display: flex; align-items: center;",
+                           img(src = "std_ribbon.png", 
+                               style = "width: 350px; height: auto;",
+                               alt = "STD Testing Icon")
+                       )
+                   )
                ),
                
                # Birth Centers/Hospitals Section
                div(style = "background: white; padding: 30px; margin-bottom: 30px;
                  border-radius: 15px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);",
-                   h2("Birth Centers/Hospitals", 
-                      style = "color: #2C3E50; font-weight: 600; margin-bottom: 15px;"),
-                   p("Choosing a place to give birth is an important part of the pregnancy process. There are many reasons to choose a place other than a standard hospital, and it is important to do sufficient research to see what options may be best for you.",
-                     style = "color: #555; font-size: 16px; line-height: 1.6; margin-bottom: 15px;"),
-                   p(strong("Choosing a place to give birth: "), 
-                     a("https://nationalpartnership.org/childbirthconnection/healthy-pregnancy/choosing-a-place-of-birth/your-options/", 
-                       href = "https://nationalpartnership.org/childbirthconnection/healthy-pregnancy/choosing-a-place-of-birth/your-options/", 
-                       target = "_blank",
-                       style = "color: #7B68EE;"),
-                     style = "color: #555; font-size: 16px; margin-bottom: 10px;"),
-                   p(strong("Find a birthing center near you: "), 
-                     a("https://www.birthcenters.org/find-a-birth-center", 
-                       href = "https://www.birthcenters.org/find-a-birth-center", 
-                       target = "_blank",
-                       style = "color: #7B68EE;"),
-                     style = "color: #555; font-size: 16px; margin-bottom: 10px;"),
-                   p(strong("Infant mortality: "), 
-                     a("https://www.cdc.gov/maternal-infant-health/infant-mortality/index.html", 
-                       href = "https://www.cdc.gov/maternal-infant-health/infant-mortality/index.html", 
-                       target = "_blank",
-                       style = "color: #7B68EE;"),
-                     style = "color: #555; font-size: 16px;")
+                   
+                   div(style = "display: flex; gap: 30px; align-items: flex-start;",
+                       
+                       div(style = "flex: 1;",
+                           h2("Birth Centers/Hospitals", 
+                              style = "color: #2C3E50; font-weight: 600; margin-top: 0; margin-bottom: 15px;"),
+                           p("Choosing a place to give birth is an important part of the pregnancy process. There are many reasons to choose a place other than a standard hospital, and it is important to do sufficient research to see what options may be best for you.",
+                             style = "color: #555; font-size: 16px; line-height: 1.6; margin-bottom: 15px;"),
+                           p(strong("Choosing a place to give birth: "), 
+                             a("https://nationalpartnership.org/childbirthconnection/healthy-pregnancy/choosing-a-place-of-birth/your-options/", 
+                               href = "https://nationalpartnership.org/childbirthconnection/healthy-pregnancy/choosing-a-place-of-birth/your-options/", 
+                               target = "_blank",
+                               style = "color: #7B68EE;"),
+                             style = "color: #555; font-size: 16px; margin-bottom: 10px;"),
+                           p(strong("Find a birthing center near you: "), 
+                             a("https://www.birthcenters.org/find-a-birth-center", 
+                               href = "https://www.birthcenters.org/find-a-birth-center", 
+                               target = "_blank",
+                               style = "color: #7B68EE;"),
+                             style = "color: #555; font-size: 16px; margin-bottom: 10px;"),
+                           p(strong("Infant mortality: "), 
+                             a("https://www.cdc.gov/maternal-infant-health/infant-mortality/index.html", 
+                               href = "https://www.cdc.gov/maternal-infant-health/infant-mortality/index.html", 
+                               target = "_blank",
+                               style = "color: #7B68EE;"),
+                             style = "color: #555; font-size: 16px;")
+                       ),
+                       
+                       div(style = "flex-shrink: 0; display: flex; align-items: center;",
+                           img(src = "infant_mortality.png", 
+                               style = "width: 350px; height: auto;",
+                               alt = "Baby Icon")
+                       )
+                   )
                ),
                
                # Cervical Cancer Section
                div(style = "background: white; padding: 30px; margin-bottom: 30px;
                  border-radius: 15px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);",
-                   h2("Cervical Cancer (Papanicolaou Smear)", 
-                      style = "color: #2C3E50; font-weight: 600; margin-bottom: 15px;"),
-                   p(strong("What is a Papanicolaou (Pap) Smear? "), "A Pap smear is an exam that identifies abnormal cervical cells. It is a great preventative measure to identifying cancer, even if there may be no family history present.",
-                     style = "color: #555; font-size: 16px; line-height: 1.6; margin-bottom: 15px;"),
-                   p(strong("When to get a Pap smear? "), "Generally, Pap smears should be administered every three years, starting at age 21 until 29. They may be administered more often due to family history of cervical cancer. After age 30 (until 65), they can be administered every five years alongside an HPV test.",
-                     style = "color: #555; font-size: 16px; line-height: 1.6; margin-bottom: 15px;"),
-                   p(strong("Pap Smear General Information: "), 
-                     a("https://www.mayoclinic.org/tests-procedures/pap-smear/about/pac-20394841", 
-                       href = "https://www.mayoclinic.org/tests-procedures/pap-smear/about/pac-20394841", 
-                       target = "_blank",
-                       style = "color: #7B68EE;"),
-                     style = "color: #555; font-size: 16px; margin-bottom: 10px;"),
-                   p(strong("Planned Parenthood: "), 
-                     a("https://www.plannedparenthood.org/learn/cancer/cervical-cancer/whats-pap-test", 
-                       href = "https://www.plannedparenthood.org/learn/cancer/cervical-cancer/whats-pap-test", 
-                       target = "_blank",
-                       style = "color: #7B68EE;"),
-                     style = "color: #555; font-size: 16px;")
+                   
+                   div(style = "display: flex; gap: 30px; align-items: flex-start;",
+                       
+                       div(style = "flex: 1;",
+                           h2("Cervical Cancer (Papanicolaou Smear)", 
+                              style = "color: #2C3E50; font-weight: 600; margin-top: 0; margin-bottom: 15px;"),
+                           p(strong("What is a Papanicolaou (Pap) Smear? "), "A Pap smear is an exam that identifies abnormal cervical cells. It is a great preventative measure to identifying cancer, even if there may be no family history present.",
+                             style = "color: #555; font-size: 16px; line-height: 1.6; margin-bottom: 15px;"),
+                           p(strong("When to get a Pap smear? "), "Generally, Pap smears should be administered every three years, starting at age 21 until 29. They may be administered more often due to family history of cervical cancer. After age 30 (until 65), they can be administered every five years alongside an HPV test.",
+                             style = "color: #555; font-size: 16px; line-height: 1.6; margin-bottom: 15px;"),
+                           p(strong("Pap Smear General Information: "), 
+                             a("https://www.mayoclinic.org/tests-procedures/pap-smear/about/pac-20394841", 
+                               href = "https://www.mayoclinic.org/tests-procedures/pap-smear/about/pac-20394841", 
+                               target = "_blank",
+                               style = "color: #7B68EE;"),
+                             style = "color: #555; font-size: 16px; margin-bottom: 10px;"),
+                           p(strong("Planned Parenthood: "), 
+                             a("https://www.plannedparenthood.org/learn/cancer/cervical-cancer/whats-pap-test", 
+                               href = "https://www.plannedparenthood.org/learn/cancer/cervical-cancer/whats-pap-test", 
+                               target = "_blank",
+                               style = "color: #7B68EE;"),
+                             style = "color: #555; font-size: 16px;")
+                       ),
+                       
+                       div(style = "flex-shrink: 0; display: flex; align-items: center;",
+                           img(src = "cervical_cancer.png", 
+                               style = "width: 350px; height: auto;",
+                               alt = "Cervical Cancer Ribbon")
+                       )
+                   )
                )
            )  
   ),
-  
   # About Tab
   tabPanel("About",
            div(style = "background: linear-gradient(135deg, #f8f9fa 0%, #f8f9fa 100%);
