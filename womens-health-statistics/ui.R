@@ -42,7 +42,7 @@ navbarPage(
                # Simple solid header
                div(style = "background: #2C3E50;
                           padding: 80px 20px; text-align: center;",
-                   h1("Women's Health Disparities Dashboard",
+                   h1("Women's Health",
                       style = "color: white; font-family: 'Playfair Display', serif;
                              font-weight: 700; font-size: 52px; margin: 0; letter-spacing: -0.5px;"),
                    p("Understanding health disparities across the United States",
