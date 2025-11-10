@@ -25,7 +25,7 @@ cervical_cancer_deaths <- read.csv("cervical_death_rate_clean.csv", na.strings =
 chlamydia <- read.csv("chlamydia_rate_clean.csv", na.strings = "NA")
 gonorrhea <- read.csv("gonorrhea_rate_clean.csv", na.strings = "NA")
 syphilis <- read.csv("syphilis_rate_clean.csv", na.strings = "NA")
-#us_states <- read_sf("code_state.geojson")
+
 ```
 
 # Rename State Columns

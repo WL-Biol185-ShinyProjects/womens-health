@@ -676,7 +676,7 @@ server <- function(input, output, session) {
   }, bg = "white")
   
   # Maternal Mortality State Plot
-
+  
   # Maternal Mortality State Plot
   maternal_mortality <- read.csv("mortality_year_long.csv", stringsAsFactors = FALSE)
   maternal_mortality <- as.data.frame(maternal_mortality)
@@ -1038,7 +1038,7 @@ server <- function(input, output, session) {
            box.col = "#E0E0E0")
     
   }, bg = "white")
-
+  
   # Breast Cancer vs STI Scatter Plot
   output$breast_sti_scatter <- renderPlot({
     # Calculate averages
@@ -1307,7 +1307,7 @@ server <- function(input, output, session) {
     
   }, bg = "white")
   
-
+  
   
   # Reactive dataset based on user selection
   selected_dataset <- reactive({
@@ -1366,4 +1366,4 @@ server <- function(input, output, session) {
     }
   )
   
-  }
+}
