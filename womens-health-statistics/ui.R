@@ -955,14 +955,9 @@ navbarPage(
                                                       hr(style = "border-color: #80DEEA;"),
                                                       
                                                       div(style = "background: white; padding: 15px; border-radius: 6px;",
-<<<<<<< HEAD
-                                                          h4("Insight", style = "color: #00838F; margin-top: 0; font-size: 16px;"),
+                                              h4("Insight", style = "color: #00838F; margin-top: 0; font-size: 16px;"),
+
                                                           
-=======
-
-                                                          h4("Insight", style = "color: #00838F; margin-top: 0; font-size: 16px;"),
-
->>>>>>> 608d71a692b2f2ca8668b998d67b17cb5d0355b0
                                                           p("This chart ranks states by cervical cancer incidence rates, helping 
                                                identify areas with the highest rates for targeted interventions.",
                                                             style = "color: #555; margin: 0; font-size: 14px; line-height: 1.6;")
