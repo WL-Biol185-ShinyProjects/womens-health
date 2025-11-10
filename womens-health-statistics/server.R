@@ -25,13 +25,13 @@ server <- function(input, output, session) {
   
   updateSelectInput(session,
                     "race_filter",
-                    choices = c("All", unique(breast_cancer_long$race)))  
+                    choices = c("Overall", unique(breast_cancer_long$race)))  
   
   # REACTIVE DATA
   breast_cancer_filtered_race <- reactive({
     result <- breast_cancer_long  
     
-    if (input$race_filter != "All") {
+    if (input$race_filter != "Overall") {
       result <- result %>%
         filter(race == input$race_filter)
     }
@@ -197,13 +197,13 @@ server <- function(input, output, session) {
   # Update cervical race filter choices
   updateSelectInput(session,
                     "cervical_race_filter",
-                    choices = c("All", unique(cervical_cancer_long$race)))
+                    choices = c("Overall", unique(cervical_cancer_long$race)))
   
   # CERVICAL REACTIVE DATA - This recalculates automatically when cervical_race_filter changes
   cervical_cancer_filtered_race <- reactive({
     result <- cervical_cancer_long  
     
-    if (input$cervical_race_filter != "All") {
+    if (input$cervical_race_filter != "Overall") {
       result <- result %>%
         filter(race == input$cervical_race_filter)
     }
@@ -373,7 +373,7 @@ server <- function(input, output, session) {
   # Update race filter choices for STI map
   updateSelectInput(session,
                     "sti_race_filter",
-                    choices = c("All", unique(syphilis$race)))
+                    choices = c("Overall", unique(syphilis$race)))
   
   # Update disease filter choices for STI map
   updateSelectInput(session,
@@ -395,7 +395,7 @@ server <- function(input, output, session) {
     }
     
     # Filter by race if not "All"
-    if (input$sti_race_filter != "All") {
+    if (input$sti_race_filter != "Overall") {
       result <- result %>%
         filter(race == input$sti_race_filter)
     }
@@ -649,13 +649,13 @@ server <- function(input, output, session) {
   # Update maternal mortality race filter choices
   updateSelectInput(session,
                     "maternal_race_filter",
-                    choices = c("All", unique(maternal_mortality$race)))
+                    choices = c("Overall", unique(maternal_mortality$race)))
   
   # MATERNAL MORTALITY REACTIVE DATA - Filter by race and year
   maternal_mortality_filtered <- reactive({
     result <- maternal_mortality  
     
-    if (input$maternal_race_filter != "All") {
+    if (input$maternal_race_filter != "Overall") {
       result <- result %>%
         filter(race == input$maternal_race_filter)
     }

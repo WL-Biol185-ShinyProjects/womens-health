@@ -278,8 +278,8 @@ navbarPage(
                                   
                                   selectInput("race_filter",
                                               "Select Race/Ethnicity:",
-                                              choices = c("All"),
-                                              selected = "All"),
+                                              choices = c("Overall"),
+                                              selected = "Overall"),
                                   
                                   hr(style = "border-color: #FFB6C1;"),
                                   
@@ -458,8 +458,8 @@ navbarPage(
                                   
                                   selectInput("cervical_race_filter",
                                               "Select Race/Ethnicity:",
-                                              choices = c("All"),
-                                              selected = "All"),
+                                              choices = c("Overall"),
+                                              selected = "Overall"),
                                   
                                   hr(style = "border-color: #80DEEA;"),
                                   
@@ -596,8 +596,8 @@ navbarPage(
                        
                        selectInput("sti_race_filter",
                                    "Select Race:",
-                                   choices = c("All"),
-                                   selected = "All"),
+                                   choices = c("Overall"),
+                                   selected = "Overall"),
                        
                        hr(style = "border-color: #CE93D8;"),
                        
@@ -743,8 +743,8 @@ navbarPage(
                      column(6,
                             selectInput("maternal_race_filter",
                                         "Filter by Race:",
-                                        choices = c("All"),
-                                        selected = "All")
+                                        choices = c("Overall"),
+                                        selected = "Overall")
                      ),
                      column(6,
                             sliderInput("maternal_year_slider",
