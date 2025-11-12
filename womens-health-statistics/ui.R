@@ -22,8 +22,11 @@ infant_mortality_long <- read.csv("infant_mortality_long.csv")
 breast_rate_clean <- read.csv("breast_rate_clean.csv")
 cervical_rate_clean <- read.csv("cervical_rate_clean.csv")
 syphilis_rate_clean <- read.csv("syphilis_rate_clean.csv")
+syphilis_rate_clean$Footnotes <- NULL
 gonorrhea_rate_clean <- read.csv("gonorrhea_rate_clean.csv")
+gonorrhea_rate_clean$Footnotes <- NULL
 chlamydia_rate_clean <- read.csv("chlamydia_rate_clean.csv")
+chlamydia_rate_clean$Footnotes <- NULL
 mortality_race <- read.csv("mortality_race.csv")
 infant_death_rate_clean <- read.csv("infant_death_rate_clean.csv")
 
