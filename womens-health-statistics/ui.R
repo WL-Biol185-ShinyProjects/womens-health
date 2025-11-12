@@ -46,184 +46,204 @@ navbarPage(
   tabPanel("Home",
            tags$head(
              tags$link(href = "https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Inter:wght@300;400;500;600&display=swap",
-                       rel = "stylesheet")
+                       rel = "stylesheet"),
+             tags$style(HTML("
+             /* Header styling for Home page */
+             .home-header {
+               background: white;
+               padding: 80px 20px;
+               text-align: center;
+               border-bottom: 1px solid #E8F4F8;
+               margin-bottom: 0;
+             }
+             .home-header h1 {
+               color: #2C3E50;
+               font-family: 'Playfair Display', serif;
+               font-weight: 700;
+               font-size: 52px;
+               margin: 0;
+               letter-spacing: -0.5px;
+             }
+             .home-header p {
+               color: #555;
+               font-size: 20px;
+               margin: 15px 0 0 0;
+               font-family: 'Inter', sans-serif;
+             }
+           "))
            ),
-           div(style = "background: #f8f9fa; min-height: 100vh; padding: 0;",
+           
+           # Header
+           div(class = "home-header",
+               h1("Women's Health"),
+               p("Understanding health disparities across the United States")
+           ),
+           
+           # Main content with gradient background
+           div(style = "background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+                     min-height: 100vh; padding: 60px 20px; font-family: 'Inter', sans-serif;",
                
-               # Simple solid header
-               div(style = "background: #2C3E50;
-                          padding: 80px 20px; text-align: center;",
-                   h1("Women's Health",
-                      style = "color: white; font-family: 'Playfair Display', serif;
-                             font-weight: 700; font-size: 52px; margin: 0; letter-spacing: -0.5px;"),
-                   p("Understanding health disparities across the United States",
-                     style = "color: #E8F4F8; font-size: 20px; margin: 15px 0 0 0;
-                            font-family: 'Inter', sans-serif;")
-               ),
-               
-               # Main content
-               div(style = "padding: 60px 20px; font-family: 'Inter', sans-serif;",
+               div(style = "max-width: 1200px; margin: 0 auto;",
                    
                    # Mission section
-                   fluidRow(style = "margin-bottom: 60px;",
-                            column(12,
-                                   div(style = "background: white; padding: 50px;
-                                              border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);",
-                                       fluidRow(
-                                         column(6,
-                                                h2("About This Project",
-                                                   style = "color: #2C3E50; margin-top: 0; font-weight: 600;
-                                                          font-family: 'Playfair Display', serif; font-size: 36px;
-                                                          margin-bottom: 25px;"),
-                                                p("Women's health disparities and outcomes have been severely overlooked
-                                                throughout medical research history. This oversight leads to disproportionate
-                                                access to healthcare and medical interventions, especially for marginalized populations.",
-                                                  style = "font-size: 17px; line-height: 1.9; color: #4a5568;
-                                                         font-weight: 400; margin-bottom: 20px;"),
-                                                p("Our interactive dashboard highlights data from the CDC WONDER Online Database,
-                                                grouped by state and race, to assess health outcomes for women across the United States.",
-                                                  style = "font-size: 17px; line-height: 1.9; color: #4a5568; font-weight: 400;")
-                                         ),
-                                         column(6,
-                                                img(src = "purple-hands.png",
-                                                    style = "width: 100%; border-radius: 8px;")
-                                         )
-                                       )
-                                   )
-                            )
+                   div(style = "margin-bottom: 60px;",
+                       div(style = "background: white; padding: 50px;
+                                border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);",
+                           fluidRow(
+                             column(6,
+                                    h2("About This Project",
+                                       style = "color: #2C3E50; margin-top: 0; font-weight: 600;
+                                            font-family: 'Playfair Display', serif; font-size: 36px;
+                                            margin-bottom: 25px;"),
+                                    p("Women's health disparities and outcomes have been severely overlooked
+                                    throughout medical research history. This oversight leads to disproportionate
+                                    access to healthcare and medical interventions, especially for marginalized populations.",
+                                      style = "font-size: 17px; line-height: 1.9; color: #4a5568;
+                                           font-weight: 400; margin-bottom: 20px;"),
+                                    p("Our interactive dashboard highlights data from the CDC WONDER Online Database,
+                                    grouped by state and race, to assess health outcomes for women across the United States.",
+                                      style = "font-size: 17px; line-height: 1.9; color: #4a5568; font-weight: 400;")
+                             ),
+                             column(6,
+                                    img(src = "purple-hands.png",
+                                        style = "width: 100%; border-radius: 8px;")
+                             )
+                           )
+                       )
                    ),
                    
                    # Features section
-                   fluidRow(style = "margin-bottom: 60px;",
-                            column(4,
-                                   div(style = "background: white; padding: 40px;
-                                              border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-                                              border-left: 4px solid #2C3E50; height: 100%;",
-                                       h3("Interactive Maps",
-                                          style = "color: #2C3E50; font-family: 'Playfair Display', serif;
-                                                 font-size: 24px; margin-top: 0; margin-bottom: 15px;"),
-                                       p("Explore maternal mortality and cancer incidence rates by state and race with
-                                       dynamic visualizations.",
-                                         style = "font-size: 16px; line-height: 1.8; color: #5a6c7d;")
-                                   )
-                            ),
-                            column(4,
-                                   div(style = "background: white; padding: 40px;
-                                              border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-                                              border-left: 4px solid #E8F4F8; height: 100%;",
-                                       h3("Disparity Analysis",
-                                          style = "color: #2C3E50; font-family: 'Playfair Display', serif;
-                                                 font-size: 24px; margin-top: 0; margin-bottom: 15px;"),
-                                       p("Compare health outcomes across different racial and ethnic populations to
-                                       identify critical gaps in care.",
-                                         style = "font-size: 16px; line-height: 1.8; color: #5a6c7d;")
-                                   )
-                            ),
-                            column(4,
-                                   div(style = "background: white; padding: 40px;
-                                              border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-                                              border-left: 4px solid #2C3E50; height: 100%;",
-                                       h3("Evidence-Based Insights",
-                                          style = "color: #2C3E50; font-family: 'Playfair Display', serif;
-                                                 font-size: 24px; margin-top: 0; margin-bottom: 15px;"),
-                                       p("Data-driven findings to inform policy decisions and target healthcare interventions
-                                       where needed most.",
-                                         style = "font-size: 16px; line-height: 1.8; color: #5a6c7d;")
-                                   )
-                            )
+                   div(style = "margin-bottom: 60px;",
+                       h3("Key Features", 
+                          style = "color: #2C3E50; font-size: 28px; margin-bottom: 20px; 
+                               font-family: 'Playfair Display', serif; text-align: center;"),
+                       fluidRow(
+                         column(4,
+                                div(style = "background: white; padding: 40px;
+                                         border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+                                         border-left: 4px solid #2C3E50; height: 100%;",
+                                    h3("Interactive Maps",
+                                       style = "color: #2C3E50; font-family: 'Playfair Display', serif;
+                                            font-size: 24px; margin-top: 0; margin-bottom: 15px;"),
+                                    p("Explore maternal mortality and cancer incidence rates by state and race with
+                                    dynamic visualizations.",
+                                      style = "font-size: 16px; line-height: 1.8; color: #5a6c7d;")
+                                )
+                         ),
+                         column(4,
+                                div(style = "background: white; padding: 40px;
+                                         border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+                                         border-left: 4px solid #E8F4F8; height: 100%;",
+                                    h3("Disparity Analysis",
+                                       style = "color: #2C3E50; font-family: 'Playfair Display', serif;
+                                            font-size: 24px; margin-top: 0; margin-bottom: 15px;"),
+                                    p("Compare health outcomes across different racial and ethnic populations to
+                                    identify critical gaps in care.",
+                                      style = "font-size: 16px; line-height: 1.8; color: #5a6c7d;")
+                                )
+                         ),
+                         column(4,
+                                div(style = "background: white; padding: 40px;
+                                         border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+                                         border-left: 4px solid #2C3E50; height: 100%;",
+                                    h3("Evidence-Based Insights",
+                                       style = "color: #2C3E50; font-family: 'Playfair Display', serif;
+                                            font-size: 24px; margin-top: 0; margin-bottom: 15px;"),
+                                    p("Data-driven findings to inform policy decisions and target healthcare interventions
+                                    where needed most.",
+                                      style = "font-size: 16px; line-height: 1.8; color: #5a6c7d;")
+                                )
+                         )
+                       )
                    ),
                    
                    # How to use section
-                   fluidRow(style = "margin-bottom: 60px;",
-                            column(12,
-                                   div(style = "background: #2C3E50; padding: 50px; border-radius: 8px;",
-                                       h2("How to Use This Dashboard",
-                                          style = "color: white; font-family: 'Playfair Display', serif;
-                                                 font-size: 36px; margin-top: 0; margin-bottom: 40px; text-align: center;"),
-                                       fluidRow(
-                                         column(4,
-                                                div(style = "padding: 20px; text-align: center;",
-                                                    div(style = "width: 60px; height: 60px; background: #E8F4F8;
-                                                               border-radius: 50%; margin: 0 auto 20px auto;
-                                                               display: flex; align-items: center; justify-content: center;",
-                                                        span("1", style = "font-size: 28px; font-weight: 700; color: #2C3E50;")
-                                                    ),
-                                                    h4("Select a Topic",
-                                                       style = "color: white; font-size: 20px; margin-bottom: 15px;"),
-                                                    p("Navigate using the tabs to explore different health conditions",
-                                                      style = "color: #E8F4F8; font-size: 15px; line-height: 1.7;")
-                                                )
-                                         ),
-                                         column(4,
-                                                div(style = "padding: 20px; text-align: center;",
-                                                    div(style = "width: 60px; height: 60px; background: #E8F4F8;
-                                                               border-radius: 50%; margin: 0 auto 20px auto;
-                                                               display: flex; align-items: center; justify-content: center;",
-                                                        span("2", style = "font-size: 28px; font-weight: 700; color: #2C3E50;")
-                                                    ),
-                                                    h4("Apply Filters",
-                                                       style = "color: white; font-size: 20px; margin-bottom: 15px;"),
-                                                    p("Use dropdown menus to focus on specific states or demographics",
-                                                      style = "color: #E8F4F8; font-size: 15px; line-height: 1.7;")
-                                                )
-                                         ),
-                                         column(4,
-                                                div(style = "padding: 20px; text-align: center;",
-                                                    div(style = "width: 60px; height: 60px; background: #E8F4F8;
-                                                               border-radius: 50%; margin: 0 auto 20px auto;
-                                                               display: flex; align-items: center; justify-content: center;",
-                                                        span("3", style = "font-size: 28px; font-weight: 700; color: #2C3E50;")
-                                                    ),
-                                                    h4("Explore Insights",
-                                                       style = "color: white; font-size: 20px; margin-bottom: 15px;"),
-                                                    p("Interact with visualizations to discover patterns and disparities",
-                                                      style = "color: #E8F4F8; font-size: 15px; line-height: 1.7;")
-                                                )
-                                         )
-                                       )
-                                   )
-                            )
+                   div(style = "margin-bottom: 60px;",
+                       div(style = "background: #2C3E50; padding: 50px; border-radius: 12px;",
+                           h2("How to Use This Dashboard",
+                              style = "color: white; font-family: 'Playfair Display', serif;
+                                   font-size: 36px; margin-top: 0; margin-bottom: 40px; text-align: center;"),
+                           fluidRow(
+                             column(4,
+                                    div(style = "padding: 20px; text-align: center;",
+                                        div(style = "width: 60px; height: 60px; background: #E8F4F8;
+                                                 border-radius: 50%; margin: 0 auto 20px auto;
+                                                 display: flex; align-items: center; justify-content: center;",
+                                            span("1", style = "font-size: 28px; font-weight: 700; color: #2C3E50;")
+                                        ),
+                                        h4("Select a Topic",
+                                           style = "color: white; font-size: 20px; margin-bottom: 15px;"),
+                                        p("Navigate using the tabs to explore different health conditions",
+                                          style = "color: #E8F4F8; font-size: 15px; line-height: 1.7;")
+                                    )
+                             ),
+                             column(4,
+                                    div(style = "padding: 20px; text-align: center;",
+                                        div(style = "width: 60px; height: 60px; background: #E8F4F8;
+                                                 border-radius: 50%; margin: 0 auto 20px auto;
+                                                 display: flex; align-items: center; justify-content: center;",
+                                            span("2", style = "font-size: 28px; font-weight: 700; color: #2C3E50;")
+                                        ),
+                                        h4("Apply Filters",
+                                           style = "color: white; font-size: 20px; margin-bottom: 15px;"),
+                                        p("Use dropdown menus to focus on specific states or demographics",
+                                          style = "color: #E8F4F8; font-size: 15px; line-height: 1.7;")
+                                    )
+                             ),
+                             column(4,
+                                    div(style = "padding: 20px; text-align: center;",
+                                        div(style = "width: 60px; height: 60px; background: #E8F4F8;
+                                                 border-radius: 50%; margin: 0 auto 20px auto;
+                                                 display: flex; align-items: center; justify-content: center;",
+                                            span("3", style = "font-size: 28px; font-weight: 700; color: #2C3E50;")
+                                        ),
+                                        h4("Explore Insights",
+                                           style = "color: white; font-size: 20px; margin-bottom: 15px;"),
+                                        p("Interact with visualizations to discover patterns and disparities",
+                                          style = "color: #E8F4F8; font-size: 15px; line-height: 1.7;")
+                                    )
+                             )
+                           )
+                       )
                    ),
                    
                    # Image and about data section
-                   fluidRow(style = "margin-bottom: 60px;",
-                            column(12,
-                                   div(style = "background: white; padding: 50px;
-                                              border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);",
-                                       fluidRow(
-                                         column(6, style = "display: flex; justify-content: center; align-items: center;",
-                                                img(src = "https://www.nysut.org/-/media/images/nysut/news/2022/july/banner_220706_womenshealth_01.jpg",
-                                                    style = "width: 100%; border-radius: 8px;")
-                                         ),
-                                         column(6,
-                                                h2("About This Data",
-                                                   style = "color: #2C3E50; margin-top: 0; font-weight: 600;
-                                                          font-family: 'Playfair Display', serif; font-size: 36px;
-                                                          margin-bottom: 25px;"),
-                                                p(strong("Data Sources: "),
-                                                  "All datasets were retrieved from KFF (originally Kaiser Family Foundation),
-                                                a public charity and national nonprofit that serves to provide data and research
-                                                on health policy and health disparities across the United States. KFF currently
-                                                researches Women's Health policy through their Policy Analysis sector.",
-                                                  style = "font-size: 16px; line-height: 1.9; color: #4a5568; margin-bottom: 20px;"),
-                                                p("Datasets on women's health disparities used data from the WONDER Online Database
-                                                from the United States Department of Health and Human Services, Centers for Disease
-                                                Control and Prevention and National Cancer Institute (CDC WONDER Online Database).",
-                                                  style = "font-size: 16px; line-height: 1.9; color: #4a5568; margin-bottom: 20px;"),
-                                                p("All data after 1989 meets the National Center for Health Statistics data use
-                                                restrictions, where missing values are due to state incidence data not meeting
-                                                publication criteria. Suppressed values replace incidence rate, death counts,
-                                                death rates and associated confidence intervals and standard errors, as well
-                                                as corresponding population figures, when the figure represents one to nine
-                                                (1-9) persons for deaths 1999 and after.",
-                                                  style = "font-size: 15px; line-height: 1.9; color: #4a5568; margin-bottom: 20px;"),
-                                                p(a(href = "https://www.kff.org/about-us/", "About Us, retrieved from https://www.kff.org/about-us/",
-                                                    style = "color: #2C3E50; font-size: 16px; font-weight: 600; text-decoration: underline;"),
-                                                  style = "margin: 0;")
-                                         )
-                                       )
-                                   )
-                            )
+                   div(style = "margin-bottom: 60px;",
+                       div(style = "background: white; padding: 50px;
+                                border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);",
+                           fluidRow(
+                             column(6, style = "display: flex; justify-content: center; align-items: center;",
+                                    img(src = "https://www.nysut.org/-/media/images/nysut/news/2022/july/banner_220706_womenshealth_01.jpg",
+                                        style = "width: 100%; border-radius: 8px;")
+                             ),
+                             column(6,
+                                    h2("About This Data",
+                                       style = "color: #2C3E50; margin-top: 0; font-weight: 600;
+                                            font-family: 'Playfair Display', serif; font-size: 36px;
+                                            margin-bottom: 25px;"),
+                                    p(strong("Data Sources: "),
+                                      "All datasets were retrieved from KFF (originally Kaiser Family Foundation),
+                                    a public charity and national nonprofit that serves to provide data and research
+                                    on health policy and health disparities across the United States. KFF currently
+                                    researches Women's Health policy through their Policy Analysis sector.",
+                                      style = "font-size: 16px; line-height: 1.9; color: #4a5568; margin-bottom: 20px;"),
+                                    p("Datasets on women's health disparities used data from the WONDER Online Database
+                                    from the United States Department of Health and Human Services, Centers for Disease
+                                    Control and Prevention and National Cancer Institute (CDC WONDER Online Database).",
+                                      style = "font-size: 16px; line-height: 1.9; color: #4a5568; margin-bottom: 20px;"),
+                                    p("All data after 1989 meets the National Center for Health Statistics data use
+                                    restrictions, where missing values are due to state incidence data not meeting
+                                    publication criteria. Suppressed values replace incidence rate, death counts,
+                                    death rates and associated confidence intervals and standard errors, as well
+                                    as corresponding population figures, when the figure represents one to nine
+                                    (1-9) persons for deaths 1999 and after.",
+                                      style = "font-size: 15px; line-height: 1.9; color: #4a5568; margin-bottom: 20px;"),
+                                    p(a(href = "https://www.kff.org/about-us/", "About Us, retrieved from https://www.kff.org/about-us/",
+                                        style = "color: #2C3E50; font-size: 16px; font-weight: 600; text-decoration: underline;"),
+                                      style = "margin: 0;")
+                             )
+                           )
+                       )
                    )
                )
            )
@@ -624,39 +644,39 @@ navbarPage(
              tabPanel("Cervical Cancer",
                       tags$head(
                         tags$style(HTML("
-             /* Cervical Cancer Tab styling */
-             .cc-tab-content {
-               padding: 30px 20px;
-               background: #E0F7FA;  /* Light blue/teal */
-             }
-             .cc-nav-tabs {
+             /* Cervical Cancer Tab styling - Target by ID */
+             #cc_tabs {
                background: white;
-               border-bottom: 2px solid #00838F;
+               border-bottom: 2px solid #00838F !important;
                padding: 0;
                margin: 0;
              }
-             .cc-nav-tabs > li > a {
+             #cc_tabs > li > a {
                color: #6b7280;
                font-weight: 600;
                padding: 16px 24px;
-               border: none;
-               border-bottom: 2px solid transparent;
+               border: none !important;
+               border-bottom: 2px solid transparent !important;
                margin-bottom: -2px;
                transition: all 0.3s ease;
              }
-             .cc-nav-tabs > li > a:hover {
-               background-color: #E0F7FA;
-               color: #2C3E50;
-               border: none;
-               border-bottom: 2px solid #00838F;
+             #cc_tabs > li > a:hover {
+               background-color: #E0F7FA !important;
+               color: #2C3E50 !important;
+               border: none !important;
+               border-bottom: 2px solid #00838F !important;
              }
-             .cc-nav-tabs > li.active > a,
-             .cc-nav-tabs > li.active > a:hover,
-             .cc-nav-tabs > li.active > a:focus {
-               color: #00838F;
-               background-color: #E0F7FA;
-               border: none;
-               border-bottom: 2px solid #00838F;
+             #cc_tabs > li.active > a,
+             #cc_tabs > li.active > a:hover,
+             #cc_tabs > li.active > a:focus {
+               color: #00838F !important;
+               background-color: #E0F7FA !important;
+               border: none !important;
+               border-bottom: 2px solid #00838F !important;
+             }
+             .cc-tab-content {
+               padding: 30px 20px;
+               background: #E0F7FA;
              }
              /* Header styling */
              .cc-header {
@@ -756,17 +776,17 @@ navbarPage(
                                          # About Section
                                          div(style = "margin-top: 40px;",
                                              div(style = "background: white; padding: 30px; border-radius: 12px; 
-                                   box-shadow: 0 2px 8px rgba(0,0,0,0.05);",
+                                           box-shadow: 0 2px 8px rgba(0,0,0,0.05);",
                                                  h2("About This Data", 
                                                     style = "color: #2C3E50; margin-top: 0; font-size: 28px; margin-bottom: 20px;"),
                                                  p("Cervical cancer is one of the most preventable cancers, yet it remains a significant 
-                                  health concern, particularly for certain populations. Regular screening through Pap tests 
-                                  and HPV testing can detect precancerous changes early, when treatment is most effective.",
+                                      health concern, particularly for certain populations. Regular screening through Pap tests 
+                                      and HPV testing can detect precancerous changes early, when treatment is most effective.",
                                                    style = "color: #4b5563; font-size: 16px; line-height: 1.8; margin-bottom: 16px;"),
                                                  p("This page provides an overview of cervical cancer incidence rates by state and race, 
-                                  revealing important disparities in screening access and health outcomes. Understanding 
-                                  these patterns helps target prevention efforts and improve access to life-saving screenings 
-                                  in underserved communities.",
+                                      revealing important disparities in screening access and health outcomes. Understanding 
+                                      these patterns helps target prevention efforts and improve access to life-saving screenings 
+                                      in underserved communities.",
                                                    style = "color: #4b5563; font-size: 16px; line-height: 1.8;")
                                              )
                                          ),
@@ -780,7 +800,7 @@ navbarPage(
                                                           h4("Racial Disparities", 
                                                              style = "color: #2C3E50; margin-top: 0; font-size: 18px;"),
                                                           p("Hispanic women have the highest cervical cancer incidence rates, 
-                                           highlighting screening access gaps.",
+                                               highlighting screening access gaps.",
                                                             style = "color: #555; margin: 0; font-size: 15px; line-height: 1.6;")
                                                       )
                                                ),
@@ -789,7 +809,7 @@ navbarPage(
                                                           h4("Prevention Works", 
                                                              style = "color: #2C3E50; margin-top: 0; font-size: 18px;"),
                                                           p("HPV vaccination and regular Pap tests can prevent most cervical cancers 
-                                           when administered appropriately.",
+                                               when administered appropriately.",
                                                             style = "color: #555; margin: 0; font-size: 15px; line-height: 1.6;")
                                                       )
                                                ),
@@ -798,7 +818,7 @@ navbarPage(
                                                           h4("Geographic Variation", 
                                                              style = "color: #2C3E50; margin-top: 0; font-size: 18px;"),
                                                           p("Rates vary significantly by state, reflecting differences in screening 
-                                           programs and healthcare access.",
+                                               programs and healthcare access.",
                                                             style = "color: #555; margin: 0; font-size: 15px; line-height: 1.6;")
                                                       )
                                                )
@@ -807,7 +827,7 @@ navbarPage(
                                          
                                          # Explore Data CTA
                                          div(style = "margin-top: 40px; background: linear-gradient(135deg, #00838F 0%, #00ACC1 100%); 
-                                   padding: 40px; border-radius: 12px; text-align: center;",
+                                       padding: 40px; border-radius: 12px; text-align: center;",
                                              h3("Explore the Data", 
                                                 style = "color: white; margin: 0 0 16px 0; font-size: 28px;"),
                                              p("Use the tabs above to dive deeper into state rankings, racial disparities, and geographic patterns.",
@@ -816,18 +836,18 @@ navbarPage(
                                                  tags$button("View Map", 
                                                              onclick = "$('#cc_tabs a[href=\"#shiny-tab-map\"]').tab('show');",
                                                              style = "background: white; color: #00838F; border: none; 
-                                                   padding: 12px 32px; border-radius: 8px; font-weight: 600; 
-                                                   cursor: pointer; font-size: 16px;"),
+                                                       padding: 12px 32px; border-radius: 8px; font-weight: 600; 
+                                                       cursor: pointer; font-size: 16px;"),
                                                  tags$button("View By Race",
                                                              onclick = "$('#cc_tabs a[href=\"#shiny-tab-by_race\"]').tab('show');",
                                                              style = "background: rgba(255,255,255,0.2); color: white; border: 2px solid white; 
-                                                   padding: 12px 32px; border-radius: 8px; font-weight: 600; 
-                                                   cursor: pointer; font-size: 16px;"),
-                                                 tags$button("View Rankings",
+                                                       padding: 12px 32px; border-radius: 8px; font-weight: 600; 
+                                                       cursor: pointer; font-size: 16px;"),
+                                                 tags$button("View By State",
                                                              onclick = "$('#cc_tabs a[href=\"#shiny-tab-by_state\"]').tab('show');",
                                                              style = "background: rgba(255,255,255,0.2); color: white; border: 2px solid white; 
-                                                   padding: 12px 32px; border-radius: 8px; font-weight: 600; 
-                                                   cursor: pointer; font-size: 16px;")
+                                                       padding: 12px 32px; border-radius: 8px; font-weight: 600; 
+                                                       cursor: pointer; font-size: 16px;")
                                              )
                                          )
                                      )
@@ -839,12 +859,12 @@ navbarPage(
                                  div(class = "cc-tab-content",
                                      div(style = "max-width: 1400px; margin: 0 auto;",
                                          div(style = "background: white; padding: 30px; border-radius: 12px; 
-                                   box-shadow: 0 2px 8px rgba(0,0,0,0.05);",
+                                       box-shadow: 0 2px 8px rgba(0,0,0,0.05);",
                                              
                                              h2("Cervical Cancer Rates by State and Race",
                                                 style = "color: #2C3E50; margin-top: 0; margin-bottom: 8px;"),
                                              p("Explore cervical cancer incidence rates across the United States. Use the dropdown 
-                              to filter by race/ethnicity and see how rates vary geographically.",
+                                  to filter by race/ethnicity and see how rates vary geographically.",
                                                style = "color: #555; font-size: 16px; margin-bottom: 24px;"),
                                              
                                              fluidRow(
@@ -876,11 +896,11 @@ navbarPage(
                                          
                                          # Geographic Patterns
                                          div(style = "margin-top: 24px; background: linear-gradient(135deg, #00838F 0%, #00ACC1 100%); 
-                                   padding: 24px; border-radius: 8px;",
+                                       padding: 24px; border-radius: 8px;",
                                              h4("Geographic Patterns", style = "color: white; margin-top: 0;"),
                                              p("Cervical cancer rates vary across states, reflecting differences in screening access, 
-                              HPV vaccination rates, and healthcare infrastructure. Identifying high-rate areas helps 
-                              prioritize prevention programs.",
+                                  HPV vaccination rates, and healthcare infrastructure. Identifying high-rate areas helps 
+                                  prioritize prevention programs.",
                                                style = "color: #E0F7FA; margin: 0; line-height: 1.6;")
                                          )
                                      )
@@ -892,7 +912,7 @@ navbarPage(
                                  div(class = "cc-tab-content",
                                      div(style = "max-width: 1200px; margin: 0 auto;",
                                          div(style = "background: white; padding: 30px; border-radius: 12px; 
-                                   box-shadow: 0 2px 8px rgba(0,0,0,0.05);",
+                                       box-shadow: 0 2px 8px rgba(0,0,0,0.05);",
                                              
                                              h2("Cervical Cancer Incidence by Race",
                                                 style = "color: #2C3E50; margin-top: 0; margin-bottom: 8px;"),
@@ -913,7 +933,7 @@ navbarPage(
                                                               h4("Understanding Disparities", 
                                                                  style = "color: #00838F; margin-top: 0; font-size: 16px;"),
                                                               p("This chart shows cervical cancer incidence rates by race/ethnicity 
-                                               for your selected state.",
+                                                   for your selected state.",
                                                                 style = "color: #555; margin: 0; font-size: 14px; line-height: 1.6;")
                                                           )
                                                       )
@@ -928,20 +948,20 @@ navbarPage(
                                          div(style = "margin-top: 24px;",
                                              fluidRow(
                                                column(6,
-                                                      div(style = "background: #FFF9E6; border-left: 4px solid #ec4899; 
-                                                padding: 20px; border-radius: 8px; height: 100%;",
+                                                      div(style = "background: #FFF9E6; border-left: 4px solid #f59e0b; 
+                                                    padding: 20px; border-radius: 8px; height: 100%;",
                                                           h4("Highest Risk Group", style = "color: #2C3E50; margin-top: 0;"),
                                                           p("Hispanic women experience the highest cervical cancer incidence rates, 
-                                           often due to barriers in accessing regular screening and preventive care.",
+                                               often due to barriers in accessing regular screening and preventive care.",
                                                             style = "color: #78350f; margin: 0; line-height: 1.6;")
                                                       )
                                                ),
                                                column(6,
                                                       div(style = "background: #E0F7FA; border-left: 4px solid #00838F; 
-                                                padding: 20px; border-radius: 8px; height: 100%;",
+                                                    padding: 20px; border-radius: 8px; height: 100%;",
                                                           h4("Prevention is Key", style = "color: #2C3E50; margin-top: 0;"),
                                                           p("Regular Pap tests and HPV vaccination significantly reduce cervical cancer 
-                                           risk across all populations when access barriers are addressed.",
+                                               risk across all populations when access barriers are addressed.",
                                                             style = "color: #004d5c; margin: 0; line-height: 1.6;")
                                                       )
                                                )
@@ -956,7 +976,7 @@ navbarPage(
                                  div(class = "cc-tab-content",
                                      div(style = "max-width: 1200px; margin: 0 auto;",
                                          div(style = "background: white; padding: 30px; border-radius: 12px; 
-                                   box-shadow: 0 2px 8px rgba(0,0,0,0.05);",
+                                       box-shadow: 0 2px 8px rgba(0,0,0,0.05);",
                                              
                                              h2("Top States by Cervical Cancer Rates",
                                                 style = "color: #2C3E50; margin-top: 0; margin-bottom: 8px;"),
@@ -981,9 +1001,9 @@ navbarPage(
                                                           hr(style = "border-color: #80DEEA;"),
                                                           
                                                           div(style = "background: white; padding: 15px; border-radius: 6px;",
-                                                              h4("Insight", style = "color: #00838F; margin-top: 0; font-size: 16px;"),
+                                                              h4("💡 Insight", style = "color: #00838F; margin-top: 0; font-size: 16px;"),
                                                               p("This chart ranks states by cervical cancer incidence rates, helping 
-                                               identify areas with the highest rates for targeted interventions.",
+                                                   identify areas with the highest rates for targeted interventions.",
                                                                 style = "color: #555; margin: 0; font-size: 14px; line-height: 1.6;")
                                                           )
                                                       )
@@ -995,12 +1015,12 @@ navbarPage(
                                          ),
                                          
                                          # Why This Matters
-                                         div(style = "margin-top: 24px; background: #FFF9E6; border-left: 4px solid #ec4899; 
-                                   padding: 20px; border-radius: 8px;",
+                                         div(style = "margin-top: 24px; background: #FFF9E6; border-left: 4px solid #f59e0b; 
+                                       padding: 20px; border-radius: 8px;",
                                              h4("Why This Matters", style = "color: #2C3E50; margin-top: 0;"),
                                              p("State-level data reveals where screening programs and HPV vaccination efforts need 
-                              strengthening. High-rate states benefit most from increased access to preventive care 
-                              and public health education.",
+                                  strengthening. High-rate states benefit most from increased access to preventive care 
+                                  and public health education.",
                                                style = "color: #78350f; margin: 0; line-height: 1.6;")
                                          )
                                      )
@@ -1008,7 +1028,7 @@ navbarPage(
                         )
                       )
              )
-  ),
+        ),
   
   # Sexual infections
   tabPanel("Sexual Infections",
