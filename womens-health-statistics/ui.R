@@ -441,14 +441,14 @@ navbarPage(
                                                   # Explore Data CTA
                                                   div(style = "margin-top: 40px; background: linear-gradient(135deg, #ec4899 100%, #f43f5e 0%); 
                             padding: 40px; border-radius: 12px; text-align: center;",
-                                             h3("Explore the Data", 
-                                                style = "color: white; margin: 0 0 16px 0; font-size: 28px;"),
-                                             p("Use the tabs above to dive deeper into state rankings, racial disparities, and geographic patterns.",
-                                               style = "color: #fce7f3; font-size: 16px; margin-bottom: 24px;"),
-                                             div(style = "display: flex; justify-content: center; gap: 16px; flex-wrap: wrap;",
-                                                 actionButton("bc_goto_state", "View By State",
-                                                              onclick = "setTimeout(function(){window.scrollTo({top: 0, behavior: 'smooth'});}, 150);",
-                                                              style = "background: rgba(255,255,255,0.2); color: white; border: 2px solid white; 
+                                                      h3("Explore the Data", 
+                                                         style = "color: white; margin: 0 0 16px 0; font-size: 28px;"),
+                                                      p("Use the tabs above to dive deeper into state rankings, racial disparities, and geographic patterns.",
+                                                        style = "color: #fce7f3; font-size: 16px; margin-bottom: 24px;"),
+                                                      div(style = "display: flex; justify-content: center; gap: 16px; flex-wrap: wrap;",
+                                                          actionButton("bc_goto_map", "View Map",
+                                                                       onclick = "setTimeout(function(){window.scrollTo({top: 0, behavior: 'smooth'});}, 150);",
+                                                                       style = "background: white; color: #ec4899; border: none; 
                  padding: 12px 32px; border-radius: 8px; font-weight: 600; 
                  cursor: pointer; font-size: 16px;"),
                                                           actionButton("bc_goto_race", "View By Race",
@@ -456,7 +456,7 @@ navbarPage(
                                                                        style = "background: rgba(255,255,255,0.2); color: white; border: 2px solid white; 
                  padding: 12px 32px; border-radius: 8px; font-weight: 600; 
                  cursor: pointer; font-size: 16px;"),
-                                                          actionButton("bc_goto_map", "View Map",
+                                                          actionButton("bc_goto_state", "View By State",
                                                                        onclick = "setTimeout(function(){window.scrollTo({top: 0, behavior: 'smooth'});}, 150);",
                                                                        style = "background: rgba(255,255,255,0.2); color: white; border: 2px solid white; 
                  padding: 12px 32px; border-radius: 8px; font-weight: 600; 
@@ -467,57 +467,53 @@ navbarPage(
                                           )
                                  ),
                                  
-                                 # BY STATE TAB
-                                 tabPanel("By State",
+                                 # MAP TAB
+                                 tabPanel("Map",
                                           div(class = "bc-tab-content",
-                                              div(style = "max-width: 1200px; margin: 0 auto;",
+                                              div(style = "max-width: 1400px; margin: 0 auto;",
                                                   div(style = "background: white; padding: 30px; border-radius: 12px; 
                             box-shadow: 0 2px 8px rgba(0,0,0,0.05);",
                                                       
-                                                      h2("States with Highest Breast Cancer Incidence",
+                                                      h2("Geographic Distribution of Breast Cancer",
                                                          style = "color: #2C3E50; margin-top: 0; margin-bottom: 8px;"),
-                                                      p("Identifying high-risk regions for targeted intervention and resource allocation",
+                                                      p("Interactive map showing breast cancer incidence rates across all 50 states",
                                                         style = "color: #6b7280; font-size: 16px; margin-bottom: 24px;"),
                                                       
                                                       fluidRow(
                                                         column(3,
                                                                div(style = "background: #fdf2f8; padding: 20px; border-radius: 8px;",
-                                                                   sliderInput("top_n",
-                                                                               "Number of states:",
-                                                                               min = 5,
-                                                                               max = 20,
-                                                                               value = 10,
-                                                                               step = 1),
-                                                                   
-                                                                   selectInput("rank_race",
-                                                                               "Select Race:",
-                                                                               choices = unique(breast_cancer_long$race),
+                                                                   selectInput("race_filter",
+                                                                               "Select Race/Ethnicity:",
+                                                                               choices = c("Overall"),
                                                                                selected = "Overall"),
                                                                    
                                                                    hr(style = "border-color: #fce7f3;"),
                                                                    
                                                                    div(style = "background: white; padding: 15px; border-radius: 6px;",
-                                                                       h4("Insight", style = "color: #ec4899; margin-top: 0; font-size: 16px;"),
-                                                                       p("Connecticut leads with 157.9 cases per 100,000 women. Adjust the slider 
-                                               to explore more states and filter by race to identify disparities.",
-                                                                         style = "color: #6b7280; margin: 0; font-size: 14px; line-height: 1.6;")
+                                                                       h4("Map Guide", style = "color: #ec4899; margin-top: 0; font-size: 16px;"),
+                                                                       tags$ul(
+                                                                         style = "color: #6b7280; line-height: 1.8; padding-left: 20px; margin: 0;",
+                                                                         tags$li("Hover over states for exact rates"),
+                                                                         tags$li("Change race filter to update map"),
+                                                                         tags$li("Darker colors = higher rates")
+                                                                       )
                                                                    )
                                                                )
                                                         ),
                                                         column(9,
-                                                               plotOutput("top_states_plot", height = "600px")
+                                                               leafletOutput("cancer_map", height = "600px")
                                                         )
                                                       )
                                                   ),
                                                   
-                                                  # Why This Matters
-                                                  div(style = "margin-top: 24px; background: #fef2f2; border-left: 4px solid #ec4899; 
-                            padding: 20px; border-radius: 8px;",
-                                                      h4("Why This Matters", style = "color: #2C3E50; margin-top: 0;"),
-                                                      p("Geographic clusters help public health officials prioritize resources, implement screening 
-                              initiatives, and investigate potential environmental or lifestyle factors contributing to 
-                              elevated rates.",
-                                                        style = "color: #6b7280; margin: 0; line-height: 1.6;")
+                                                  # Geographic Patterns
+                                                  div(style = "margin-top: 24px; background: #ec4899; 
+                            padding: 24px; border-radius: 8px;",
+                                                      h4("Geographic Patterns", style = "color: white; margin-top: 0;"),
+                                                      p("Northeastern states consistently show higher breast cancer incidence rates. These patterns 
+                              help public health officials prioritize resources and investigate potential environmental or 
+                              lifestyle factors.",
+                                                        style = "color: #fce7f3; margin: 0; line-height: 1.6;")
                                                   )
                                               )
                                           )
@@ -587,60 +583,64 @@ navbarPage(
                                           )
                                  ),
                                  
-                                 # MAP TAB
-                                 tabPanel("Map",
+                                 # BY STATE TAB
+                                 tabPanel("By State",
                                           div(class = "bc-tab-content",
-                                              div(style = "max-width: 1400px; margin: 0 auto;",
+                                              div(style = "max-width: 1200px; margin: 0 auto;",
                                                   div(style = "background: white; padding: 30px; border-radius: 12px; 
                             box-shadow: 0 2px 8px rgba(0,0,0,0.05);",
                                                       
-                                                      h2("Geographic Distribution of Breast Cancer",
+                                                      h2("States with Highest Breast Cancer Incidence",
                                                          style = "color: #2C3E50; margin-top: 0; margin-bottom: 8px;"),
-                                                      p("Interactive map showing breast cancer incidence rates across all 50 states",
+                                                      p("Identifying high-risk regions for targeted intervention and resource allocation",
                                                         style = "color: #6b7280; font-size: 16px; margin-bottom: 24px;"),
                                                       
                                                       fluidRow(
                                                         column(3,
                                                                div(style = "background: #fdf2f8; padding: 20px; border-radius: 8px;",
-                                                                   selectInput("race_filter",
-                                                                               "Select Race/Ethnicity:",
-                                                                               choices = c("Overall"),
+                                                                   sliderInput("top_n",
+                                                                               "Number of states:",
+                                                                               min = 5,
+                                                                               max = 20,
+                                                                               value = 10,
+                                                                               step = 1),
+                                                                   
+                                                                   selectInput("rank_race",
+                                                                               "Select Race:",
+                                                                               choices = unique(breast_cancer_long$race),
                                                                                selected = "Overall"),
                                                                    
                                                                    hr(style = "border-color: #fce7f3;"),
                                                                    
                                                                    div(style = "background: white; padding: 15px; border-radius: 6px;",
-                                                                       h4("Map Guide", style = "color: #ec4899; margin-top: 0; font-size: 16px;"),
-                                                                       tags$ul(
-                                                                         style = "color: #6b7280; line-height: 1.8; padding-left: 20px; margin: 0;",
-                                                                         tags$li("Hover over states for exact rates"),
-                                                                         tags$li("Change race filter to update map"),
-                                                                         tags$li("Darker colors = higher rates")
-                                                                       )
+                                                                       h4("Insight", style = "color: #ec4899; margin-top: 0; font-size: 16px;"),
+                                                                       p("Connecticut leads with 157.9 cases per 100,000 women. Adjust the slider 
+                                               to explore more states and filter by race to identify disparities.",
+                                                                         style = "color: #6b7280; margin: 0; font-size: 14px; line-height: 1.6;")
                                                                    )
                                                                )
                                                         ),
                                                         column(9,
-                                                               leafletOutput("cancer_map", height = "600px")
+                                                               plotOutput("top_states_plot", height = "600px")
                                                         )
                                                       )
                                                   ),
                                                   
-                                                  # Geographic Patterns
-                                                  div(style = "margin-top: 24px; background: #ec4899; 
-                            padding: 24px; border-radius: 8px;",
-                                                      h4("Geographic Patterns", style = "color: white; margin-top: 0;"),
-                                                      p("Northeastern states consistently show higher breast cancer incidence rates. These patterns 
-                              help public health officials prioritize resources and investigate potential environmental or 
-                              lifestyle factors.",
-                                                        style = "color: #fce7f3; margin: 0; line-height: 1.6;")
+                                                  # Why This Matters
+                                                  div(style = "margin-top: 24px; background: #fef2f2; border-left: 4px solid #ec4899; 
+                            padding: 20px; border-radius: 8px;",
+                                                      h4("Why This Matters", style = "color: #2C3E50; margin-top: 0;"),
+                                                      p("Geographic clusters help public health officials prioritize resources, implement screening 
+                              initiatives, and investigate potential environmental or lifestyle factors contributing to 
+                              elevated rates.",
+                                                        style = "color: #6b7280; margin: 0; line-height: 1.6;")
                                                   )
                                               )
                                           )
                                  )
                                )
                       )
-                    ),
+             ),
              
              # CERVICAL CANCER TAB
              tabPanel("Cervical Cancer",
@@ -1213,15 +1213,15 @@ navbarPage(
                                   div(style = "display: flex; justify-content: center; gap: 16px; flex-wrap: wrap;",
                                       actionButton("sti_goto_map", "View Map",
                                                    onclick = "setTimeout(function(){window.scrollTo({top: 0, behavior: 'smooth'});}, 150);",
-                                                   style = "background: rgba(255,255,255,0.2); color: white; border: 2px solid white; 
+                                                   style = "background: white; color: #9C27B0; border: none; 
                  padding: 12px 32px; border-radius: 8px; font-weight: 600; 
                  cursor: pointer; font-size: 16px;"),
-                                      actionButton("sti_goto_trends", "View Trends",
+                                      actionButton("sti_goto_race", "View By Race",
                                                    onclick = "setTimeout(function(){window.scrollTo({top: 0, behavior: 'smooth'});}, 150);",
                                                    style = "background: rgba(255,255,255,0.2); color: white; border: 2px solid white; 
                  padding: 12px 32px; border-radius: 8px; font-weight: 600; 
                  cursor: pointer; font-size: 16px;"),
-                                      actionButton("sti_goto_race", "View By Race",
+                                      actionButton("sti_goto_trends", "View Trends",
                                                    onclick = "setTimeout(function(){window.scrollTo({top: 0, behavior: 'smooth'});}, 150);",
                                                    style = "background: rgba(255,255,255,0.2); color: white; border: 2px solid white; 
                  padding: 12px 32px; border-radius: 8px; font-weight: 600; 
@@ -1291,6 +1291,57 @@ navbarPage(
                       )
              ),
              
+             # BY RACE TAB
+             tabPanel("By Race",
+                      div(style = "background: linear-gradient(135deg, #F3E5F5 0%, #E1BEE7 100%); 
+                               min-height: 100vh; padding: 40px 20px;",
+                          
+                          # Chart 2: One Disease by Race
+                          div(style = "background: white; padding: 30px;
+                                   border-radius: 15px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);",
+                              
+                              h2("STI Rates by Race",
+                                 style = "color: #2C3E50; margin-bottom: 20px;"),
+                              
+                              fluidRow(
+                                column(12,
+                                       p("Examine racial and ethnic disparities for a specific STI in your selected state.",
+                                         style = "color: #555; font-size: 16px; margin-bottom: 20px;")
+                                )
+                              ),
+                              
+                              sidebarLayout(
+                                sidebarPanel(
+                                  style = "background: #F3E5F5; border-radius: 10px; padding: 20px;",
+                                  
+                                  selectInput("sti_state2",
+                                              "Select State:",
+                                              choices = unique(syphilis$state),
+                                              selected = "United States"),
+                                  
+                                  selectInput("sti_disease",
+                                              "Select Disease:",
+                                              choices = c("chlamydia", "syphilis", "gonorrhea"),
+                                              selected = "syphilis"),
+                                  
+                                  hr(style = "border-color: #CE93D8;"),
+                                  
+                                  div(style = "background: white; padding: 15px; border-radius: 8px;",
+                                      h4("Understanding Disparities", style = "color: #2C3E50; margin-top: 0;"),
+                                      p("This chart demonstrates how different racial and ethnic groups
+                                      are disproportionately affected by STIs.",
+                                        style = "color: #555; margin: 0; font-size: 14px;")
+                                  )
+                                ),
+                                
+                                mainPanel(
+                                  plotOutput("sti_race_plot", height = "500px")
+                                )
+                              )
+                          )
+                      )
+             ),
+             
              # TRENDS TAB
              tabPanel("Trends",
                       div(style = "background: linear-gradient(135deg, #F3E5F5 0%, #E1BEE7 100%); 
@@ -1344,57 +1395,6 @@ navbarPage(
                                 
                                 mainPanel(
                                   plotOutput("sti_plot", height = "500px")
-                                )
-                              )
-                          )
-                      )
-             ),
-             
-             # BY RACE TAB
-             tabPanel("By Race",
-                      div(style = "background: linear-gradient(135deg, #F3E5F5 0%, #E1BEE7 100%); 
-                               min-height: 100vh; padding: 40px 20px;",
-                          
-                          # Chart 2: One Disease by Race
-                          div(style = "background: white; padding: 30px;
-                                   border-radius: 15px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);",
-                              
-                              h2("STI Rates by Race",
-                                 style = "color: #2C3E50; margin-bottom: 20px;"),
-                              
-                              fluidRow(
-                                column(12,
-                                       p("Examine racial and ethnic disparities for a specific STI in your selected state.",
-                                         style = "color: #555; font-size: 16px; margin-bottom: 20px;")
-                                )
-                              ),
-                              
-                              sidebarLayout(
-                                sidebarPanel(
-                                  style = "background: #F3E5F5; border-radius: 10px; padding: 20px;",
-                                  
-                                  selectInput("sti_state2",
-                                              "Select State:",
-                                              choices = unique(syphilis$state),
-                                              selected = "United States"),
-                                  
-                                  selectInput("sti_disease",
-                                              "Select Disease:",
-                                              choices = c("chlamydia", "syphilis", "gonorrhea"),
-                                              selected = "syphilis"),
-                                  
-                                  hr(style = "border-color: #CE93D8;"),
-                                  
-                                  div(style = "background: white; padding: 15px; border-radius: 8px;",
-                                      h4("Understanding Disparities", style = "color: #2C3E50; margin-top: 0;"),
-                                      p("This chart demonstrates how different racial and ethnic groups
-                                      are disproportionately affected by STIs.",
-                                        style = "color: #555; margin: 0; font-size: 14px;")
-                                  )
-                                ),
-                                
-                                mainPanel(
-                                  plotOutput("sti_race_plot", height = "500px")
                                 )
                               )
                           )
