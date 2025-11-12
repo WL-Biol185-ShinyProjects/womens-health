@@ -17,6 +17,14 @@ gonorrhea <- read.csv("gonorrhea_long.csv")
 mortality_race_long <- read.csv("mortality_race_long.csv")
 infant_mortality_long <- read.csv("infant_mortality_long.csv")
 
+breast_rate_clean <- read.csv("breast_rate_clean.csv")
+cervical_rate_clean <- read.csv("cervical_rate_clean.csv")
+syphilis_rate_clean <- read.csv("syphilis_rate_clean.csv")
+gonorrhea_rate_clean <- read.csv("gonorrhea_rate_clean.csv")
+chlamydia_rate_clean <- read.csv("chlamydia_rate_clean.csv")
+mortality_race <- read.csv("mortality_race.csv")
+infant_death_rate_clean <- read.csv("infant_death_rate_clean.csv")
+
 
 
 server <- function(input, output, session) {
@@ -1308,15 +1316,16 @@ server <- function(input, output, session) {
   }, bg = "white")
   
   
-  
   # Reactive dataset based on user selection
   selected_dataset <- reactive({
     switch(input$dataset_choice,
-           "breast_cancer" = breast_cancer_long,
-           "cervical_cancer" = cervical_cancer_long,  
-           "std_data" = sex_infect_years,  
-           "infant_mortality" = infant_mortality_long, 
-           "maternal_mortality" = mortality_race_long  
+           "breast_rate" = breast_rate_clean,
+           "cervical_rate" = cervical_rate_clean,
+           "syphilis_rate" = syphilis_rate_clean,
+           "gonorrhea_rate" = gonorrhea_rate_clean,
+           "chlamydia_rate" = chlamydia_rate_clean,
+           "mortality_race" = mortality_race,
+           "infant_death_rate" = infant_death_rate_clean
     )
   })
   
@@ -1325,11 +1334,13 @@ server <- function(input, output, session) {
     data <- selected_dataset()
     
     info_text <- switch(input$dataset_choice,
-                        "breast_cancer" = "Breast cancer incidence rates by state and race/ethnicity.",
-                        "cervical_cancer" = "Cervical cancer incidence rates across different demographics.",
-                        "std_data" = "Sexually transmitted disease rates and statistics.",
-                        "infant_mortality" = "Infant mortality rates by state and demographic factors.",
-                        "maternal_mortality" = "Maternal mortality rates and related health outcomes."
+                        "breast_rate" = "Breast cancer incidence rates by state and demographics.",
+                        "cervical_rate" = "Cervical cancer incidence rates across different populations.",
+                        "syphilis_rate" = "Syphilis infection rates and statistics.",
+                        "gonorrhea_rate" = "Gonorrhea infection rates and statistics.",
+                        "chlamydia_rate" = "Chlamydia infection rates and statistics.",
+                        "mortality_race" = "Maternal mortality rates by race and ethnicity.",
+                        "infant_death_rate" = "Infant mortality rates by state and demographic factors."
     )
     
     tagList(
@@ -1365,5 +1376,4 @@ server <- function(input, output, session) {
       write.csv(selected_dataset(), file, row.names = FALSE)
     }
   )
-  
 }

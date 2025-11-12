@@ -19,6 +19,14 @@ maternal_mortality <- read.csv("mortality_year_long.csv")
 mortality_race_long <- read.csv("mortality_race_long.csv")
 infant_mortality_long <- read.csv("infant_mortality_long.csv")
 
+breast_rate_clean <- read.csv("breast_rate_clean.csv")
+cervical_rate_clean <- read.csv("cervical_rate_clean.csv")
+syphilis_rate_clean <- read.csv("syphilis_rate_clean.csv")
+gonorrhea_rate_clean <- read.csv("gonorrhea_rate_clean.csv")
+chlamydia_rate_clean <- read.csv("chlamydia_rate_clean.csv")
+mortality_race <- read.csv("mortality_race.csv")
+infant_death_rate_clean <- read.csv("infant_death_rate_clean.csv")
+
 
 navbarPage(
   title = "Women's Health in the United States",
@@ -1485,13 +1493,15 @@ navbarPage(
                        selectInput("dataset_choice",
                                    "Choose a dataset:",
                                    choices = c(
-                                     "Breast Cancer Data" = "breast_cancer",
-                                     "Cervical Cancer Data" = "cervical_cancer",
-                                     "STD Data" = "std_data",
-                                     "Infant Mortality Data" = "infant_mortality",
-                                     "Maternal Mortality Data" = "maternal_mortality"
+                                     "Breast Cancer Rates" = "breast_rate",
+                                     "Cervical Cancer Rates" = "cervical_rate",
+                                     "Syphilis Rates" = "syphilis_rate",
+                                     "Gonorrhea Rates" = "gonorrhea_rate",
+                                     "Chlamydia Rates" = "chlamydia_rate",
+                                     "Maternal Mortality by Race" = "mortality_race",
+                                     "Infant Death Rates" = "infant_death_rate"
                                    ),
-                                   selected = "breast_cancer"),
+                                   selected = "breast_rate"),
                        
                        hr(style = "border-color: #BDBDBD;"),
                        
