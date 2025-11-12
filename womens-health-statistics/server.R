@@ -1379,4 +1379,89 @@ server <- function(input, output, session) {
       write.csv(selected_dataset(), file, row.names = FALSE)
     }
   )
+  
+  #BREAST CANCER TAB NAVIGATION
+  observeEvent(input$bc_goto_state, {
+    updateTabsetPanel(session, "bc_tabs", selected = "By State")
+  })
+  
+  observeEvent(input$bc_goto_race, {
+    updateTabsetPanel(session, "bc_tabs", selected = "By Race")
+  })
+  
+  observeEvent(input$bc_goto_map, {
+    updateTabsetPanel(session, "bc_tabs", selected = "Map")
+  })
+  
+  #CERVICAL CANCER TAB NAVIGATION
+  observeEvent(input$cc_goto_map, {
+    updateTabsetPanel(session, "cc_tabs", selected = "Map")
+  })
+  
+  observeEvent(input$cc_goto_race, {
+    updateTabsetPanel(session, "cc_tabs", selected = "By Race")
+  })
+  
+  observeEvent(input$cc_goto_state, {
+    updateTabsetPanel(session, "cc_tabs", selected = "By State")
+  })
+  
+  #STI TAB NAVIGATION
+  observeEvent(input$sti_goto_map, {
+    updateTabsetPanel(session, "sti_tabs", selected = "Map")
+  })
+  
+  observeEvent(input$sti_goto_trends, {
+    updateTabsetPanel(session, "sti_tabs", selected = "Trends")
+  })
+  
+  observeEvent(input$sti_goto_race, {
+    updateTabsetPanel(session, "sti_tabs", selected = "By Race")
+  })
+  
+  # MATERNAL-INFANT TAB NAVIGATION
+  observeEvent(input$mi_goto_map, {
+    updateTabsetPanel(session, "mi_tabs", selected = "Map")
+  })
+  
+  observeEvent(input$mi_goto_equity, {
+    updateTabsetPanel(session, "mi_tabs", selected = "Health Equity")
+  })
+  
+  observeEvent(input$mi_goto_distribution, {
+    updateTabsetPanel(session, "mi_tabs", selected = "Distribution")
+  })
+  
+  #INSIGHTS TAB NAVIGATION
+  observeEvent(input$insights_goto_cancer, {
+    updateTabsetPanel(session, "insights_tabs", selected = "Cancer & STI")
+  })
+  
+  observeEvent(input$insights_goto_maternal, {
+    updateTabsetPanel(session, "insights_tabs", selected = "Maternal Mortality")
+  })
+  
+  observeEvent(input$insights_goto_infant, {
+    updateTabsetPanel(session, "insights_tabs", selected = "Infant Mortality")
+  })
+  
+  #RESOURCES TAB NAVIGATION
+  observeEvent(input$resources_goto_cancer, {
+    updateTabsetPanel(session, "resources_tabs", selected = "Cancer Screening")
+  })
+  
+  observeEvent(input$resources_goto_sti, {
+    updateTabsetPanel(session, "resources_tabs", selected = "STI Testing")
+  })
+  
+  observeEvent(input$resources_goto_maternal, {
+    updateTabsetPanel(session, "resources_tabs", selected = "Maternal Health")
+  })
+  
+  #DATA TAB NAVIGATION 
+  observeEvent(input$data_goto_browse, {
+    updateTabsetPanel(session, "data_tabs", selected = "Browse Datasets")
+  })
+  
+  
 }

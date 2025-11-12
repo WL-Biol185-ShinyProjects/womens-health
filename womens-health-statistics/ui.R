@@ -445,21 +445,18 @@ navbarPage(
                                              p("Use the tabs above to dive deeper into state rankings, racial disparities, and geographic patterns.",
                                                style = "color: #fce7f3; font-size: 16px; margin-bottom: 24px;"),
                                              div(style = "display: flex; justify-content: center; gap: 16px; flex-wrap: wrap;",
-                                                 tags$button("View By State", 
-                                                             onclick = "$('#bc_tabs a[href=\"#shiny-tab-by_state\"]').tab('show');",
-                                                             style = "background: white; color: #ec4899; border: none; 
-                                           padding: 12px 32px; border-radius: 8px; font-weight: 600; 
-                                           cursor: pointer; font-size: 16px;"),
-                                                 tags$button("View By Race",
-                                                             onclick = "$('#bc_tabs a[href=\"#shiny-tab-by_race\"]').tab('show');",
-                                                             style = "background: rgba(255,255,255,0.2); color: white; border: 2px solid white; 
-                                           padding: 12px 32px; border-radius: 8px; font-weight: 600; 
-                                           cursor: pointer; font-size: 16px;"),
-                                                 tags$button("View Map",
-                                                             onclick = "$('#bc_tabs a[href=\"#shiny-tab-map\"]').tab('show');",
-                                                             style = "background: rgba(255,255,255,0.2); color: white; border: 2px solid white; 
-                                           padding: 12px 32px; border-radius: 8px; font-weight: 600; 
-                                           cursor: pointer; font-size: 16px;")
+                                                 actionButton("bc_goto_state", "View By State",
+                                                              style = "background: white; color: #ec4899; border: none; 
+                 padding: 12px 32px; border-radius: 8px; font-weight: 600; 
+                 cursor: pointer; font-size: 16px;"),
+                                                 actionButton("bc_goto_race", "View By Race",
+                                                              style = "background: rgba(255,255,255,0.2); color: white; border: 2px solid white; 
+                 padding: 12px 32px; border-radius: 8px; font-weight: 600; 
+                 cursor: pointer; font-size: 16px;"),
+                                                 actionButton("bc_goto_map", "View Map",
+                                                              style = "background: rgba(255,255,255,0.2); color: white; border: 2px solid white; 
+                 padding: 12px 32px; border-radius: 8px; font-weight: 600; 
+                 cursor: pointer; font-size: 16px;")
                                              )
                                          )
                                      )
@@ -833,21 +830,21 @@ navbarPage(
                                              p("Use the tabs above to dive deeper into state rankings, racial disparities, and geographic patterns.",
                                                style = "color: #E0F7FA; font-size: 16px; margin-bottom: 24px;"),
                                              div(style = "display: flex; justify-content: center; gap: 16px; flex-wrap: wrap;",
-                                                 tags$button("View Map", 
-                                                             onclick = "$('#cc_tabs a[href=\"#shiny-tab-map\"]').tab('show');",
-                                                             style = "background: white; color: #00838F; border: none; 
-                                                       padding: 12px 32px; border-radius: 8px; font-weight: 600; 
-                                                       cursor: pointer; font-size: 16px;"),
-                                                 tags$button("View By Race",
-                                                             onclick = "$('#cc_tabs a[href=\"#shiny-tab-by_race\"]').tab('show');",
-                                                             style = "background: rgba(255,255,255,0.2); color: white; border: 2px solid white; 
-                                                       padding: 12px 32px; border-radius: 8px; font-weight: 600; 
-                                                       cursor: pointer; font-size: 16px;"),
-                                                 tags$button("View By State",
-                                                             onclick = "$('#cc_tabs a[href=\"#shiny-tab-by_state\"]').tab('show');",
-                                                             style = "background: rgba(255,255,255,0.2); color: white; border: 2px solid white; 
-                                                       padding: 12px 32px; border-radius: 8px; font-weight: 600; 
-                                                       cursor: pointer; font-size: 16px;")
+                                                 actionButton("cc_goto_map", "View Map",
+                                                              onclick = "setTimeout(function(){window.scrollTo({top: 0, behavior: 'smooth'});}, 150);",
+                                                              style = "background: white; color: #00838F; border: none; 
+                 padding: 12px 32px; border-radius: 8px; font-weight: 600; 
+                 cursor: pointer; font-size: 16px;"),
+                                                 actionButton("cc_goto_race", "View By Race",
+                                                              onclick = "setTimeout(function(){window.scrollTo({top: 0, behavior: 'smooth'});}, 150);",
+                                                              style = "background: rgba(255,255,255,0.2); color: white; border: 2px solid white; 
+                 padding: 12px 32px; border-radius: 8px; font-weight: 600; 
+                 cursor: pointer; font-size: 16px;"),
+                                                 actionButton("cc_goto_state", "View Rankings",
+                                                              onclick = "setTimeout(function(){window.scrollTo({top: 0, behavior: 'smooth'});}, 150);",
+                                                              style = "background: rgba(255,255,255,0.2); color: white; border: 2px solid white; 
+                 padding: 12px 32px; border-radius: 8px; font-weight: 600; 
+                 cursor: pointer; font-size: 16px;")
                                              )
                                          )
                                      )
@@ -1209,21 +1206,18 @@ navbarPage(
                                   p("Use the tabs above to explore maps, trends over time, and racial disparities.",
                                     style = "color: #F3E5F5; font-size: 16px; margin-bottom: 24px;"),
                                   div(style = "display: flex; justify-content: center; gap: 16px; flex-wrap: wrap;",
-                                      tags$button("View Map", 
-                                                  onclick = "$('#sti_tabs a[href=\"#shiny-tab-map\"]').tab('show');",
-                                                  style = "background: white; color: #9C27B0; border: none; 
-                                                       padding: 12px 32px; border-radius: 8px; font-weight: 600; 
-                                                       cursor: pointer; font-size: 16px;"),
-                                      tags$button("View Trends",
-                                                  onclick = "$('#sti_tabs a[href=\"#shiny-tab-trends\"]').tab('show');",
-                                                  style = "background: rgba(255,255,255,0.2); color: white; border: 2px solid white; 
-                                                       padding: 12px 32px; border-radius: 8px; font-weight: 600; 
-                                                       cursor: pointer; font-size: 16px;"),
-                                      tags$button("View By Race",
-                                                  onclick = "$('#sti_tabs a[href=\"#shiny-tab-by_race\"]').tab('show');",
-                                                  style = "background: rgba(255,255,255,0.2); color: white; border: 2px solid white; 
-                                                       padding: 12px 32px; border-radius: 8px; font-weight: 600; 
-                                                       cursor: pointer; font-size: 16px;")
+                                      actionButton("sti_goto_map", "View Map",
+                                                   style = "background: white; color: #9C27B0; border: none; 
+                 padding: 12px 32px; border-radius: 8px; font-weight: 600; 
+                 cursor: pointer; font-size: 16px;"),
+                                      actionButton("sti_goto_trends", "View Trends",
+                                                   style = "background: rgba(255,255,255,0.2); color: white; border: 2px solid white; 
+                 padding: 12px 32px; border-radius: 8px; font-weight: 600; 
+                 cursor: pointer; font-size: 16px;"),
+                                      actionButton("sti_goto_race", "View By Race",
+                                                   style = "background: rgba(255,255,255,0.2); color: white; border: 2px solid white; 
+                 padding: 12px 32px; border-radius: 8px; font-weight: 600; 
+                 cursor: pointer; font-size: 16px;")
                                   )
                               )
                           )
@@ -1591,21 +1585,19 @@ navbarPage(
                                   p("Use the tabs above to explore maps, health equity analysis, and mortality distributions.",
                                     style = "color: #FFEBEE; font-size: 16px; margin-bottom: 24px;"),
                                   div(style = "display: flex; justify-content: center; gap: 16px; flex-wrap: wrap;",
-                                      tags$button("View Map", 
-                                                  onclick = "$('#mi_tabs a[href=\"#shiny-tab-map\"]').tab('show');",
-                                                  style = "background: white; color: #D32F2F; border: none; 
-                                                   padding: 12px 32px; border-radius: 8px; font-weight: 600; 
-                                                   cursor: pointer; font-size: 16px;"),
-                                      tags$button("Health Equity Analysis",
-                                                  onclick = "$('#mi_tabs a[href=\"#shiny-tab-health_equity\"]').tab('show');",
-                                                  style = "background: rgba(255,255,255,0.2); color: white; border: 2px solid white; 
-                                                   padding: 12px 32px; border-radius: 8px; font-weight: 600; 
-                                                   cursor: pointer; font-size: 16px;"),
-                                      tags$button("View Distribution",
-                                                  onclick = "$('#mi_tabs a[href=\"#shiny-tab-distribution\"]').tab('show');",
-                                                  style = "background: rgba(255,255,255,0.2); color: white; border: 2px solid white; 
-                                                   padding: 12px 32px; border-radius: 8px; font-weight: 600; 
-                                                   cursor: pointer; font-size: 16px;")
+                                      actionButton("mi_goto_map", "View Map",
+                                                   style = "background: white; color: #D32F2F; border: none; 
+                 padding: 12px 32px; border-radius: 8px; font-weight: 600; 
+                 cursor: pointer; font-size: 16px;"),
+                                      actionButton("mi_goto_equity", "Health Equity Analysis",
+                                                   style = "background: rgba(255,255,255,0.2); color: white; border: 2px solid white; 
+                 padding: 12px 32px; border-radius: 8px; font-weight: 600; 
+                 cursor: pointer; font-size: 16px;"),
+                                      actionButton("mi_goto_distribution", "View Distribution",
+                                                   style = "background: rgba(255,255,255,0.2); color: white; border: 2px solid white; 
+                 padding: 12px 32px; border-radius: 8px; font-weight: 600; 
+                 cursor: pointer; font-size: 16px;")
+                                      
                                   )
                               )
                           )
@@ -1945,21 +1937,18 @@ navbarPage(
                                   p("Use the tabs above to explore specific correlations and relationships in the data.",
                                     style = "color: #EDE7F6; font-size: 16px; margin-bottom: 24px;"),
                                   div(style = "display: flex; justify-content: center; gap: 16px; flex-wrap: wrap;",
-                                      tags$button("Cancer & STI", 
-                                                  onclick = "$('#insights_tabs a[href=\"#shiny-tab-cancer___sti\"]').tab('show');",
-                                                  style = "background: white; color: #5E35B1; border: none; 
-                                                       padding: 12px 32px; border-radius: 8px; font-weight: 600; 
-                                                       cursor: pointer; font-size: 16px;"),
-                                      tags$button("Maternal Mortality",
-                                                  onclick = "$('#insights_tabs a[href=\"#shiny-tab-maternal_mortality\"]').tab('show');",
-                                                  style = "background: rgba(255,255,255,0.2); color: white; border: 2px solid white; 
-                                                       padding: 12px 32px; border-radius: 8px; font-weight: 600; 
-                                                       cursor: pointer; font-size: 16px;"),
-                                      tags$button("Infant Mortality",
-                                                  onclick = "$('#insights_tabs a[href=\"#shiny-tab-infant_mortality\"]').tab('show');",
-                                                  style = "background: rgba(255,255,255,0.2); color: white; border: 2px solid white; 
-                                                       padding: 12px 32px; border-radius: 8px; font-weight: 600; 
-                                                       cursor: pointer; font-size: 16px;")
+                                      actionButton("insights_goto_cancer", "Cancer & STI",
+                                                   style = "background: white; color: #5E35B1; border: none; 
+                 padding: 12px 32px; border-radius: 8px; font-weight: 600; 
+                 cursor: pointer; font-size: 16px;"),
+                                      actionButton("insights_goto_maternal", "Maternal Mortality",
+                                                   style = "background: rgba(255,255,255,0.2); color: white; border: 2px solid white; 
+                 padding: 12px 32px; border-radius: 8px; font-weight: 600; 
+                 cursor: pointer; font-size: 16px;"),
+                                      actionButton("insights_goto_infant", "Infant Mortality",
+                                                   style = "background: rgba(255,255,255,0.2); color: white; border: 2px solid white; 
+                 padding: 12px 32px; border-radius: 8px; font-weight: 600; 
+                 cursor: pointer; font-size: 16px;")
                                   )
                               )
                           )
@@ -2262,11 +2251,10 @@ navbarPage(
                                   p("Click the button below to browse and download our datasets.",
                                     style = "color: #E8EAF6; font-size: 16px; margin-bottom: 24px;"),
                                   div(style = "display: flex; justify-content: center;",
-                                      tags$button("Browse Datasets", 
-                                                  onclick = "$('#data_tabs a[href=\"#shiny-tab-browse_datasets\"]').tab('show');",
-                                                  style = "background: white; color: #5C6BC0; border: none; 
-                                                       padding: 12px 32px; border-radius: 8px; font-weight: 600; 
-                                                       cursor: pointer; font-size: 16px;")
+                                      actionButton("data_goto_browse", "Browse Datasets",
+                                                   style = "background: white; color: #5C6BC0; border: none; 
+                 padding: 12px 32px; border-radius: 8px; font-weight: 600; 
+                 cursor: pointer; font-size: 16px;")
                                   )
                               )
                           )
@@ -2491,21 +2479,18 @@ navbarPage(
                                   p("Use the tabs above to access specific health resources and information.",
                                     style = "color: #EDE7F6; font-size: 16px; margin-bottom: 24px;"),
                                   div(style = "display: flex; justify-content: center; gap: 16px; flex-wrap: wrap;",
-                                      tags$button("Cancer Screening", 
-                                                  onclick = "$('#resources_tabs a[href=\"#shiny-tab-cancer_screening\"]').tab('show');",
-                                                  style = "background: white; color: #7B68EE; border: none; 
-                                                       padding: 12px 32px; border-radius: 8px; font-weight: 600; 
-                                                       cursor: pointer; font-size: 16px;"),
-                                      tags$button("STI Testing",
-                                                  onclick = "$('#resources_tabs a[href=\"#shiny-tab-sti_testing\"]').tab('show');",
-                                                  style = "background: rgba(255,255,255,0.2); color: white; border: 2px solid white; 
-                                                       padding: 12px 32px; border-radius: 8px; font-weight: 600; 
-                                                       cursor: pointer; font-size: 16px;"),
-                                      tags$button("Maternal Health",
-                                                  onclick = "$('#resources_tabs a[href=\"#shiny-tab-maternal_health\"]').tab('show');",
-                                                  style = "background: rgba(255,255,255,0.2); color: white; border: 2px solid white; 
-                                                       padding: 12px 32px; border-radius: 8px; font-weight: 600; 
-                                                       cursor: pointer; font-size: 16px;")
+                                      actionButton("resources_goto_cancer", "Cancer Screening",
+                                                   style = "background: white; color: #7B68EE; border: none; 
+                 padding: 12px 32px; border-radius: 8px; font-weight: 600; 
+                 cursor: pointer; font-size: 16px;"),
+                                      actionButton("resources_goto_sti", "STI Testing",
+                                                   style = "background: rgba(255,255,255,0.2); color: white; border: 2px solid white; 
+                 padding: 12px 32px; border-radius: 8px; font-weight: 600; 
+                 cursor: pointer; font-size: 16px;"),
+                                      actionButton("resources_goto_maternal", "Maternal Health",
+                                                   style = "background: rgba(255,255,255,0.2); color: white; border: 2px solid white; 
+                 padding: 12px 32px; border-radius: 8px; font-weight: 600; 
+                 cursor: pointer; font-size: 16px;")
                                   )
                               )
                           )
