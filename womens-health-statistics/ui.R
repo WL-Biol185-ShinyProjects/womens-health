@@ -446,14 +446,17 @@ navbarPage(
                                                style = "color: #fce7f3; font-size: 16px; margin-bottom: 24px;"),
                                              div(style = "display: flex; justify-content: center; gap: 16px; flex-wrap: wrap;",
                                                  actionButton("bc_goto_state", "View By State",
+                                                              onclick = "setTimeout(function(){window.scrollTo({top: 0, behavior: 'smooth'});}, 150);",
                                                               style = "background: white; color: #ec4899; border: none; 
                  padding: 12px 32px; border-radius: 8px; font-weight: 600; 
                  cursor: pointer; font-size: 16px;"),
                                                  actionButton("bc_goto_race", "View By Race",
+                                                              onclick = "setTimeout(function(){window.scrollTo({top: 0, behavior: 'smooth'});}, 150);",
                                                               style = "background: rgba(255,255,255,0.2); color: white; border: 2px solid white; 
                  padding: 12px 32px; border-radius: 8px; font-weight: 600; 
                  cursor: pointer; font-size: 16px;"),
                                                  actionButton("bc_goto_map", "View Map",
+                                                              onclick = "setTimeout(function(){window.scrollTo({top: 0, behavior: 'smooth'});}, 150);",
                                                               style = "background: rgba(255,255,255,0.2); color: white; border: 2px solid white; 
                  padding: 12px 32px; border-radius: 8px; font-weight: 600; 
                  cursor: pointer; font-size: 16px;")
@@ -1025,7 +1028,7 @@ navbarPage(
                         )
                       )
              )
-        ),
+  ),
   
   # Sexual infections
   tabPanel("Sexual Infections",
@@ -1207,14 +1210,17 @@ navbarPage(
                                     style = "color: #F3E5F5; font-size: 16px; margin-bottom: 24px;"),
                                   div(style = "display: flex; justify-content: center; gap: 16px; flex-wrap: wrap;",
                                       actionButton("sti_goto_map", "View Map",
+                                                   onclick = "setTimeout(function(){window.scrollTo({top: 0, behavior: 'smooth'});}, 150);",
                                                    style = "background: white; color: #9C27B0; border: none; 
                  padding: 12px 32px; border-radius: 8px; font-weight: 600; 
                  cursor: pointer; font-size: 16px;"),
                                       actionButton("sti_goto_trends", "View Trends",
+                                                   onclick = "setTimeout(function(){window.scrollTo({top: 0, behavior: 'smooth'});}, 150);",
                                                    style = "background: rgba(255,255,255,0.2); color: white; border: 2px solid white; 
                  padding: 12px 32px; border-radius: 8px; font-weight: 600; 
                  cursor: pointer; font-size: 16px;"),
                                       actionButton("sti_goto_race", "View By Race",
+                                                   onclick = "setTimeout(function(){window.scrollTo({top: 0, behavior: 'smooth'});}, 150);",
                                                    style = "background: rgba(255,255,255,0.2); color: white; border: 2px solid white; 
                  padding: 12px 32px; border-radius: 8px; font-weight: 600; 
                  cursor: pointer; font-size: 16px;")
@@ -1586,14 +1592,17 @@ navbarPage(
                                     style = "color: #FFEBEE; font-size: 16px; margin-bottom: 24px;"),
                                   div(style = "display: flex; justify-content: center; gap: 16px; flex-wrap: wrap;",
                                       actionButton("mi_goto_map", "View Map",
+                                                   onclick = "setTimeout(function(){window.scrollTo({top: 0, behavior: 'smooth'});}, 150);",
                                                    style = "background: white; color: #D32F2F; border: none; 
                  padding: 12px 32px; border-radius: 8px; font-weight: 600; 
                  cursor: pointer; font-size: 16px;"),
                                       actionButton("mi_goto_equity", "Health Equity Analysis",
+                                                   onclick = "setTimeout(function(){window.scrollTo({top: 0, behavior: 'smooth'});}, 150);",
                                                    style = "background: rgba(255,255,255,0.2); color: white; border: 2px solid white; 
                  padding: 12px 32px; border-radius: 8px; font-weight: 600; 
                  cursor: pointer; font-size: 16px;"),
                                       actionButton("mi_goto_distribution", "View Distribution",
+                                                   onclick = "setTimeout(function(){window.scrollTo({top: 0, behavior: 'smooth'});}, 150);",
                                                    style = "background: rgba(255,255,255,0.2); color: white; border: 2px solid white; 
                  padding: 12px 32px; border-radius: 8px; font-weight: 600; 
                  cursor: pointer; font-size: 16px;")
@@ -1938,14 +1947,17 @@ navbarPage(
                                     style = "color: #EDE7F6; font-size: 16px; margin-bottom: 24px;"),
                                   div(style = "display: flex; justify-content: center; gap: 16px; flex-wrap: wrap;",
                                       actionButton("insights_goto_cancer", "Cancer & STI",
+                                                   onclick = "setTimeout(function(){window.scrollTo({top: 0, behavior: 'smooth'});}, 150);",
                                                    style = "background: white; color: #5E35B1; border: none; 
                  padding: 12px 32px; border-radius: 8px; font-weight: 600; 
                  cursor: pointer; font-size: 16px;"),
                                       actionButton("insights_goto_maternal", "Maternal Mortality",
+                                                   onclick = "setTimeout(function(){window.scrollTo({top: 0, behavior: 'smooth'});}, 150);",
                                                    style = "background: rgba(255,255,255,0.2); color: white; border: 2px solid white; 
                  padding: 12px 32px; border-radius: 8px; font-weight: 600; 
                  cursor: pointer; font-size: 16px;"),
                                       actionButton("insights_goto_infant", "Infant Mortality",
+                                                   onclick = "setTimeout(function(){window.scrollTo({top: 0, behavior: 'smooth'});}, 150);",
                                                    style = "background: rgba(255,255,255,0.2); color: white; border: 2px solid white; 
                  padding: 12px 32px; border-radius: 8px; font-weight: 600; 
                  cursor: pointer; font-size: 16px;")
@@ -2252,6 +2264,7 @@ navbarPage(
                                     style = "color: #E8EAF6; font-size: 16px; margin-bottom: 24px;"),
                                   div(style = "display: flex; justify-content: center;",
                                       actionButton("data_goto_browse", "Browse Datasets",
+                                                   onclick = "setTimeout(function(){window.scrollTo({top: 0, behavior: 'smooth'});}, 150);",
                                                    style = "background: white; color: #5C6BC0; border: none; 
                  padding: 12px 32px; border-radius: 8px; font-weight: 600; 
                  cursor: pointer; font-size: 16px;")
@@ -2480,14 +2493,17 @@ navbarPage(
                                     style = "color: #EDE7F6; font-size: 16px; margin-bottom: 24px;"),
                                   div(style = "display: flex; justify-content: center; gap: 16px; flex-wrap: wrap;",
                                       actionButton("resources_goto_cancer", "Cancer Screening",
+                                                   onclick = "setTimeout(function(){window.scrollTo({top: 0, behavior: 'smooth'});}, 150);",
                                                    style = "background: white; color: #7B68EE; border: none; 
                  padding: 12px 32px; border-radius: 8px; font-weight: 600; 
                  cursor: pointer; font-size: 16px;"),
                                       actionButton("resources_goto_sti", "STI Testing",
+                                                   onclick = "setTimeout(function(){window.scrollTo({top: 0, behavior: 'smooth'});}, 150);",
                                                    style = "background: rgba(255,255,255,0.2); color: white; border: 2px solid white; 
                  padding: 12px 32px; border-radius: 8px; font-weight: 600; 
                  cursor: pointer; font-size: 16px;"),
                                       actionButton("resources_goto_maternal", "Maternal Health",
+                                                   onclick = "setTimeout(function(){window.scrollTo({top: 0, behavior: 'smooth'});}, 150);",
                                                    style = "background: rgba(255,255,255,0.2); color: white; border: 2px solid white; 
                  padding: 12px 32px; border-radius: 8px; font-weight: 600; 
                  cursor: pointer; font-size: 16px;")
