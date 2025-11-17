@@ -443,8 +443,8 @@ navbarPage(
                                                       div(style = "display: flex; justify-content: center; gap: 16px; flex-wrap: wrap;",
                                                           actionButton("bc_goto_map", "View Map",
                                                                        onclick = "setTimeout(function(){window.scrollTo({top: 0, behavior: 'smooth'});}, 150);",
-                                                                       style = "background: white; color: #ec4899; border: none; 
-                 padding: 12px 32px; border-radius: 8px; font-weight: 600; 
+                                                                       style = "background: rgba(255,255,255,0.2); color: white; border: 2px solid white; 
+                 padding: 12px 32px; border-radius: 8px; font-weight: 600;
                  cursor: pointer; font-size: 16px;"),
                                                           actionButton("bc_goto_race", "View By Race",
                                                                        onclick = "setTimeout(function(){window.scrollTo({top: 0, behavior: 'smooth'});}, 150);",
@@ -1208,7 +1208,7 @@ navbarPage(
                                   div(style = "display: flex; justify-content: center; gap: 16px; flex-wrap: wrap;",
                                       actionButton("sti_goto_map", "View Map",
                                                    onclick = "setTimeout(function(){window.scrollTo({top: 0, behavior: 'smooth'});}, 150);",
-                                                   style = "background: white; color: #9C27B0; border: none; 
+                                                   style = "background: rgba(255,255,255,0.2); color: white; border: 2px solid white; 
                  padding: 12px 32px; border-radius: 8px; font-weight: 600; 
                  cursor: pointer; font-size: 16px;"),
                                       actionButton("sti_goto_race", "View By Race",
