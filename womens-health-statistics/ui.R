@@ -390,16 +390,11 @@ navbarPage(
                                 box-shadow: 0 2px 8px rgba(0,0,0,0.05);",
                                                           h2("About This Data", 
                                                              style = "color: #2C3E50; margin-top: 0; font-size: 28px; margin-bottom: 20px;"),
-                                                          p("Breast cancer is the most commonly diagnosed cancer in the United States and a leading 
-                                  cause of cancer-related deaths. While advances in screening, early detection, and treatment 
-                                  have improved survival rates, incidence and outcomes continue to vary widely across different 
-                                  populations and geographic regions.",
+                                                          p("Breast cancer is the most commonly diagnosed cancer in women in the United States and a leading cause of cancer-related deaths. 
+                                                            While advances in screening, early detection, and treatment have increased survival rates, incidence and outcomes continue to vary widely across different races and geographic regions.",
                                                             style = "color: #4b5563; font-size: 16px; line-height: 1.8; margin-bottom: 16px;"),
-                                                          p("This page provides an overview of breast cancer incidence rates by state and race, highlighting 
-                                  the patterns that reveal disparities in health outcomes. By analyzing this data, we can better 
-                                  understand how factors such as access to healthcare, socioeconomic conditions, genetics, and 
-                                  public health initiatives contribute to differences in breast cancer risk and detection across 
-                                  the United States.",
+                                                          p("This page provides an overview of breast cancer incidence rates by state and race, highlighting the patterns that reveal disparities in health outcomes. 
+                                                            By analyzing this data, we can better understand how different populations are affected by  breast cancer, as well as the risk and detection levels across the United States.",
                                                             style = "color: #4b5563; font-size: 16px; line-height: 1.8;")
                                                       )
                                                   ),
