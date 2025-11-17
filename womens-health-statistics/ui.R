@@ -407,8 +407,7 @@ navbarPage(
                                                                div(class = "insight-card",
                                                                    h4("Geographic Patterns", 
                                                                       style = "color: #2C3E50; margin-top: 0; font-size: 18px;"),
-                                                                   p("Northeastern states show consistently higher incidence rates, 
-                                           suggesting regional factors at play.",
+                                                                   p("Northeastern states show consistently higher incidence rates of breast cancer.",
                                                                      style = "color: #6b7280; margin: 0; font-size: 15px; line-height: 1.6;")
                                                                )
                                                         ),
@@ -416,8 +415,8 @@ navbarPage(
                                                                div(class = "insight-card",
                                                                    h4("Racial Disparities", 
                                                                       style = "color: #2C3E50; margin-top: 0; font-size: 18px;"),
-                                                                   p("While White women have highest overall rates, Black women face 
-                                           more aggressive disease at younger ages.",
+                                                                   p("White women (60.3% of female population) have highest overall breast cancer rates. 
+                                                                     Black women (15.5% of female population) have the second highest breast cancer rates.",
                                                                      style = "color: #6b7280; margin: 0; font-size: 15px; line-height: 1.6;")
                                                                )
                                                         ),
@@ -425,8 +424,8 @@ navbarPage(
                                                                div(class = "insight-card",
                                                                    h4("Intervention Priority", 
                                                                       style = "color: #2C3E50; margin-top: 0; font-size: 18px;"),
-                                                                   p("High-rate states benefit most from enhanced screening programs 
-                                           and targeted prevention efforts.",
+                                                                   p("High-rate states may benefit most from enhanced 
+                                                                     screening programs and targeted prevention efforts.",
                                                                      style = "color: #6b7280; margin: 0; font-size: 15px; line-height: 1.6;")
                                                                )
                                                         )
@@ -469,9 +468,9 @@ navbarPage(
                                                   div(style = "background: white; padding: 30px; border-radius: 12px; 
                             box-shadow: 0 2px 8px rgba(0,0,0,0.05);",
                                                       
-                                                      h2("Geographic Distribution of Breast Cancer",
+                                                      h2("Geographic Distribution of Breast Cancer Rates",
                                                          style = "color: #2C3E50; margin-top: 0; margin-bottom: 8px;"),
-                                                      p("Interactive map showing breast cancer incidence rates across all 50 states",
+                                                      p("Interactive map showing breast cancer incidence rates across all 50 states in the United States.",
                                                         style = "color: #6b7280; font-size: 16px; margin-bottom: 24px;"),
                                                       
                                                       fluidRow(
@@ -489,8 +488,8 @@ navbarPage(
                                                                        tags$ul(
                                                                          style = "color: #6b7280; line-height: 1.8; padding-left: 20px; margin: 0;",
                                                                          tags$li("Hover over states for exact rates"),
-                                                                         tags$li("Change race filter to update map"),
-                                                                         tags$li("Darker colors = higher rates")
+                                                                         tags$li("Change race filter to observe a specific group"),
+                                                                         tags$li("Darker colors equals higher rates")
                                                                        )
                                                                    )
                                                                )
@@ -501,13 +500,14 @@ navbarPage(
                                                       )
                                                   ),
                                                   
-                                                  # Geographic Patterns
+                                                  # Why this matters?
                                                   div(style = "margin-top: 24px; background: #ec4899; 
                             padding: 24px; border-radius: 8px;",
-                                                      h4("Geographic Patterns", style = "color: white; margin-top: 0;"),
-                                                      p("Northeastern states consistently show higher breast cancer incidence rates. These patterns 
-                              help public health officials prioritize resources and investigate potential environmental or 
-                              lifestyle factors.",
+                                                      h4("Public Health Focus", style = "color: white; margin-top: 0;"),
+                                                      p("Understanding where breast cancer incidence is highest helps public health 
+                                                        officials identify communities that may need more screening, education, and 
+                                                        access to care. Geographic differences can reveal health disparities across racial and 
+                                                        ethnic groups, guiding targeted interventions that can ultimately save lives.",
                                                         style = "color: #fce7f3; margin: 0; line-height: 1.6;")
                                                   )
                                               )
@@ -521,9 +521,10 @@ navbarPage(
                                                   div(style = "background: white; padding: 30px; border-radius: 12px; 
                             box-shadow: 0 2px 8px rgba(0,0,0,0.05);",
                                                       
-                                                      h2("Breast Cancer Incidence by Race and Ethnicity",
+                                                      h2("Breast Cancer Incidence by Race and State",
                                                          style = "color: #2C3E50; margin-top: 0; margin-bottom: 8px;"),
-                                                      p("Disparities across demographic groups reveal inequities in screening and outcomes",
+                                                      p("Demographic disparities highlight inequities in health care, treatment, and outcomes. 
+                                                        Examine the graph to identify and compare incident rates by race across all states.",
                                                         style = "color: #6b7280; font-size: 16px; margin-bottom: 24px;"),
                                                       
                                                       fluidRow(
@@ -540,7 +541,7 @@ navbarPage(
                                                                        h4("Understanding Disparities", 
                                                                           style = "color: #ec4899; margin-top: 0; font-size: 16px;"),
                                                                        p("Select a state to compare incidence rates across racial groups. 
-                                               The 'Overall' category shows the combined rate for all groups.",
+                                                                         The 'United States' category shows the combined rate for all states.",
                                                                          style = "color: #6b7280; margin: 0; font-size: 14px; line-height: 1.6;")
                                                                    )
                                                                )
@@ -558,8 +559,8 @@ navbarPage(
                                                                div(style = "background: #fef2f2; border-left: 4px solid #ec4899; 
                                          padding: 20px; border-radius: 8px; height: 100%;",
                                                                    h4("Highest Incidence", style = "color: #2C3E50; margin-top: 0;"),
-                                                                   p("White women have the highest overall incidence at 139.2 per 100,000, 
-                                           though rates vary by age and subtype.",
+                                                                   p("White women have the highest overall incidence at 139.2 per 100,000 
+                                                                   out of all the racial groups, but there is no clear explanation for why this is.",
                                                                      style = "color: #78350f; margin: 0; line-height: 1.6;")
                                                                )
                                                         ),
@@ -567,8 +568,9 @@ navbarPage(
                                                                div(style = "background: #fef2f2; border-left: 4px solid #ec4899; 
                                          padding: 20px; border-radius: 8px; height: 100%;",
                                                                    h4("Mortality Disparity", style = "color: #2C3E50; margin-top: 0;"),
-                                                                   p("Black women face higher mortality despite lower incidence, diagnosed at 
-                                           younger ages with more aggressive disease.",
+                                                                   p("Black women face higher breast cancer mortality rates despite lower incidence due to a combination of factors, 
+                                                                     including a higher likelihood of being diagnosed at a younger age and with more aggressive subtypes like triple-negative breast cancer, 
+                                                                     and later-stage diagnoses.",
                                                                      style = "color: #7f1d1d; margin: 0; line-height: 1.6;")
                                                                )
                                                         )
@@ -587,7 +589,8 @@ navbarPage(
                                                       
                                                       h2("States with Highest Breast Cancer Incidence",
                                                          style = "color: #2C3E50; margin-top: 0; margin-bottom: 8px;"),
-                                                      p("Identifying high-risk regions for targeted intervention and resource allocation",
+                                                      p("Identifying high-risk states for targeted intervention and resource allocation 
+                                                        based on the states presenting the highest incidence rates.",
                                                         style = "color: #6b7280; font-size: 16px; margin-bottom: 24px;"),
                                                       
                                                       fluidRow(
@@ -625,9 +628,9 @@ navbarPage(
                                                   div(style = "margin-top: 24px; background: #fef2f2; border-left: 4px solid #ec4899; 
                             padding: 20px; border-radius: 8px;",
                                                       h4("Why This Matters", style = "color: #2C3E50; margin-top: 0;"),
-                                                      p("Geographic clusters help public health officials prioritize resources, implement screening 
-                              initiatives, and investigate potential environmental or lifestyle factors contributing to 
-                              elevated rates.",
+                                                      p("Geographic clusters help public health officials prioritize resources, 
+                                                        implement screening initiatives, and investigate potential environmental or 
+                                                        lifestyle factors contributing to elevated rates.",
                                                         style = "color: #6b7280; margin: 0; line-height: 1.6;")
                                                   )
                                               )
@@ -747,7 +750,7 @@ navbarPage(
                                            column(4,
                                                   div(class = "cc-stat-card",
                                                       div(class = "cc-stat-label", "Most Affected Group"),
-                                                      div(class = "cc-stat-value", style = "font-size: 32px;", "Hispanic Women"),
+                                                      div(class = "cc-stat-value", style = "font-size: 32px;", "American Indian and Alaska Native"),
                                                       div(style = "color: #6b7280; font-size: 14px;", 
                                                           "Highest incidence rates")
                                                   )
@@ -776,14 +779,14 @@ navbarPage(
                                            box-shadow: 0 2px 8px rgba(0,0,0,0.05);",
                                                  h2("About This Data", 
                                                     style = "color: #2C3E50; margin-top: 0; font-size: 28px; margin-bottom: 20px;"),
-                                                 p("Cervical cancer is one of the most preventable cancers, yet it remains a significant 
-                                      health concern, particularly for certain populations. Regular screening through Pap tests 
-                                      and HPV testing can detect precancerous changes early, when treatment is most effective.",
+                                                 p("Cervical cancer is one of the most preventable cancers through HPV vaccination and early identification, 
+                                                   yet it remains a significant health concern, particularly for certain populations in the United States. 
+                                                   Regular screening through Pap tests and HPV testing can detect precancerous cells early, 
+                                                   when treatment is most effective.",
                                                    style = "color: #4b5563; font-size: 16px; line-height: 1.8; margin-bottom: 16px;"),
-                                                 p("This page provides an overview of cervical cancer incidence rates by state and race, 
-                                      revealing important disparities in screening access and health outcomes. Understanding 
-                                      these patterns helps target prevention efforts and improve access to life-saving screenings 
-                                      in underserved communities.",
+                                                 p("This page provides an overview of cervical cancer incidence rates by state and race, revealing important 
+                                                   disparities in screening access and health outcomes. Understanding these patterns helps target prevention 
+                                                   efforts and improve access to life-saving screenings in underserved communities.",
                                                    style = "color: #4b5563; font-size: 16px; line-height: 1.8;")
                                              )
                                          ),
@@ -796,8 +799,8 @@ navbarPage(
                                                       div(class = "cc-insight-card",
                                                           h4("Racial Disparities", 
                                                              style = "color: #2C3E50; margin-top: 0; font-size: 18px;"),
-                                                          p("Hispanic women have the highest cervical cancer incidence rates, 
-                                               highlighting screening access gaps.",
+                                                          p("American Indian and Alaska Native women, followed by Hispanic women, have the highest 
+                                                            cervical cancer incidence rates, highlighting screening access gaps.",
                                                             style = "color: #555; margin: 0; font-size: 15px; line-height: 1.6;")
                                                       )
                                                ),
@@ -814,8 +817,8 @@ navbarPage(
                                                       div(class = "cc-insight-card",
                                                           h4("Geographic Variation", 
                                                              style = "color: #2C3E50; margin-top: 0; font-size: 18px;"),
-                                                          p("Rates vary significantly by state, reflecting differences in screening 
-                                               programs and healthcare access.",
+                                                          p("Rates vary significantly by state with overwhelming lack of data for marginalized populations, 
+                                                            reflecting differences in screening programs and healthcare access.",
                                                             style = "color: #555; margin: 0; font-size: 15px; line-height: 1.6;")
                                                       )
                                                )
@@ -880,7 +883,7 @@ navbarPage(
                                                                 style = "color: #555; line-height: 1.8; padding-left: 20px; margin: 0;",
                                                                 tags$li("Hover over states for exact rates"),
                                                                 tags$li("Change race filter to update map"),
-                                                                tags$li("Darker colors = higher rates")
+                                                                tags$li("Darker colors equals higher rates")
                                                               )
                                                           )
                                                       )
@@ -896,8 +899,9 @@ navbarPage(
                                        padding: 24px; border-radius: 8px;",
                                              h4("Geographic Patterns", style = "color: white; margin-top: 0;"),
                                              p("Cervical cancer rates vary across states, reflecting differences in screening access, 
-                                  HPV vaccination rates, and healthcare infrastructure. Identifying high-rate areas helps 
-                                  prioritize prevention programs.",
+                                  HPV vaccination rates and healthcare infrastructure. However, there is not a lot of data for many states 
+                                  to give a full picture of cervical cancer in the United States. Being able to identify high-rate areas helps 
+                                  prioritize prevention programs in areas that need the help.",
                                                style = "color: #E0F7FA; margin: 0; line-height: 1.6;")
                                          )
                                      )
@@ -913,7 +917,8 @@ navbarPage(
                                              
                                              h2("Cervical Cancer Incidence by Race",
                                                 style = "color: #2C3E50; margin-top: 0; margin-bottom: 8px;"),
-                                             p("Disparities across demographic groups reveal inequities in screening and prevention access",
+                                             p("Disparities across demographic groups reveal inequities in screening and access to preventive care. 
+                                               The bar graph shows these disparities by race with a focus on specific states, as well.",
                                                style = "color: #555; font-size: 16px; margin-bottom: 24px;"),
                                              
                                              fluidRow(
@@ -948,7 +953,7 @@ navbarPage(
                                                       div(style = "background: #FFF9E6; border-left: 4px solid #f59e0b; 
                                                     padding: 20px; border-radius: 8px; height: 100%;",
                                                           h4("Highest Risk Group", style = "color: #2C3E50; margin-top: 0;"),
-                                                          p("Hispanic women experience the highest cervical cancer incidence rates, 
+                                                          p("American Indian and Alaska Natice women experience the highest cervical cancer incidence rates, 
                                                often due to barriers in accessing regular screening and preventive care.",
                                                             style = "color: #78350f; margin: 0; line-height: 1.6;")
                                                       )
@@ -977,7 +982,7 @@ navbarPage(
                                              
                                              h2("Top States by Cervical Cancer Rates",
                                                 style = "color: #2C3E50; margin-top: 0; margin-bottom: 8px;"),
-                                             p("Identifying high-risk regions for targeted intervention and resource allocation",
+                                             p("Identifying high-risk states for targeted intervention and resource allocation by state and race.",
                                                style = "color: #555; font-size: 16px; margin-bottom: 24px;"),
                                              
                                              fluidRow(
@@ -998,9 +1003,9 @@ navbarPage(
                                                           hr(style = "border-color: #80DEEA;"),
                                                           
                                                           div(style = "background: white; padding: 15px; border-radius: 6px;",
-                                                              h4("💡 Insight", style = "color: #00838F; margin-top: 0; font-size: 16px;"),
-                                                              p("This chart ranks states by cervical cancer incidence rates, helping 
-                                                   identify areas with the highest rates for targeted interventions.",
+                                                              h4("Insight", style = "color: #00838F; margin-top: 0; font-size: 16px;"),
+                                                              p("This chart ranks states by cervical cancer incidence rates, helping identify 
+                                                                areas with the highest rates for treatment and access help.",
                                                                 style = "color: #555; margin: 0; font-size: 14px; line-height: 1.6;")
                                                           )
                                                       )
@@ -1015,9 +1020,8 @@ navbarPage(
                                          div(style = "margin-top: 24px; background: #FFF9E6; border-left: 4px solid #f59e0b; 
                                        padding: 20px; border-radius: 8px;",
                                              h4("Why This Matters", style = "color: #2C3E50; margin-top: 0;"),
-                                             p("State-level data reveals where screening programs and HPV vaccination efforts need 
-                                  strengthening. High-rate states benefit most from increased access to preventive care 
-                                  and public health education.",
+                                             p("State-level data reveals where screening programs and HPV vaccination efforts need strengthening. 
+                                               High-rate states likely benefit most from increased access to preventive care and public health education.",
                                                style = "color: #78350f; margin: 0; line-height: 1.6;")
                                          )
                                      )
@@ -1148,15 +1152,14 @@ navbarPage(
                                            box-shadow: 0 2px 8px rgba(0,0,0,0.05);",
                                       h2("About This Data", 
                                          style = "color: #2C3E50; margin-top: 0; font-size: 28px; margin-bottom: 20px;"),
-                                      p("Sexually transmitted infections (STIs) represent a significant public health challenge 
-                                      in the United States. While many STIs are preventable and treatable, rates continue to 
-                                      rise in certain populations, particularly among young adults and communities with limited 
-                                      access to healthcare.",
+                                      p("Sexually transmitted infections (STIs) in women represent a significant public health 
+                                        challenge in the United States. While many STIs are preventable and treatable, rates continue 
+                                        to rise in certain populations, particularly among marginalized communities that have  
+                                        limited access to healthcare.",
                                         style = "color: #4b5563; font-size: 16px; line-height: 1.8; margin-bottom: 16px;"),
-                                      p("This page provides comprehensive data on three major STIs—chlamydia, syphilis, and 
-                                      gonorrhea—broken down by state and race. Understanding these patterns helps identify 
-                                      where testing and prevention efforts need to be strengthened, and which communities 
-                                      face the greatest barriers to care.",
+                                      p("This page provides comprehensive data on three major STIs found in women—chlamydia, syphilis, 
+                                        and gonorrhea—broken down by state and race. Understanding these patterns helps identify where 
+                                        testing and prevention efforts need to be strengthened, and which communities face the greatest barriers to care.",
                                         style = "color: #4b5563; font-size: 16px; line-height: 1.8;")
                                   )
                               ),
@@ -1170,8 +1173,8 @@ navbarPage(
                                                     padding: 20px; border-radius: 8px; margin-bottom: 20px;",
                                                h4("Racial Disparities", 
                                                   style = "color: #2C3E50; margin-top: 0; font-size: 18px;"),
-                                               p("Certain racial groups face disproportionately high STI rates, 
-                                               reflecting systemic healthcare access barriers.",
+                                               p("Black women face disproportionately high STI rates, reflecting 
+                                                 systemic healthcare access barriers.",
                                                  style = "color: #555; margin: 0; font-size: 15px; line-height: 1.6;")
                                            )
                                     ),
@@ -1180,8 +1183,8 @@ navbarPage(
                                                     padding: 20px; border-radius: 8px; margin-bottom: 20px;",
                                                h4("Geographic Hotspots", 
                                                   style = "color: #2C3E50; margin-top: 0; font-size: 18px;"),
-                                               p("STI rates vary significantly by state and region, identifying 
-                                               areas needing increased testing resources.",
+                                               p("STI rates vary significantly by state and region, identifying areas 
+                                                 that may need increased testing resources.",
                                                  style = "color: #555; margin: 0; font-size: 15px; line-height: 1.6;")
                                            )
                                     ),
@@ -1191,7 +1194,7 @@ navbarPage(
                                                h4("Increasing Trends", 
                                                   style = "color: #2C3E50; margin-top: 0; font-size: 18px;"),
                                                p("Many STI rates have risen from 2020-2023, highlighting urgent 
-                                               need for prevention programs.",
+                                                 need for prevention and education programs.",
                                                  style = "color: #555; margin: 0; font-size: 15px; line-height: 1.6;")
                                            )
                                     )
@@ -1242,8 +1245,8 @@ navbarPage(
                               
                               fluidRow(
                                 column(12,
-                                       p("Explore sexually transmitted infection rates across the United States.
-                                       Use the dropdowns to select a disease and filter by race to see
+                                       p("Explore syphilis, chlamydia, and gonorrhea rates across the United States.
+                                       Use the dropdowns to select an infection and filter by race to see
                                        how rates vary geographically.",
                                          style = "color: #555; font-size: 16px; margin-bottom: 20px;")
                                 )
@@ -1255,8 +1258,8 @@ navbarPage(
                                   
                                   selectInput("sti_disease_filter",
                                               "Select Disease:",
-                                              choices = c("syphilis", "chlamydia", "gonorrhea"),
-                                              selected = "syphilis"),
+                                              choices = c("Syphilis", "Chlamydia", "Gonorrhea"),
+                                              selected = "Syphilis"),
                                   
                                   selectInput("sti_race_filter",
                                               "Select Race:",
@@ -1269,11 +1272,9 @@ navbarPage(
                                       h4("Map Guide", style = "color: #2C3E50; margin-top: 0;"),
                                       tags$ul(
                                         style = "color: #555; line-height: 1.8;",
-                                        tags$li("Hover over states for exact rates"),
-                                        tags$li("Purple = Chlamydia"),
-                                        tags$li("Orange = Syphilis"),
-                                        tags$li("Green = Gonorrhea"),
-                                        tags$li("Darker colors = higher rates")
+                                        tags$li("Hover over states for exact STI rate"),
+                                        tags$li("Select different races to observe differences in infection rate"),
+                                        tags$li("Darker colors equals higher rates")
                                       )
                                   )
                                 ),
@@ -1300,7 +1301,8 @@ navbarPage(
                               
                               fluidRow(
                                 column(12,
-                                       p("Examine racial and ethnic disparities for a specific STI in your selected state.",
+                                       p("Examine racial and ethnic disparities for a specific sexually transmitted infection
+                                         in your selected state.",
                                          style = "color: #555; font-size: 16px; margin-bottom: 20px;")
                                 )
                               ),
@@ -1379,9 +1381,6 @@ navbarPage(
                                       tags$ul(
                                         style = "color: #555; line-height: 1.8; font-size: 14px;",
                                         tags$li("Lines show trends from 2020-2023"),
-                                        tags$li("Purple = Chlamydia (highest rates)"),
-                                        tags$li("Orange = Syphilis (lowest rates)"),
-                                        tags$li("Green = Gonorrhea (medium rates)"),
                                         tags$li("Numbers show most recent year values"),
                                         tags$li("Upward trends indicate increasing rates")
                                       )
@@ -1534,14 +1533,13 @@ navbarPage(
                                       h2("About This Data", 
                                          style = "color: #2C3E50; margin-top: 0; font-size: 28px; margin-bottom: 20px;"),
                                       p("The United States faces a maternal and infant mortality crisis that disproportionately 
-                                  affects Black women and infants. Despite advances in medical care, maternal mortality 
-                                  rates have been rising, and significant racial disparities persist across all socioeconomic 
-                                  levels.",
+                                        affects Black women and infants. Despite advances in women’s healthcare, maternal mortality 
+                                        rates have been rising, and significant racial disparities persist across all socioeconomic levels.",
                                         style = "color: #4b5563; font-size: 16px; line-height: 1.8; margin-bottom: 16px;"),
-                                      p("This page provides comprehensive data on maternal and infant mortality rates by state 
-                                  and race, revealing critical disparities in pregnancy-related outcomes and infant health. 
-                                  Understanding these patterns is essential for targeting interventions, improving prenatal 
-                                  and postnatal care, and addressing systemic inequities in our healthcare system.",
+                                      p("This page provides comprehensive data on maternal and infant mortality rates by state and race, 
+                                        revealing critical disparities in pregnancy-related outcomes and infant health. Understanding these 
+                                        patterns is essential for targeting interventions, improving postnatal care, and addressing systemic 
+                                        inequities in our healthcare system.",
                                         style = "color: #4b5563; font-size: 16px; line-height: 1.8;")
                                   )
                               ),
@@ -1554,8 +1552,9 @@ navbarPage(
                                            div(class = "mi-insight-card",
                                                h4("Stark Racial Disparities", 
                                                   style = "color: #2C3E50; margin-top: 0; font-size: 18px;"),
-                                               p("Black women are three times more likely to die from pregnancy-related 
-                                           causes than White women, regardless of education or income.",
+                                               p("Black women are more likely to die from pregnancy-related causes than 
+                                                 White women all across the United States. Black and hispanic infants have higher 
+                                                 mortality higher rates than white infants.",
                                                  style = "color: #555; margin: 0; font-size: 15px; line-height: 1.6;")
                                            )
                                     ),
@@ -1564,7 +1563,7 @@ navbarPage(
                                                h4("Geographic Variation", 
                                                   style = "color: #2C3E50; margin-top: 0; font-size: 18px;"),
                                                p("Maternal and infant mortality rates vary significantly by state, 
-                                           reflecting differences in healthcare access and quality.",
+                                                 reflecting differences in healthcare access and quality.",
                                                  style = "color: #555; margin: 0; font-size: 15px; line-height: 1.6;")
                                            )
                                     ),
@@ -1573,7 +1572,7 @@ navbarPage(
                                                h4("Preventable Deaths", 
                                                   style = "color: #2C3E50; margin-top: 0; font-size: 18px;"),
                                                p("Up to 60% of maternal deaths are preventable with improved care 
-                                           quality, access, and timely interventions.",
+                                                 quality, access, and timely interventions.",
                                                  style = "color: #555; margin: 0; font-size: 15px; line-height: 1.6;")
                                            )
                                     )
@@ -1617,7 +1616,7 @@ navbarPage(
                               div(style = "background: white; padding: 30px; border-radius: 12px; 
                                    box-shadow: 0 2px 8px rgba(0,0,0,0.05);",
                                   
-                                  h2("Maternal Mortality by State",
+                                  h2("Maternal Mortality from 1999-2019",
                                      style = "color: #2C3E50; margin-top: 0; margin-bottom: 20px;"),
                                   
                                   fluidRow(
@@ -1967,22 +1966,40 @@ navbarPage(
              # CANCER & STI TAB
              tabPanel("Cancer & STI",
                       div(style = "background: linear-gradient(135deg, #CECDF7 0%, #F3E5F5 100%); 
-                               min-height: 100vh; padding: 40px 20px;",
+                  min-height: 100vh; padding: 40px 20px;",
                           
                           # Breast Cancer vs STI Plot Section
                           div(style = "background: white; padding: 30px; margin-bottom: 30px;
-                                   border-radius: 15px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);",
+                      border-radius: 15px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);",
                               h2("Breast Cancer vs Sexual Infection Rate",
                                  style = "color: #2C3E50; font-weight: 600; margin-bottom: 20px;"),
-                              plotOutput("breast_sti_scatter", height = "600px")
+                              plotOutput("breast_sti_scatter", height = "600px"),
+                              
+                              # Text explanation for Breast Cancer
+                              div(style = "background: #F8F9FA; padding: 20px; margin-top: 20px;
+                          border-left: 4px solid #4A90E2; border-radius: 5px;",
+                                  p(style = "color: #2C3E50; font-size: 15px; line-height: 1.6; margin: 0;",
+                                    strong("Analysis: "),
+                                    "There does not appear to be a correlation present between sexual infection rate and breast cancer incidence rate. It is important to note that there are certain states (North Dakota and Montana) that have both higher breast cancer incidence and sexual infection rates."
+                                  )
+                              )
                           ),
                           
                           # Cervical Cancer vs STI Plot Section
                           div(style = "background: white; padding: 30px; margin-bottom: 30px;
-                                   border-radius: 15px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);",
+                      border-radius: 15px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);",
                               h2("Cervical Cancer vs Sexual Infection Rate",
                                  style = "color: #2C3E50; font-weight: 600; margin-bottom: 20px;"),
-                              plotOutput("cervical_sti_scatter", height = "600px")
+                              plotOutput("cervical_sti_scatter", height = "600px"),
+                              
+                              # Text explanation for Cervical Cancer
+                              div(style = "background: #F8F9FA; padding: 20px; margin-top: 20px;
+                          border-left: 4px solid #E74C3C; border-radius: 5px;",
+                                  p(style = "color: #2C3E50; font-size: 15px; line-height: 1.6; margin: 0;",
+                                    strong("Analysis: "),
+                                    "Similarly to breast cancer, there does not appear to be a clear correlation between sexual infection rate and cervical cancer incidence rate. District of Columbia and Oklahoma both have high cervical cancer incidence rates while having average sexual infection rates, which is important to investigate further."
+                                  )
+                              )
                           )
                       )
              ),
@@ -2093,14 +2110,13 @@ navbarPage(
                                         tags$li("Bars show mean (average) infant mortality rate"),
                                         tags$li("Error bars show 95% confidence intervals"),
                                         tags$li("Higher bars indicate stronger correlation with mortality"),
-                                        tags$li("Non-overlapping error bars suggest statistically significant differences"),
-                                        tags$li("'n=' shows number of data points for each race")
+                                        tags$li("Non-overlapping error bars suggest statistically significant differences")
                                       ),
                                       tags$div(
                                         style = "background: #E3F2FD; padding: 10px; border-radius: 5px; margin-top: 10px;",
-                                        p(strong("Interpretation:"), " This chart reveals which racial groups have higher or lower infant mortality rates on average. 
-                                        Large differences indicate health disparities that may result from systemic inequities in healthcare access, 
-                                        socioeconomic factors, and social determinants of health.",
+                                        p(strong("Interpretation:"), " This chart reveals which racial groups have higher or lower 
+                                          infant mortality rates. Large differences indicate health disparities that may result from systemic 
+                                          inequities in healthcare access, socioeconomic factors, and social determinants of health.",
                                           style = "color: #1565C0; margin: 0; font-size: 13px;")
                                       )
                                   )

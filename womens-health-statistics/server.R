@@ -523,7 +523,7 @@ server <- function(input, output, session) {
   })
   
   
-  # STI Time Series: All Three Diseases Over Years (OPTION 1 - Single Chart)
+  # STI Time Series: All Three Diseases Over Years
   output$sti_plot <- renderPlot({
     
     # Filter data for selected state and race, all diseases
@@ -571,7 +571,7 @@ server <- function(input, output, session) {
                             min(plot_data$year), "-", max(plot_data$year)),
            x = "Year",
            y = "Rate per 100,000",
-           color = "Disease") +
+           color = "Infection") +
       theme_minimal(base_size = 14) +
       theme(
         plot.title = element_text(face = "bold", size = 20, color = "#2C3E50", hjust = 0.5),
@@ -1285,9 +1285,7 @@ server <- function(input, output, session) {
       geom_errorbar(aes(ymin = ci_lower, ymax = ci_upper),
                     width = 0.3, size = 1, color = "#2C3E50") +
       geom_text(aes(label = sprintf("%.2f", mean_mortality)),
-                vjust = -2.5, size = 4.5, fontface = "bold", color = "#2C3E50") +
-      geom_text(aes(label = paste0("n=", n)),
-                vjust = -1, size = 3.5, color = "#555555") +
+                vjust = -1.5, size = 4.5, fontface = "bold", color = "#2C3E50") +
       scale_fill_manual(values = race_colors) +
       labs(title = ifelse(input$infant_corr_state == "All States",
                           "Correlation: Race and Infant Mortality Rates (All States)",
