@@ -950,12 +950,12 @@ navbarPage(
                                          div(style = "margin-top: 24px;",
                                              fluidRow(
                                                column(6,
-                                                      div(style = "background: #FFF9E6; border-left: 4px solid #f59e0b; 
+                                                      div(style = "background: #E0F7FA; border-left: 4px solid #00838F; 
                                                     padding: 20px; border-radius: 8px; height: 100%;",
                                                           h4("Highest Risk Group", style = "color: #2C3E50; margin-top: 0;"),
                                                           p("American Indian and Alaska Natice women experience the highest cervical cancer incidence rates, 
                                                often due to barriers in accessing regular screening and preventive care.",
-                                                            style = "color: #78350f; margin: 0; line-height: 1.6;")
+                                                            style = "color: #004d5c; margin: 0; line-height: 1.6;")
                                                       )
                                                ),
                                                column(6,
@@ -1017,12 +1017,12 @@ navbarPage(
                                          ),
                                          
                                          # Why This Matters
-                                         div(style = "margin-top: 24px; background: #FFF9E6; border-left: 4px solid #f59e0b; 
+                                         div(style = "margin-top: 24px; background: #E0F7FA; border-left: 4px solid #00838F; 
                                        padding: 20px; border-radius: 8px;",
                                              h4("Why This Matters", style = "color: #2C3E50; margin-top: 0;"),
                                              p("State-level data reveals where screening programs and HPV vaccination efforts need strengthening. 
                                                High-rate states likely benefit most from increased access to preventive care and public health education.",
-                                               style = "color: #78350f; margin: 0; line-height: 1.6;")
+                                               style = "color: #004d5c; margin: 0; line-height: 1.6;")
                                          )
                                      )
                                  )
@@ -1677,7 +1677,7 @@ navbarPage(
                                   
                                   fluidRow(
                                     column(3,
-                                           div(style = "background: #FFF9E6; padding: 20px; border-radius: 8px;",
+                                           div(style = "background: #FFEBEE; padding: 20px; border-radius: 8px;",
                                                selectInput("mortality_type",
                                                            "Select Mortality Type:",
                                                            choices = c("Maternal Mortality", "Infant Mortality"),
@@ -1701,12 +1701,12 @@ navbarPage(
                                                      tags$li("Numbers show exact difference from average")
                                                    ),
                                                    tags$div(
-                                                     style = "background: #FEF3CD; padding: 10px; border-radius: 5px; margin-top: 10px;",
-                                                     p(strong("Why This Matters:"), style = "color: #856404; margin: 0; margin-bottom: 5px;"),
+                                                     style = "background: #FFEBEE; padding: 10px; border-radius: 5px; margin-top: 10px;",
+                                                     p(strong("Why This Matters:"), style = "color: #D32F2F; margin: 0; margin-bottom: 5px;"),
                                                      p(strong("Maternal:"), " Identifies which groups face highest pregnancy death risk",
-                                                       style = "color: #856404; margin: 0; font-size: 13px;"),
+                                                       style = "color: #2C3E50; margin: 0; font-size: 13px;"),
                                                      p(strong("Infant:"), " Shows disparities in deaths before age 1",
-                                                       style = "color: #856404; margin: 5px 0 0 0; font-size: 13px;")
+                                                       style = "color: #2C3E50; margin: 5px 0 0 0; font-size: 13px;")
                                                    )
                                                )
                                            )
@@ -1730,12 +1730,12 @@ navbarPage(
                                            )
                                     ),
                                     column(6,
-                                           div(style = "background: #FFF9E6; border-left: 4px solid #f59e0b; 
+                                           div(style = "background: #FFEBEE; border-left: 4px solid #D32F2F; 
                                                 padding: 20px; border-radius: 8px; height: 100%;",
                                                h4("Action Needed", style = "color: #2C3E50; margin-top: 0;"),
                                                p("Addressing these disparities requires comprehensive policy changes, 
                                            improved prenatal care access, and culturally competent healthcare.",
-                                                 style = "color: #78350f; margin: 0; line-height: 1.6;")
+                                                 style = "color: #B71C1C; margin: 0; line-height: 1.6;")
                                            )
                                     )
                                   )
@@ -1759,7 +1759,7 @@ navbarPage(
                                   
                                   fluidRow(
                                     column(3,
-                                           div(style = "background: #FFF9E6; padding: 20px; border-radius: 8px;",
+                                           div(style = "background: #FFEBEE; padding: 20px; border-radius: 8px;",
                                                selectInput("pie_mortality_type",
                                                            "Select Mortality Type:",
                                                            choices = c("Maternal Mortality", "Infant Mortality"),
@@ -1790,13 +1790,13 @@ navbarPage(
                               ),
                               
                               # Interpretation Guide
-                              div(style = "margin-top: 24px; background: #FFF9E6; border-left: 4px solid #f59e0b; 
+                              div(style = "margin-top: 24px; background: #FFEBEE; border-left: 4px solid #D32F2F; 
                                    padding: 20px; border-radius: 8px;",
                                   h4("How to Interpret", style = "color: #2C3E50; margin-top: 0;"),
                                   p("Pie charts visualize the proportion of mortality rates across racial groups. 
                               Disproportionately large slices for certain groups reveal health inequities that 
                               demand targeted interventions and systemic reforms.",
-                                    style = "color: #78350f; margin: 0; line-height: 1.6;")
+                                    style = "color: #B71C1C; margin: 0; line-height: 1.6;")
                               )
                           )
                       )
@@ -2013,7 +2013,7 @@ navbarPage(
              
              # MATERNAL MORTALITY TAB
              tabPanel("Maternal Mortality",
-                      div(style = "background: linear-gradient(135deg, #CECDF7 0%, #F3E5F5 100%); 
+                      div(style = "background: linear-gradient(135deg, #CECDF7 0%, #CECDF7 100%); 
                                min-height: 100vh; padding: 40px 20px;",
                           
                           # Maternal Mortality by Race Correlation Section
@@ -2033,7 +2033,7 @@ navbarPage(
                               
                               sidebarLayout(
                                 sidebarPanel(
-                                  style = "background: #FFF0F0; border-radius: 10px; padding: 20px;",
+                                  style = "background: #CECDF7; border-radius: 10px; padding: 20px;",
                                   
                                   selectInput("maternal_corr_state",
                                               "Select State or Region:",
@@ -2080,7 +2080,7 @@ navbarPage(
              
              # INFANT MORTALITY TAB
              tabPanel("Infant Mortality",
-                      div(style = "background: linear-gradient(135deg, #CECDF7 0%, #F3E5F5 100%); 
+                      div(style = "background: linear-gradient(135deg, #CECDF7 0%, #CECDF7 100%); 
                                min-height: 100vh; padding: 40px 20px;",
                           
                           # Infant Mortality by Race Correlation Section
@@ -2100,7 +2100,7 @@ navbarPage(
                               
                               sidebarLayout(
                                 sidebarPanel(
-                                  style = "background: #F0F8FF; border-radius: 10px; padding: 20px;",
+                                  style = "background: #CECDF7; border-radius: 10px; padding: 20px;",
                                   
                                   selectInput("infant_corr_state",
                                               "Select State or Region:",
@@ -2120,11 +2120,11 @@ navbarPage(
                                         tags$li("Non-overlapping error bars suggest statistically significant differences")
                                       ),
                                       tags$div(
-                                        style = "background: #E3F2FD; padding: 10px; border-radius: 5px; margin-top: 10px;",
+                                        style = "background: #CECDF7; padding: 10px; border-radius: 5px; margin-top: 10px;",
                                         p(strong("Interpretation:"), " This chart reveals which racial groups have higher or lower 
                                           infant mortality rates. Large differences indicate health disparities that may result from systemic 
                                           inequities in healthcare access, socioeconomic factors, and social determinants of health.",
-                                          style = "color: #1565C0; margin: 0; font-size: 13px;")
+                                          style = "color: #2C3E50; margin: 0; font-size: 13px;")
                                       )
                                   )
                                 ),
@@ -2494,13 +2494,13 @@ navbarPage(
                               
                               # Important Note
                               div(style = "margin-top: 30px;",
-                                  div(style = "background: #FFF9E6; border-left: 4px solid #f59e0b; 
+                                  div(style = "background: #EDE7F6; border-left: 4px solid #7B68EE; 
                                            padding: 20px; border-radius: 8px;",
                                       h4("Important Note", style = "color: #2C3E50; margin-top: 0;"),
                                       p("These resources are for informational purposes and should not replace professional 
                                       medical advice. Always consult with a qualified healthcare provider for diagnosis 
                                       and treatment recommendations.",
-                                        style = "color: #78350f; margin: 0; line-height: 1.6;")
+                                        style = "color: #555; margin: 0; line-height: 1.6;")
                                   )
                               ),
                               
