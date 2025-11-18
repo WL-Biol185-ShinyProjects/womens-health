@@ -1614,10 +1614,16 @@ navbarPage(
                       div(style = "background: linear-gradient(135deg, #FFEBEE 0%, #F3E5F5 100%); min-height: 100vh; padding: 40px 20px;",
                           div(style = "max-width: 1400px; margin: 0 auto;",
                               div(style = "background: white; padding: 30px; border-radius: 12px; 
-                                   box-shadow: 0 2px 8px rgba(0,0,0,0.05);",
+                      box-shadow: 0 2px 8px rgba(0,0,0,0.05);",
                                   
                                   h2("Maternal Mortality from 1999-2019",
-                                     style = "color: #2C3E50; margin-top: 0; margin-bottom: 20px;"),
+                                     style = "color: #2C3E50; margin-top: 0; margin-bottom: 12px;"),
+                                  
+                                  # DESCRIPTION - integrated naturally
+                                  p("This interactive map visualizes maternal mortality rates across the United States from 1999 to 2019. 
+                       Use the year slider to observe temporal trends and the race filter to explore health disparities 
+                       across different demographic groups. Hover over any state to see detailed statistics.",
+                                    style = "color: #546E7A; margin-bottom: 24px; line-height: 1.6; font-size: 15px;"),
                                   
                                   fluidRow(
                                     column(6,
@@ -1643,11 +1649,12 @@ navbarPage(
                               
                               # Geographic Patterns
                               div(style = "margin-top: 24px; background: linear-gradient(135deg, #D32F2F 0%, #E57373 100%); 
-                                   padding: 24px; border-radius: 8px;",
+                      padding: 24px; border-radius: 8px;",
                                   h4("Geographic Patterns", style = "color: white; margin-top: 0;"),
-                                  p("Maternal mortality rates vary across states and over time. Use the year slider to see 
-                              how rates have changed from 1999 to 2019. Filter by race to reveal stark disparities 
-                              in maternal health outcomes.",
+                                  p("Maternal mortality rates vary across all 50 states and over time. However, the South has 
+                                    the highest maternal mortality rates across all racial/ethnic groups, particularly for 
+                                    Black women. American Indian and Alaska Native women have the second highest maternal 
+                                    mortality rate, which has continuously increased over time.",
                                     style = "color: #FFEBEE; margin: 0; line-height: 1.6;")
                               )
                           )
