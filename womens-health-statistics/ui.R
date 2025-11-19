@@ -89,12 +89,12 @@ navbarPage(
              flex-wrap: wrap;
            }
            .creator-image {
-             width: 150px;
-             height: 150px;
-             border-radius: 50%;
-             object-fit: cover;
-             margin-right: 25px;
-             border: 3px solid #e9ecef;
+            width: 180px;
+               height: 240px;
+               border-radius: 8px;
+               object-fit: cover;
+               margin-right: 25px;
+               border: 3px solid #e9ecef;
            }
            .creator-name {
              font-size: 24px;
@@ -2786,7 +2786,7 @@ navbarPage(
                # Isabel Duarte
                div(class = "creator-card",
                    div(class = "creator-header",
-                       img(src = "Isabel-Duarte-1.jpeg", class = "creator-image"),
+                       img(src = "isabel-duarte-bio.jpg", class = "creator-image"),
                        h2("Isabel Duarte", class = "creator-name")
                    ),
                    p(class = "creator-bio",
