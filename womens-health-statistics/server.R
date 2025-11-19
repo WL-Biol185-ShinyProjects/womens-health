@@ -540,15 +540,16 @@ server <- function(input, output, session) {
       return()
     }
     
+    
     # Capitalize disease names for better display
     plot_data <- plot_data %>%
       mutate(disease_label = tools::toTitleCase(disease))
     
     # Define colors for diseases
     disease_colors <- c(
-      "Chlamydia" = "#9B59B6",
-      "Syphilis" = "#E67E22",
-      "Gonorrhea" = "#1ABC9C"
+      "Chlamydia" = "#A8D5FF",
+      "Syphilis" = "#FFD9A8",
+      "Gonorrhea" = "#A8E6A8"
     )
     
     # Create ggplot line graph
@@ -1159,13 +1160,14 @@ server <- function(input, output, session) {
     
     # Define colors for races
     race_colors <- c(
-      "White" = "#4A90E2",
-      "Black" = "#E74C3C",
-      "Hispanic" = "#27AE60",
-      "Asian or Native Hawaiian" = "#F39C12",
-      "American Indian and Alaska Native" = "#9B59B6"
+      "White" = "#A8D5FF",
+      "Black" = "#FFB3B3",
+      "Hispanic" = "#A8E6A8",
+      "Asian or Native Hawaiian" = "#FFD9A8",
+      "American Indian and Alaska Native" = "#D4B3E6"
     )
     
+
     # Create ggplot line graph
     ggplot(plot_data, aes(x = year, y = maternal_mortality, 
                           color = race, group = race)) +
@@ -1265,17 +1267,18 @@ server <- function(input, output, session) {
     
     # Define colors for races
     race_colors <- c(
-      "White" = "#4A90E2",
-      "Black" = "#E74C3C",
-      "Hispanic" = "#27AE60",
-      "Asian or Native Hawaiian" = "#F39C12",
-      "Asian" = "#F39C12",
-      "American Indian and Alaska Native" = "#9B59B6",
+      "White" = "#A8D5FF",
+      "Black" = "#FFB3B3",
+      "Hispanic" = "#A8E6A8",
+      "Asian or Native Hawaiian" = "#FFD9A8",
+      "Asian" = "#FFD9A8",
+      "American Indian and Alaska Native" = "#D4B3E6",
       "Native Hawaiian or Pacific Islander" = "#E67E22",
       "Native_Hawaiian_or_PacificIslander" = "#E67E22",
       "Multiple races" = "#95A5A6",
       "Multiple.races" = "#95A5A6"
     )
+    
     
     # Create the plot
     ggplot(summary_data, aes(x = reorder(race, mean_mortality), 
