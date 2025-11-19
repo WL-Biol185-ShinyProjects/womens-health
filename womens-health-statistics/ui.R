@@ -1326,14 +1326,27 @@ navbarPage(
                                       )
                                   )
                                 ),
-                                
                                 mainPanel(
                                   leafletOutput("sti_map", height = "550px")
                                 )
                               )
+                          ),  
+                          
+                          # Why This Matters Section
+                          div(style = "margin-top: 24px; background: #9C27B0; 
+                                      padding: 24px; border-radius: 8px;",
+                              h4("Public Health Focus", style = "color: white; margin-top: 0;"),
+                              p("Understanding STI rates and disparities is crucial for addressing a growing public health crisis. 
+                                These infections disproportionately affect certain communities due to systemic barriers in healthcare 
+                                access, education, and resources. By identifying geographic hotspots and populations with the highest 
+                                rates, health officials can direct testing programs, prevention education, and treatment services where 
+                                they're needed most. Early detection through routine screening can prevent serious complications and 
+                                reduce transmission, ultimately protecting community health and wellbeing.",
+                                style = "color: #F3E5F5; margin: 0; line-height: 1.6;")
                           )
-                      )
+                      ) 
              ),
+                                
              
              # BY RACE TAB
              tabPanel("By Race",
