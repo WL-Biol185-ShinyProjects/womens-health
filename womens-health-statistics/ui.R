@@ -2591,7 +2591,7 @@ navbarPage(
                                    border-radius: 15px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);",
                               
                               # Flexbox container for image and content
-                              div(style = "display: flex; gap: 30px; align-items: flex-start;",
+                              div(style = "display: flex; gap: 30px; align-items: center;",
                                   
                                   # Text content
                                   div(style = "flex: 1;",
@@ -2622,8 +2622,8 @@ navbarPage(
                                   ),
                                   
                                   # Image container (on the right)
-                                  div(style = "flex-shrink: 0; display: flex; align-items: center;",
-                                      img(src = "breast_cancer.png", 
+                                  div(style = "flex-shrink: 0; display: flex; align-items: center; justify-content: center;",
+                                      img(src = "breast-cancer-month.png", 
                                           style = "width: 350px; height: auto;",
                                           alt = "Breast Cancer Ribbon")
                                   )
@@ -2634,10 +2634,10 @@ navbarPage(
                           div(style = "background: white; padding: 30px; margin-bottom: 30px;
                                    border-radius: 15px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);",
                               
-                              div(style = "display: flex; gap: 30px; align-items: flex-start;",
+                              div(style = "display: flex; gap: 30px; align-items: center;",
                                   
                                   div(style = "flex: 1;",
-                                      h2("Cervical Cancer (Papanicolaou Smear)", 
+                                      h2("Cervical Cancer Screening (Papanicolaou Smear)", 
                                          style = "color: #2C3E50; font-weight: 600; margin-top: 0; margin-bottom: 15px;"),
                                       p(strong("What is a Papanicolaou (Pap) Smear? "), "A Pap smear is an exam that identifies abnormal cervical cells. It is a great preventative measure to identifying cancer, even if there may be no family history present.",
                                         style = "color: #555; font-size: 16px; line-height: 1.6; margin-bottom: 15px;"),
