@@ -1326,14 +1326,27 @@ navbarPage(
                                       )
                                   )
                                 ),
-                                
                                 mainPanel(
                                   leafletOutput("sti_map", height = "550px")
                                 )
                               )
+                          ),  
+                          
+                          # Why This Matters Section
+                          div(style = "margin-top: 24px; background: #9C27B0; 
+                                      padding: 24px; border-radius: 8px;",
+                              h4("Public Health Focus", style = "color: white; margin-top: 0;"),
+                              p("Understanding STI rates and disparities is crucial for addressing a growing public health crisis. 
+                                These infections disproportionately affect certain communities due to systemic barriers in healthcare 
+                                access, education, and resources. By identifying geographic hotspots and populations with the highest 
+                                rates, health officials can direct testing programs, prevention education, and treatment services where 
+                                they're needed most. Early detection through routine screening can prevent serious complications and 
+                                reduce transmission, ultimately protecting community health and wellbeing.",
+                                style = "color: #F3E5F5; margin: 0; line-height: 1.6;")
                           )
-                      )
+                      ) 
              ),
+                                
              
              # BY RACE TAB
              tabPanel("By Race",
@@ -1378,15 +1391,40 @@ navbarPage(
                                         style = "color: #555; margin: 0; font-size: 14px;")
                                   )
                                 ),
-                                
                                 mainPanel(
                                   plotOutput("sti_race_plot", height = "500px")
                                 )
                               )
+                          ),
+                          
+                          # Key Finding boxes
+                          div(style = "margin-top: 24px;",
+                              fluidRow(
+                                column(6,
+                                       div(style = "background: #F3E5F5; border-left: 4px solid #9C27B0; 
+                                                   padding: 20px; border-radius: 8px; height: 100%;",
+                                           h4("Highest Risk Group", style = "color: #2C3E50; margin-top: 0;"),
+                                           p("Black women experience disproportionately high rates of STIs across all three 
+                                             infections (chlamydia, syphilis, and gonorrhea), often due to systemic barriers 
+                                             in accessing preventive care and regular testing.",
+                                             style = "color: #4A148C; margin: 0; line-height: 1.6;")
+                                       )
+                                ),
+                                column(6,
+                                       div(style = "background: #F3E5F5; border-left: 4px solid #9C27B0; 
+                                                   padding: 20px; border-radius: 8px; height: 100%;",
+                                           h4("Prevention is Key", style = "color: #2C3E50; margin-top: 0;"),
+                                           p("Regular STI screening, safe sex practices, and partner notification programs 
+                                             significantly reduce transmission rates across all populations when access 
+                                             barriers are addressed.",
+                                             style = "color: #4A148C; margin: 0; line-height: 1.6;")
+                                       )
+                                )
+                              )
                           )
-                      )
+                      )  
              ),
-             
+                          
              # TRENDS TAB
              tabPanel("Trends",
                       div(style = "background: linear-gradient(135deg, #F3E5F5 0%, #E1BEE7 100%); 
@@ -1434,13 +1472,24 @@ navbarPage(
                                       )
                                   )
                                 ),
-                                
                                 mainPanel(
                                   plotOutput("sti_plot", height = "500px")
                                 )
                               )
+                          ),  
+                          
+                          # Interpretation Guide
+                          div(style = "margin-top: 24px; background: #F3E5F5; border-left: 4px solid #9C27B0; 
+                                      padding: 20px; border-radius: 8px;",
+                              h4("Understanding the Trends", style = "color: #2C3E50; margin-top: 0;"),
+                              p("Upward trends in STI rates from 2020-2023 indicate growing challenges in sexual health 
+                                across many communities. Rising rates may reflect reduced access to testing during the pandemic, 
+                                decreased funding for prevention programs, or changes in sexual behavior patterns. These trends 
+                                underscore the urgent need for expanded testing access, comprehensive sex education, and 
+                                targeted public health interventions in the most affected communities.",
+                                style = "color: #4A148C; margin: 0; line-height: 1.6;")
                           )
-                      )
+                      )  
              )
            )
   ),
@@ -2028,15 +2077,16 @@ navbarPage(
                       border-radius: 15px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);",
                               h2("Breast Cancer vs Sexual Infection Rate",
                                  style = "color: #2C3E50; font-weight: 600; margin-bottom: 20px;"),
-                              plotOutput("breast_sti_scatter", height = "600px"),
-                              
-                              # Text explanation for Breast Cancer
-                              div(style = "background: #F8F9FA; padding: 20px; margin-top: 20px;
-                          border-left: 4px solid #4A90E2; border-radius: 5px;",
-                                  p(style = "color: #2C3E50; font-size: 15px; line-height: 1.6; margin: 0;",
-                                    strong("Analysis: "),
-                                    "There does not appear to be a correlation present between sexual infection rate and breast cancer incidence rate. It is important to note that there are certain states (North Dakota and Montana) that have both higher breast cancer incidence and sexual infection rates."
-                                  )
+                              plotOutput("breast_sti_scatter", height = "600px")
+                          ),
+                          
+                          # Analysis Box for Breast Cancer - Separate
+                          div(style = "background: white; padding: 30px; margin-bottom: 30px;
+                      border-radius: 15px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+                      border-left: 5px solid #4A90E2;",
+                              h3("Analysis", style = "color: #2C3E50; font-weight: 600; margin-top: 0; margin-bottom: 20px;"),
+                              p(style = "color: #555; font-size: 16px; line-height: 1.8; margin: 0;",
+                                "There does not appear to be a correlation present between sexual infection rate and breast cancer incidence rate. It is important to note that there are certain states (North Dakota and Montana) that have both higher breast cancer incidence and sexual infection rates."
                               )
                           ),
                           
@@ -2045,15 +2095,16 @@ navbarPage(
                       border-radius: 15px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);",
                               h2("Cervical Cancer vs Sexual Infection Rate",
                                  style = "color: #2C3E50; font-weight: 600; margin-bottom: 20px;"),
-                              plotOutput("cervical_sti_scatter", height = "600px"),
-                              
-                              # Text explanation for Cervical Cancer
-                              div(style = "background: #F8F9FA; padding: 20px; margin-top: 20px;
-                          border-left: 4px solid #E74C3C; border-radius: 5px;",
-                                  p(style = "color: #2C3E50; font-size: 15px; line-height: 1.6; margin: 0;",
-                                    strong("Analysis: "),
-                                    "Similarly to breast cancer, there does not appear to be a clear correlation between sexual infection rate and cervical cancer incidence rate. District of Columbia and Oklahoma both have high cervical cancer incidence rates while having average sexual infection rates, which is important to investigate further."
-                                  )
+                              plotOutput("cervical_sti_scatter", height = "600px")
+                          ),
+                          
+                          # Analysis Box for Cervical Cancer - Separate
+                          div(style = "background: white; padding: 30px; margin-bottom: 30px;
+                      border-radius: 15px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+                      border-left: 5px solid #E74C3C;",
+                              h3("Analysis", style = "color: #2C3E50; font-weight: 600; margin-top: 0; margin-bottom: 20px;"),
+                              p(style = "color: #555; font-size: 16px; line-height: 1.8; margin: 0;",
+                                "Similarly to breast cancer, there does not appear to be a clear correlation between sexual infection rate and cervical cancer incidence rate. District of Columbia and Oklahoma both have high cervical cancer incidence rates while having average sexual infection rates, which is important to investigate further."
                               )
                           )
                       )
@@ -2122,6 +2173,21 @@ navbarPage(
                                   plotOutput("maternal_race_correlation", height = "550px")
                                 )
                               )
+                          ),
+                          
+                          # Key Findings Box - Separate from graph
+                          div(style = "background: white; padding: 30px; margin-bottom: 30px;
+                                   border-radius: 15px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+                                   border-left: 5px solid #FF6B6B;",
+                              
+                              h3("Key Findings", style = "color: #2C3E50; font-weight: 600; margin-top: 0; margin-bottom: 20px;"),
+                              
+                              p("Black women experience dramatically higher maternal mortality rates than all other groups, 
+                                with rates nearly tripling by the mid-2010s. While all racial groups show increasing mortality 
+                                rates over the 20-year period, the gap between Black women and other groups—particularly White, 
+                                Hispanic, and Asian/Native Hawaiian women—has widened substantially, with American Indian/Alaska 
+                                Native women matching Black women in deaths by 2018.",
+                                style = "color: #555; font-size: 16px; line-height: 1.8; margin: 0;")
                           )
                       )
              ),
