@@ -639,6 +639,7 @@ server <- function(input, output, session) {
       text(5, 5, "No data available\nfor the selected filters", cex=1.5, col="red")
       return()
     }
+  
     
     # Improve race labels for display
     plot_data <- plot_data %>%
@@ -1176,7 +1177,7 @@ server <- function(input, output, session) {
       "American Indian and Alaska Native" = "#D4B3E6"
     )
     
-
+    
     # Create ggplot line graph
     ggplot(plot_data, aes(x = year, y = maternal_mortality, 
                           color = race, group = race)) +
