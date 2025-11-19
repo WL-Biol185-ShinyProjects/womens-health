@@ -8,8 +8,6 @@ library(ggplot2)
 library(RColorBrewer)
 library(shinyWidgets)
 
-# test change
-#test 2 -isabel
 
 # Load data
 breast_cancer_long <- read.csv("breast_cancer_long.csv")
