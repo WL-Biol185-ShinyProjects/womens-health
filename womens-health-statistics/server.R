@@ -644,12 +644,12 @@ server <- function(input, output, session) {
     
     # Define colors for races
     race_colors <- c(
-      "White" = "#4A90E2",
-      "Black" = "#E74C3C",
-      "Hispanic" = "#27AE60",
-      "Asian_NativeHawaiian" = "#F39C12",
-      "AmericanIndian_AlaskaNative" = "#9B59B6",
-      "Overall" = "#34495E"
+      "White" = "#A8D5FF",              
+      "Black" = "#FFB3B3",              
+      "Hispanic" = "#A8E6A8",          
+      "Asian_NativeHawaiian" = "#FFD9A8", 
+      "AmericanIndian_AlaskaNative" = "#D4B3E6", 
+      "Overall" = "#B8C5D6"            
     )
     
     # Create ggplot
@@ -894,7 +894,7 @@ server <- function(input, output, session) {
                 fontface = "bold",
                 color = "#2C3E50") +
       coord_flip() +
-      scale_fill_manual(values = c("Above Average" = "#E74C3C", "Below Average" = "#27AE60")) +
+      scale_fill_manual(values = c("Above Average" = "#f6bcb6", "Below Average" = "#B5DFB2")) +
       labs(title = paste(chart_title, "Disparity Analysis:", input$mortality_disparity_state),
            subtitle = paste0("Difference from Overall Rate (", round(overall_rate, 1), " ", rate_label, ")"),
            x = NULL,
