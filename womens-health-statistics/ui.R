@@ -71,56 +71,9 @@ navbarPage(
                margin: 15px 0 0 0;
                font-family: 'Inter', sans-serif;
              }
-              .creator-card {
-             background-color: white;
-             padding: 30px;
-             margin-bottom: 40px;
-             border-radius: 8px;
-             box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-             border-top: 3px solid #0066cc;
-             max-width: 900px;
-             margin-left: auto;
-             margin-right: auto;
-           }
-           .creator-header {
-             display: flex;
-             align-items: center;
-             margin-bottom: 20px;
-             flex-wrap: wrap;
-           }
-           .creator-image {
-             width: 150px;
-             height: 150px;
-             border-radius: 50%;
-             object-fit: cover;
-             margin-right: 25px;
-             border: 3px solid #e9ecef;
-           }
-           .creator-name {
-             font-size: 24px;
-             font-weight: bold;
-             color: #333;
-             margin: 0;
-           }
-           .creator-bio {
-             font-size: 16px;
-             line-height: 1.6;
-             color: #555;
-             text-align: justify;
-           }
-           @media (max-width: 768px) {
-             .creator-header {
-               flex-direction: column;
-               text-align: center;
-             }
-             .creator-image {
-               margin-right: 0;
-               margin-bottom: 15px;
-             }
-           }
            "))
            ),
-    
+           
            # Header
            div(class = "home-header",
                h1("Women's Health"),
@@ -2769,40 +2722,6 @@ navbarPage(
                       style = "color: #2C3E50; font-weight: 700; margin-bottom: 10px;"),
                    p("Meet the People Who Created this Website!",
                      style = "color: #555; font-size: 18px; margin: 0;")
-               ),
-               
-               # INSERT THE CREATOR CARDS HERE
-               # Sam Berish
-               div(class = "creator-card",
-                   div(class = "creator-header",
-                       img(src = "sam-berish-bio.webp", class = "creator-image"),
-                       h2("Sam Berish", class = "creator-name")
-                   ),
-                   p(class = "creator-bio",
-                     "Samantha is a senior Mathematics major and Data Science minor and plays soccer for the W&L soccer team. She is interested in data science."
-                   )
-               ),
-               
-               # Isabel Duarte
-               div(class = "creator-card",
-                   div(class = "creator-header",
-                       img(src = "Isabel-Duarte-1.jpeg", class = "creator-image"),
-                       h2("Isabel Duarte", class = "creator-name")
-                   ),
-                   p(class = "creator-bio",
-                     "Isabel Duarte is a senior Music and Biology double major. She is interested in heading to medical school and pursuing laryngology as a career. She is interested in women's health because of her own personal experience having to advocate for herself in medical spaces about personal health. She believes that it is important to raise awareness about these topics."
-                   )
-               ),
-               
-               # Bailey Hedgemon
-               div(class = "creator-card",
-                   div(class = "creator-header",
-                       img(src = "bailey-hedgemon-bio.webp", class = "creator-image"),
-                       h2("Bailey Hedgemon", class = "creator-name")
-                   ),
-                   p(class = "creator-bio",
-                     "Bailey is a senior neuroscience major on the pre-medicine track and a thrower on the track and field team at Washington and Lee University. She is interested in joining the military and becoming a surgeon—more specifically, a trauma surgeon. She hopes to focus her career on bringing treatment to areas and populations that need it most."
-                   )
                )
            )
   )
