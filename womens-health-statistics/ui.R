@@ -2135,6 +2135,21 @@ navbarPage(
                                   plotOutput("maternal_race_correlation", height = "550px")
                                 )
                               )
+                          ),
+                          
+                          # Key Findings Box - Separate from graph
+                          div(style = "background: white; padding: 30px; margin-bottom: 30px;
+                                   border-radius: 15px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+                                   border-left: 5px solid #FF6B6B;",
+                              
+                              h3("Key Findings", style = "color: #2C3E50; font-weight: 600; margin-top: 0; margin-bottom: 20px;"),
+                              
+                              p("Black women experience dramatically higher maternal mortality rates than all other groups, 
+                                with rates nearly tripling by the mid-2010s. While all racial groups show increasing mortality 
+                                rates over the 20-year period, the gap between Black women and other groups—particularly White, 
+                                Hispanic, and Asian/Native Hawaiian women—has widened substantially, with American Indian/Alaska 
+                                Native women matching Black women in deaths by 2018.",
+                                style = "color: #555; font-size: 16px; line-height: 1.8; margin: 0;")
                           )
                       )
              ),
