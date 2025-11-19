@@ -90,9 +90,11 @@ navbarPage(
            }
            .creator-image {
             width: 180px;
-               height: 240px;
+               height: auto;
+               max-height: 300px;
                border-radius: 8px;
-               object-fit: cover;
+               object-fit: contain;
+               object-position: center;
                margin-right: 25px;
                border: 3px solid #e9ecef;
            }
