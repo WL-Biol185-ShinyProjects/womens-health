@@ -528,6 +528,15 @@ server <- function(input, output, session) {
     
     # Filter data for selected state and race, all diseases
     plot_data <- sex_infect_years %>%
+      mutate(race = case_when(
+        race == "White" ~ "White",
+        race == "Black" ~ "Black",
+        race == "Hispanic" ~ "Hispanic",
+        race == "Asian_NativeHawaiian" ~ "Asian/Native Hawaiian",
+        race == "AmericanIndian_AlaskaNative" ~ "American Indian/Alaska Native",
+        race == "Overall" ~ "Overall",
+        TRUE ~ gsub("_", " ", race)
+      )) %>%
       filter(state == input$sti_state,
              race == input$sti_race,
              !is.na(rate))

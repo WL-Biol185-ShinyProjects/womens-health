@@ -1457,7 +1457,10 @@ navbarPage(
                                   
                                   selectInput("sti_race",
                                               "Select Race:",
-                                              choices = unique(sex_infect_years$race),
+                                              choices = c("White", "Black", "Hispanic", 
+                                                               "Asian/Native Hawaiian", 
+                                                               "American Indian/Alaska Native", 
+                                                               "Overall"),
                                               selected = "White"),
                                   
                                   hr(style = "border-color: #CE93D8;"),
