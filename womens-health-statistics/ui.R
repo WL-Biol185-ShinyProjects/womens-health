@@ -2247,6 +2247,17 @@ navbarPage(
                                   plotOutput("infant_race_correlation", height = "550px")
                                 )
                               )
+                          ),
+                          
+                          # Key Findings Box - Separate from graph
+                          div(style = "background: white; padding: 30px; margin-bottom: 30px;
+                                   border-radius: 15px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+                                   border-left: 5px solid #4A90E2;",
+                              
+                              h3("Key Findings", style = "color: #2C3E50; font-weight: 600; margin-top: 0; margin-bottom: 20px;"),
+                              
+                              p("Individual states show different infant mortality rates across racial groups, but the patterns can be unclear due to smaller populations in each state. When we combine data from all states, we see clearer evidence of ongoing health disparities that impact different racial and ethnic communities nationwide.",
+                                style = "color: #555; font-size: 16px; line-height: 1.8; margin: 0;")
                           )
                       )
              )
