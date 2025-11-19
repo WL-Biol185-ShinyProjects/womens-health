@@ -5,4 +5,3 @@ We make sure of interactive maps and graphs that aim to highlight important diff
 
 We hope to bring attention to health disparities and share resources with those in need. 
 
-testing
