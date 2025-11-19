@@ -2077,15 +2077,16 @@ navbarPage(
                       border-radius: 15px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);",
                               h2("Breast Cancer vs Sexual Infection Rate",
                                  style = "color: #2C3E50; font-weight: 600; margin-bottom: 20px;"),
-                              plotOutput("breast_sti_scatter", height = "600px"),
-                              
-                              # Text explanation for Breast Cancer
-                              div(style = "background: #F8F9FA; padding: 20px; margin-top: 20px;
-                          border-left: 4px solid #4A90E2; border-radius: 5px;",
-                                  p(style = "color: #2C3E50; font-size: 15px; line-height: 1.6; margin: 0;",
-                                    strong("Analysis: "),
-                                    "There does not appear to be a correlation present between sexual infection rate and breast cancer incidence rate. It is important to note that there are certain states (North Dakota and Montana) that have both higher breast cancer incidence and sexual infection rates."
-                                  )
+                              plotOutput("breast_sti_scatter", height = "600px")
+                          ),
+                          
+                          # Analysis Box for Breast Cancer - Separate
+                          div(style = "background: white; padding: 30px; margin-bottom: 30px;
+                      border-radius: 15px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+                      border-left: 5px solid #4A90E2;",
+                              h3("Analysis", style = "color: #2C3E50; font-weight: 600; margin-top: 0; margin-bottom: 20px;"),
+                              p(style = "color: #555; font-size: 16px; line-height: 1.8; margin: 0;",
+                                "There does not appear to be a correlation present between sexual infection rate and breast cancer incidence rate. It is important to note that there are certain states (North Dakota and Montana) that have both higher breast cancer incidence and sexual infection rates."
                               )
                           ),
                           
@@ -2094,15 +2095,16 @@ navbarPage(
                       border-radius: 15px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);",
                               h2("Cervical Cancer vs Sexual Infection Rate",
                                  style = "color: #2C3E50; font-weight: 600; margin-bottom: 20px;"),
-                              plotOutput("cervical_sti_scatter", height = "600px"),
-                              
-                              # Text explanation for Cervical Cancer
-                              div(style = "background: #F8F9FA; padding: 20px; margin-top: 20px;
-                          border-left: 4px solid #E74C3C; border-radius: 5px;",
-                                  p(style = "color: #2C3E50; font-size: 15px; line-height: 1.6; margin: 0;",
-                                    strong("Analysis: "),
-                                    "Similarly to breast cancer, there does not appear to be a clear correlation between sexual infection rate and cervical cancer incidence rate. District of Columbia and Oklahoma both have high cervical cancer incidence rates while having average sexual infection rates, which is important to investigate further."
-                                  )
+                              plotOutput("cervical_sti_scatter", height = "600px")
+                          ),
+                          
+                          # Analysis Box for Cervical Cancer - Separate
+                          div(style = "background: white; padding: 30px; margin-bottom: 30px;
+                      border-radius: 15px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+                      border-left: 5px solid #E74C3C;",
+                              h3("Analysis", style = "color: #2C3E50; font-weight: 600; margin-top: 0; margin-bottom: 20px;"),
+                              p(style = "color: #555; font-size: 16px; line-height: 1.8; margin: 0;",
+                                "Similarly to breast cancer, there does not appear to be a clear correlation between sexual infection rate and cervical cancer incidence rate. District of Columbia and Oklahoma both have high cervical cancer incidence rates while having average sexual infection rates, which is important to investigate further."
                               )
                           )
                       )
@@ -2245,6 +2247,17 @@ navbarPage(
                                   plotOutput("infant_race_correlation", height = "550px")
                                 )
                               )
+                          ),
+                          
+                          # Key Findings Box - Separate from graph
+                          div(style = "background: white; padding: 30px; margin-bottom: 30px;
+                                   border-radius: 15px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+                                   border-left: 5px solid #4A90E2;",
+                              
+                              h3("Key Findings", style = "color: #2C3E50; font-weight: 600; margin-top: 0; margin-bottom: 20px;"),
+                              
+                              p("Individual states show different infant mortality rates across racial groups, but the patterns can be unclear due to smaller populations in each state. When we combine data from all states, we see clearer evidence of ongoing health disparities that impact different racial and ethnic communities nationwide.",
+                                style = "color: #555; font-size: 16px; line-height: 1.8; margin: 0;")
                           )
                       )
              )
@@ -2655,7 +2668,7 @@ navbarPage(
                                    border-radius: 15px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);",
                               
                               # Flexbox container for image and content
-                              div(style = "display: flex; gap: 30px; align-items: flex-start;",
+                              div(style = "display: flex; gap: 30px; align-items: center;",
                                   
                                   # Text content
                                   div(style = "flex: 1;",
@@ -2686,8 +2699,8 @@ navbarPage(
                                   ),
                                   
                                   # Image container (on the right)
-                                  div(style = "flex-shrink: 0; display: flex; align-items: center;",
-                                      img(src = "breast_cancer.png", 
+                                  div(style = "flex-shrink: 0; display: flex; align-items: center; justify-content: center;",
+                                      img(src = "breast-cancer-month.png", 
                                           style = "width: 350px; height: auto;",
                                           alt = "Breast Cancer Ribbon")
                                   )
@@ -2698,10 +2711,10 @@ navbarPage(
                           div(style = "background: white; padding: 30px; margin-bottom: 30px;
                                    border-radius: 15px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);",
                               
-                              div(style = "display: flex; gap: 30px; align-items: flex-start;",
+                              div(style = "display: flex; gap: 30px; align-items: center;",
                                   
                                   div(style = "flex: 1;",
-                                      h2("Cervical Cancer (Papanicolaou Smear)", 
+                                      h2("Cervical Cancer Screening (Papanicolaou Smear)", 
                                          style = "color: #2C3E50; font-weight: 600; margin-top: 0; margin-bottom: 15px;"),
                                       p(strong("What is a Papanicolaou (Pap) Smear? "), "A Pap smear is an exam that identifies abnormal cervical cells. It is a great preventative measure to identifying cancer, even if there may be no family history present.",
                                         style = "color: #555; font-size: 16px; line-height: 1.6; margin-bottom: 15px;"),
