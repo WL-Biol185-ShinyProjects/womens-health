@@ -1391,15 +1391,40 @@ navbarPage(
                                         style = "color: #555; margin: 0; font-size: 14px;")
                                   )
                                 ),
-                                
                                 mainPanel(
                                   plotOutput("sti_race_plot", height = "500px")
                                 )
                               )
+                          ),
+                          
+                          # Key Finding boxes
+                          div(style = "margin-top: 24px;",
+                              fluidRow(
+                                column(6,
+                                       div(style = "background: #F3E5F5; border-left: 4px solid #9C27B0; 
+                                                   padding: 20px; border-radius: 8px; height: 100%;",
+                                           h4("Highest Risk Group", style = "color: #2C3E50; margin-top: 0;"),
+                                           p("Black women experience disproportionately high rates of STIs across all three 
+                                             infections (chlamydia, syphilis, and gonorrhea), often due to systemic barriers 
+                                             in accessing preventive care and regular testing.",
+                                             style = "color: #4A148C; margin: 0; line-height: 1.6;")
+                                       )
+                                ),
+                                column(6,
+                                       div(style = "background: #F3E5F5; border-left: 4px solid #9C27B0; 
+                                                   padding: 20px; border-radius: 8px; height: 100%;",
+                                           h4("Prevention is Key", style = "color: #2C3E50; margin-top: 0;"),
+                                           p("Regular STI screening, safe sex practices, and partner notification programs 
+                                             significantly reduce transmission rates across all populations when access 
+                                             barriers are addressed.",
+                                             style = "color: #4A148C; margin: 0; line-height: 1.6;")
+                                       )
+                                )
+                              )
                           )
-                      )
+                      )  
              ),
-             
+                          
              # TRENDS TAB
              tabPanel("Trends",
                       div(style = "background: linear-gradient(135deg, #F3E5F5 0%, #E1BEE7 100%); 
@@ -1447,13 +1472,24 @@ navbarPage(
                                       )
                                   )
                                 ),
-                                
                                 mainPanel(
                                   plotOutput("sti_plot", height = "500px")
                                 )
                               )
+                          ),  
+                          
+                          # Interpretation Guide
+                          div(style = "margin-top: 24px; background: #F3E5F5; border-left: 4px solid #9C27B0; 
+                                      padding: 20px; border-radius: 8px;",
+                              h4("Understanding the Trends", style = "color: #2C3E50; margin-top: 0;"),
+                              p("Upward trends in STI rates from 2020-2023 indicate growing challenges in sexual health 
+                                across many communities. Rising rates may reflect reduced access to testing during the pandemic, 
+                                decreased funding for prevention programs, or changes in sexual behavior patterns. These trends 
+                                underscore the urgent need for expanded testing access, comprehensive sex education, and 
+                                targeted public health interventions in the most affected communities.",
+                                style = "color: #4A148C; margin: 0; line-height: 1.6;")
                           )
-                      )
+                      )  
              )
            )
   ),
