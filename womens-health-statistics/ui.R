@@ -2926,10 +2926,9 @@ navbarPage(
                            img(src = "sam-berish-bio.webp", class = "creator-image")
                        ),
                        div(class = "creator-content",
-                           h2("Sam Berish", class = "creator-name"),
+                           h2("Samantha Berish", class = "creator-name"),
                            p(class = "creator-bio",
-                             "Samantha is a senior Mathematics major and Data Science minor and plays soccer for the W&L soccer team. She is interested in data science."
-                           )
+                             "Samantha is a senior Mathematics major and Data Science minor and a former women’s soccer player at Washington and Lee University. She is passionate about applying data science to complex problems, using insights to guide predictions and improve decision-making. After graduation, she hopes to pursue a career that combines her background in mathematics and data science.")
                        )
                    ),
                    
