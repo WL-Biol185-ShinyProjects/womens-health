@@ -1308,12 +1308,19 @@ navbarPage(
                                   
                                   selectInput("sti_disease_filter",
                                               "Select Disease:",
-                                              choices = c("Syphilis", "Chlamydia", "Gonorrhea"),
-                                              selected = "Syphilis"),
+                                              choices = c("Syphilis" = "syphilis", 
+                                                          "Chlamydia" = "chlamydia", 
+                                                          "Gonorrhea" = "gonorrhea"),
+                                              selected = "syphilis"),
                                   
                                   selectInput("sti_race_filter",
                                               "Select Race:",
-                                              choices = c("Overall"),
+                                              choices = c("Overall" = "Overall",
+                                                          "American Indian/Alaska Native" = "American Indian/ Alaska Native",
+                                                          "Asian/Native Hawaiian" = "Asian/Native Hawaiian",
+                                                          "Black" = "Black",
+                                                          "Hispanic" = "Hispanic",
+                                                          "White" = "White"),
                                               selected = "Overall"),
                                   
                                   hr(style = "border-color: #CE93D8;"),
@@ -1381,9 +1388,11 @@ navbarPage(
                                   
                                   selectInput("sti_disease",
                                               "Select Disease:",
-                                              choices = c("chlamydia", "syphilis", "gonorrhea"),
+                                              choices = c("Chlamydia" = "chlamydia",
+                                                          "Gonorrhea" = "gonorrhea", 
+                                                          "Syphilis" = "syphilis"),
                                               selected = "syphilis"),
-                                  
+                            
                                   hr(style = "border-color: #CE93D8;"),
                                   
                                   div(style = "background: white; padding: 15px; border-radius: 8px;",

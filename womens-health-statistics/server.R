@@ -430,7 +430,9 @@ server <- function(input, output, session) {
   # Update disease filter choices for STI map
   updateSelectInput(session,
                     "sti_disease_filter",
-                    choices = c("syphilis", "chlamydia", "gonorrhea"))
+                    choices = c("Syphilis" = "syphilis", 
+                                "Chlamydia" = "chlamydia", 
+                                "Gonorrhea" = "gonorrhea"))
   
   # REACTIVE DATA - Filter by race
   sti_filtered_race <- reactive({
