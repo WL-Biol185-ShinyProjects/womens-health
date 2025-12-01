@@ -2923,7 +2923,7 @@ navbarPage(
                    # Sam Berish
                    div(class = "creator-card",
                        div(class = "creator-header",
-                           img(src = "sam-berish-bio.webp", class = "creator-image")
+                           img(src = "sam-headshot.png", class = "creator-image")
                        ),
                        div(class = "creator-content",
                            h2("Samantha Berish", class = "creator-name"),
