@@ -937,7 +937,6 @@ server <- function(input, output, session) {
   
   
   # Populate pie chart state choices
-  # Populate pie chart state choices
   observe({
     if(input$pie_mortality_type == "Maternal Mortality") {
       states <- unique(mortality_race_long$state)
