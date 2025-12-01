@@ -121,12 +121,12 @@ server <- function(input, output, session) {
     # Improve race labels for display
     state_data <- state_data %>%
       mutate(race_label = case_when(
+        race == "Overall" ~ "Overall",
         race == "White" ~ "White",
         race == "Black" ~ "Black",
         race == "Hispanic" ~ "Hispanic",
         race == "Asian_NativeHawaiian" ~ "Asian/Native\nHawaiian",
         race == "AmericanIndian_AlaskaNative" ~ "American Indian/\nAlaska Native",
-        race == "Overall" ~ "Overall",
         TRUE ~ gsub("_", " ", race)
       ))
     

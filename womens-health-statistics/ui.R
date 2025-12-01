@@ -1052,7 +1052,12 @@ navbarPage(
                                                           
                                                           selectInput("cervical_rank_race",
                                                                       "Select Race:",
-                                                                      choices = unique(cervical_cancer_long$race),
+                                                                      choices = c("Overall" = "Overall",
+                                                                                  "White" = "White",
+                                                                                  "Black" = "Black",
+                                                                                  "Hispanic" = "Hispanic",
+                                                                                  "Asian/Native Hawaiian" = "Asian_Native Hawaiian",
+                                                                                  "American Indian/Alaska Native" = "AmericanIndian_AlaskaNative"),
                                                                       selected = "Overall"),
                                                           
                                                           hr(style = "border-color: #80DEEA;"),
@@ -1473,11 +1478,13 @@ navbarPage(
                                   
                                   selectInput("sti_race",
                                               "Select Race:",
-                                              choices = c("White", "Black", "Hispanic", 
-                                                               "Asian/Native Hawaiian", 
-                                                               "American Indian/Alaska Native", 
-                                                               "Overall"),
-                                              selected = "White"),
+                                              choices = c("Overall" = "Overall",
+                                                          "White" = "White",
+                                                          "Black" = "Black",
+                                                          "Hispanic" = "Hispanic",
+                                                          "Asian/Native Hawaiian" = "Asian_Native Hawaiian",
+                                                          "American Indian/Alaska Native" = "AmericanIndian_AlaskaNative"),
+                                              selected = "Overall"),
                                   
                                   hr(style = "border-color: #CE93D8;"),
                                   
