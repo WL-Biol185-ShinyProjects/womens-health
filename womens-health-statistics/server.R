@@ -831,7 +831,7 @@ server <- function(input, output, session) {
         group_by(state, race) %>%
         summarise(rate = mean(maternal_mortality, na.rm = TRUE), .groups = 'drop')
       
-      y_label <- "Difference from Overall Rate (per 100,000 live births)"
+      y_label <- "Difference from Average Rate (per 100,000 live births)"
       rate_label <- "per 100,000 live births"
       chart_title <- "Maternal Mortality"
     } else {  # Infant Mortality
@@ -841,7 +841,7 @@ server <- function(input, output, session) {
         group_by(state, race) %>%
         summarise(rate = mean(infant_mortality, na.rm = TRUE), .groups = 'drop')
       
-      y_label <- "Difference from Overall Rate (per 1,000 live births)"
+      y_label <- "Difference from Average Rate (per 1,000 live births)"
       rate_label <- "per 1,000 live births"
       chart_title <- "Infant Mortality"
     }
@@ -988,8 +988,8 @@ server <- function(input, output, session) {
     # Check if we have data
     if(nrow(pie_data) == 0) {
       plot(1, type="n", xlim=c(0, 10), ylim=c(0, 10), 
-           xlab="", ylab="", main="No data available")
-      text(5, 5, "No data available\nfor the selected state", cex=1.5, col="red")
+           xlab="", ylab="", main="No data available", axes=FALSE)
+      text(5, 5, "No data available\nfor the selected state", cex=1.5, col="#666")
       return()
     }
     
@@ -1020,12 +1020,17 @@ server <- function(input, output, session) {
       "Multiple Races" = "#B71C1C"
     )
     
+    # Sort by rate (descending) for better visualization
+    pie_data <- pie_data %>%
+      arrange(desc(rate))
+    
     # Calculate percentages for labels
     pie_data <- pie_data %>%
       mutate(percentage = round((rate / sum(rate)) * 100, 1),
-             label_text = paste0(race_label, "\n", round(rate, 1), "\n(", percentage, "%)"))
+             # Just show percentage on the pie
+             label_text = paste0(percentage, "%"))
     
-    # Create pie chart using base R
+    # Set up plotting area with no legend (since it's in sidebar)
     par(bg = "white", mar = c(2, 2, 4, 2))
     
     # Get colors for the data
@@ -1037,28 +1042,46 @@ server <- function(input, output, session) {
       }
     })
     
-    # Create the pie chart
+    # Create the pie chart with just percentages
+    # Calculate percentages for labels
+    pie_data <- pie_data %>%
+      mutate(percentage = round((rate / sum(rate)) * 100, 1),
+             # Show race name and percentage
+             label_text = paste0(race_label, "\n", percentage, "%"))
+    
+    # Set up plotting area
+    par(bg = "white", mar = c(2, 2, 4, 2))
+    
+    # Get colors for the data
+    slice_colors <- sapply(pie_data$race_label, function(r) {
+      if(r %in% names(race_colors)) {
+        return(race_colors[r])
+      } else {
+        return("#95A5A6")
+      }
+    })
+    
+    # Create the pie chart with race names and percentages
     pie(pie_data$rate,
         labels = pie_data$label_text,
         col = slice_colors,
-        main = chart_title,
-        cex.main = 1.8,
-        font.main = 2,
-        col.main = "#2C3E50",
-        cex = 1.1,
-        radius = 0.9)
+        main = "",
+        cex = 0.85,  # Smaller text so names fit better
+        radius = 0.9,
+        border = "white",
+        lwd = 2)
+    
+    # Add title
+    title(main = chart_title,
+          cex.main = 1.6,
+          font.main = 2,
+          col.main = "#2C3E50",
+          line = 2)
     
     # Add subtitle
     mtext(paste("Rates", rate_label), 
-          side = 3, line = 0.5, cex = 1.1, col = "#555")
+          side = 3, line = 0.5, cex = 1, col = "#666")
     
-    # Add legend
-    legend("bottomright",
-           legend = pie_data$race_label,
-           fill = slice_colors,
-           cex = 0.9,
-           bg = "white",
-           box.col = "#E0E0E0")
     
   }, bg = "white")
   

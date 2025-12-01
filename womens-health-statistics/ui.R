@@ -1869,8 +1869,9 @@ navbarPage(
                                   
                                   h2("Mortality Distribution by Race",
                                      style = "color: #2C3E50; margin-top: 0; margin-bottom: 8px;"),
-                                  p("This pie chart shows how mortality rates vary across different racial and ethnic 
-                              groups. Larger slices indicate higher mortality rates.",
+                                  p("This pie chart shows the percentage distribution of mortality rates across different racial and ethnic 
+   groups. Larger slices indicate groups with higher mortality rates relative to others.",
+                                    
                                     style = "color: #555; font-size: 16px; margin-bottom: 24px;"),
                                   
                                   fluidRow(
