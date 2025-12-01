@@ -655,7 +655,12 @@ navbarPage(
                                                                    
                                                                    selectInput("rank_race",
                                                                                "Select Race:",
-                                                                               choices = unique(breast_cancer_long$race),
+                                                                               choices = c("Overall" = "Overall",
+                                                                                           "White" = "White",
+                                                                                           "Black" = "Black",
+                                                                                           "Hispanic" = "Hispanic",
+                                                                                           "Asian/Native Hawaiian" = "Asian_Native Hawaiian",
+                                                                                           "American Indian/Alaska Native" = "AmericanIndian_AlaskaNative"),
                                                                                selected = "Overall"),
                                                                    
                                                                    hr(style = "border-color: #fce7f3;"),
