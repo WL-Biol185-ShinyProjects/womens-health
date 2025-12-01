@@ -1106,14 +1106,20 @@ server <- function(input, output, session) {
       geom_smooth(method = "lm", se = TRUE, color = "#2C3E50", linetype = "dashed") +
       geom_text(aes(label = state), size = 2.5, vjust = -0.5, hjust = 0.5) +
       labs(
-        title = "Breast Cancer Incidence vs Sexual Infection Rate by State",
+        title = "Each point represents a state. The dashed line shows the trend, and the shaded area indicates the confidence interval.",
         x = "Breast Cancer Incidence Rate (per 100,000)",
-        y = "Sexual Infection Rate (per 100,000)",
-        caption = paste("Correlation:", round(cor(breast_sti$breast_rate, breast_sti$sti_rate, use = "complete.obs"), 3))
+        y = "Sexual Infection Rate (per 100,000)"
       ) +
+      annotate("text", 
+               x = Inf, y = Inf,
+               label = paste("Correlation:", round(cor(breast_sti$breast_rate, breast_sti$sti_rate, use = "complete.obs"), 3)),
+               hjust = 1.1, vjust = 2,
+               size = 6,
+               fontface = "bold",
+               color = "#2C3E50") +
       theme_minimal() +
       theme(
-        plot.title = element_text(face = "bold", size = 14),
+        plot.title = element_text(size = 14, color = "#555", face = "plain", hjust = 0),
         axis.title = element_text(face = "bold"),
         panel.grid.minor = element_blank()
       )
@@ -1140,14 +1146,20 @@ server <- function(input, output, session) {
       geom_smooth(method = "lm", se = TRUE, color = "#2C3E50", linetype = "dashed") +
       geom_text(aes(label = state), size = 2.5, vjust = -0.5, hjust = 0.5) +
       labs(
-        title = "Cervical Cancer Incidence vs Sexual Infection Rate by State",
+        title = "Each point represents a state. The dashed line shows the trend, and the shaded area indicates the confidence interval.",
         x = "Cervical Cancer Incidence Rate (per 100,000)",
-        y = "Sexual Infection Rate (per 100,000)",
-        caption = paste("Correlation:", round(cor(cervical_sti$cervical_rate, cervical_sti$sti_rate, use = "complete.obs"), 3))
+        y = "Sexual Infection Rate (per 100,000)"
       ) +
+      annotate("text", 
+               x = Inf, y = Inf,
+               label = paste("Correlation:", round(cor(cervical_sti$cervical_rate, cervical_sti$sti_rate, use = "complete.obs"), 3)),
+               hjust = 1.1, vjust = 2,
+               size = 6,
+               fontface = "bold",
+               color = "#2C3E50") +
       theme_minimal() +
       theme(
-        plot.title = element_text(face = "bold", size = 14),
+        plot.title = element_text(size = 14, color = "#555", face = "plain", hjust = 0),
         axis.title = element_text(face = "bold"),
         panel.grid.minor = element_blank()
       )
