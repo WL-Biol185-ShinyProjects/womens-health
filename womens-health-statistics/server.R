@@ -1493,17 +1493,32 @@ server <- function(input, output, session) {
   })
   
   #RESOURCES TAB NAVIGATION
-  observeEvent(input$resources_goto_cancer, {
-    updateTabsetPanel(session, "resources_tabs", selected = "Cancer Screening")
-  })
   
-  observeEvent(input$resources_goto_sti, {
-    updateTabsetPanel(session, "resources_tabs", selected = "STI Testing")
-  })
-  
-  observeEvent(input$resources_goto_maternal, {
-    updateTabsetPanel(session, "resources_tabs", selected = "Maternal Health")
-  })
+  # Resource tab navigation
+observeEvent(input$goto_cancer_screening, {
+  updateTabsetPanel(session, "resources_tabs", selected = "Cancer Screening")
+})
+
+observeEvent(input$goto_sti_testing, {
+  updateTabsetPanel(session, "resources_tabs", selected = "STI Testing")
+})
+
+observeEvent(input$goto_maternal_health, {
+  updateTabsetPanel(session, "resources_tabs", selected = "Maternal Health")
+})
+
+# Also update the bottom CTA buttons
+observeEvent(input$resources_goto_cancer, {
+  updateTabsetPanel(session, "resources_tabs", selected = "Cancer Screening")
+})
+
+observeEvent(input$resources_goto_sti, {
+  updateTabsetPanel(session, "resources_tabs", selected = "STI Testing")
+})
+
+observeEvent(input$resources_goto_maternal, {
+  updateTabsetPanel(session, "resources_tabs", selected = "Maternal Health")
+})
   
   #DATA TAB NAVIGATION 
   observeEvent(input$data_goto_browse, {

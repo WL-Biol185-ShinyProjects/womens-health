@@ -2580,20 +2580,20 @@ navbarPage(
              # OVERVIEW TAB
              tabPanel("Overview",
                       div(style = "background: linear-gradient(135deg, #CECDF7 0%, #F3E5F5 100%);
-                               min-height: 100vh; padding: 40px 20px;",
+                      min-height: 100vh; padding: 40px 20px;",
                           div(style = "max-width: 1200px; margin: 0 auto;",
                               
                               # About Section
                               div(style = "background: white; padding: 30px; border-radius: 12px; 
-                                       box-shadow: 0 2px 8px rgba(0,0,0,0.05); margin-bottom: 30px;",
+                              box-shadow: 0 2px 8px rgba(0,0,0,0.05); margin-bottom: 30px;",
                                   h2("About These Resources", 
                                      style = "color: #2C3E50; margin-top: 0; font-size: 28px; margin-bottom: 20px;"),
                                   p("Taking care of your health requires access to reliable information and quality healthcare 
-                                  services. This page provides curated resources for screening, testing, and preventive care 
-                                  across different aspects of women's health.",
+                       services. This page provides curated resources for screening, testing, and preventive care 
+                       across different aspects of women's health.",
                                     style = "color: #4b5563; font-size: 16px; line-height: 1.8; margin-bottom: 16px;"),
                                   p("All resources listed are from trusted healthcare organizations and medical institutions. 
-                                  These tools can help you stay informed, access care, and make empowered health decisions.",
+                       These tools can help you stay informed, access care, and make empowered health decisions.",
                                     style = "color: #4b5563; font-size: 16px; line-height: 1.8;")
                               ),
                               
@@ -2602,43 +2602,61 @@ navbarPage(
                               fluidRow(
                                 column(6,
                                        div(style = "background: #EDE7F6; border-left: 4px solid #7B68EE; 
-                                                padding: 20px; border-radius: 8px; margin-bottom: 20px; height: 100%;",
+                                       padding: 20px; border-radius: 8px; margin-bottom: 20px; height: 100%;
+                                       display: flex; flex-direction: column;",
                                            h4("Cancer Screening", 
                                               style = "color: #2C3E50; margin-top: 0; font-size: 18px;"),
                                            p("Information on breast cancer self-exams and cervical cancer (Pap smear) screening 
-                                           guidelines and procedures.",
-                                             style = "color: #555; margin: 0; font-size: 15px; line-height: 1.6;")
+                                guidelines and procedures.",
+                                             style = "color: #555; margin: 0 0 15px 0; font-size: 15px; line-height: 1.6; flex-grow: 1;"),
+                                           actionButton("goto_cancer_screening", "Learn More",
+                                                        onclick = "setTimeout(function(){window.scrollTo({top: 0, behavior: 'smooth'});}, 150);",
+                                                        style = "background: #7B68EE; color: white; border: none; 
+                                                    padding: 10px 24px; border-radius: 6px; font-weight: 600; 
+                                                    cursor: pointer; font-size: 14px; align-self: flex-start;")
                                        )
                                 ),
                                 column(6,
                                        div(style = "background: #EDE7F6; border-left: 4px solid #7B68EE; 
-                                                padding: 20px; border-radius: 8px; margin-bottom: 20px; height: 100%;",
+                                       padding: 20px; border-radius: 8px; margin-bottom: 20px; height: 100%;
+                                       display: flex; flex-direction: column;",
                                            h4("STI Testing", 
                                               style = "color: #2C3E50; margin-top: 0; font-size: 18px;"),
                                            p("Access points for comprehensive STD/STI testing including resources from Planned 
-                                           Parenthood and CVS MinuteClinic.",
-                                             style = "color: #555; margin: 0; font-size: 15px; line-height: 1.6;")
+                                Parenthood and CVS MinuteClinic.",
+                                             style = "color: #555; margin: 0 0 15px 0; font-size: 15px; line-height: 1.6; flex-grow: 1;"),
+                                           actionButton("goto_sti_testing", "Learn More",
+                                                        onclick = "setTimeout(function(){window.scrollTo({top: 0, behavior: 'smooth'});}, 150);",
+                                                        style = "background: #7B68EE; color: white; border: none; 
+                                                    padding: 10px 24px; border-radius: 6px; font-weight: 600; 
+                                                    cursor: pointer; font-size: 14px; align-self: flex-start;")
                                        )
                                 )
                               ),
                               fluidRow(
                                 column(6,
                                        div(style = "background: #EDE7F6; border-left: 4px solid #7B68EE; 
-                                                padding: 20px; border-radius: 8px; margin-bottom: 20px; height: 100%;",
+                                       padding: 20px; border-radius: 8px; margin-bottom: 20px; height: 100%;
+                                       display: flex; flex-direction: column;",
                                            h4("Maternal Health", 
                                               style = "color: #2C3E50; margin-top: 0; font-size: 18px;"),
                                            p("Resources for choosing birthing centers, understanding infant mortality, and 
-                                           accessing maternal healthcare services.",
-                                             style = "color: #555; margin: 0; font-size: 15px; line-height: 1.6;")
+                                accessing maternal healthcare services.",
+                                             style = "color: #555; margin: 0 0 15px 0; font-size: 15px; line-height: 1.6; flex-grow: 1;"),
+                                           actionButton("goto_maternal_health", "Learn More",
+                                                        onclick = "setTimeout(function(){window.scrollTo({top: 0, behavior: 'smooth'});}, 150);",
+                                                        style = "background: #7B68EE; color: white; border: none; 
+                                                    padding: 10px 24px; border-radius: 6px; font-weight: 600; 
+                                                    cursor: pointer; font-size: 14px; align-self: flex-start;")
                                        )
                                 ),
                                 column(6,
                                        div(style = "background: #EDE7F6; border-left: 4px solid #7B68EE; 
-                                                padding: 20px; border-radius: 8px; margin-bottom: 20px; height: 100%;",
+                                       padding: 20px; border-radius: 8px; margin-bottom: 20px; height: 100%;",
                                            h4("Trusted Sources", 
                                               style = "color: #2C3E50; margin-top: 0; font-size: 18px;"),
                                            p("All resources are from reputable organizations including Mayo Clinic, CDC, 
-                                           National Breast Cancer Foundation, and Planned Parenthood.",
+                                National Breast Cancer Foundation, and Planned Parenthood.",
                                              style = "color: #555; margin: 0; font-size: 15px; line-height: 1.6;")
                                        )
                                 )
@@ -2654,33 +2672,8 @@ navbarPage(
                                       and treatment recommendations.",
                                         style = "color: #555; margin: 0; line-height: 1.6;")
                                   )
-                              ),
-                              
-                              # Explore Resources CTA
-                              div(style = "margin-top: 40px; background: linear-gradient(135deg, #7B68EE 0%, #9575CD 100%); 
-                                       padding: 40px; border-radius: 12px; text-align: center;",
-                                  h3("Explore Resources", 
-                                     style = "color: white; margin: 0 0 16px 0; font-size: 28px;"),
-                                  p("Use the tabs here or above to access specific health resources and information.",
-                                    style = "color: #EDE7F6; font-size: 16px; margin-bottom: 24px;"),
-                                  div(style = "display: flex; justify-content: center; gap: 16px; flex-wrap: wrap;",
-                                      actionButton("resources_goto_cancer", "Cancer Screening",
-                                                   onclick = "setTimeout(function(){window.scrollTo({top: 0, behavior: 'smooth'});}, 150);",
-                                                   style = "background: rgba(255,255,255,0.2); color: white; border: 2px solid white; 
-                 padding: 12px 32px; border-radius: 8px; font-weight: 600; 
-                 cursor: pointer; font-size: 16px;"),
-                                      actionButton("resources_goto_sti", "STI Testing",
-                                                   onclick = "setTimeout(function(){window.scrollTo({top: 0, behavior: 'smooth'});}, 150);",
-                                                   style = "background: rgba(255,255,255,0.2); color: white; border: 2px solid white; 
-                 padding: 12px 32px; border-radius: 8px; font-weight: 600; 
-                 cursor: pointer; font-size: 16px;"),
-                                      actionButton("resources_goto_maternal", "Maternal Health",
-                                                   onclick = "setTimeout(function(){window.scrollTo({top: 0, behavior: 'smooth'});}, 150);",
-                                                   style = "background: rgba(255,255,255,0.2); color: white; border: 2px solid white; 
-                 padding: 12px 32px; border-radius: 8px; font-weight: 600; 
-                 cursor: pointer; font-size: 16px;")
-                                  )
                               )
+          
                           )
                       )
              ),
