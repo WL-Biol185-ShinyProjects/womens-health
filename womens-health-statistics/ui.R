@@ -411,7 +411,7 @@ navbarPage(
                                                     column(4,
                                                            div(class = "stat-card",
                                                                div(class = "stat-label", "National Average"),
-                                                               div(class = "stat-value", "133.8"),
+                                                               div(class = "stat-value", style = "font-size: 32px;", "133.8"),
                                                                div(style = "color: #6b7280; font-size: 14px;", 
                                                                    "cases per 100,000 women")
                                                            )
@@ -798,23 +798,23 @@ navbarPage(
                                          # Key Stats Row
                                          fluidRow(
                                            column(4,
-                                                  div(class = "cc-stat-card",
+                                                  div(class = "cc-stat-card", style = "min-height: 180px;",
                                                       div(class = "cc-stat-label", "Most Affected Group"),
-                                                      div(class = "cc-stat-value", style = "font-size: 32px;", "American Indian and Alaska Native"),
+                                                      div(class = "cc-stat-value", style = "font-size: 24px;", "American Indian and Alaska Native"),
                                                       div(style = "color: #6b7280; font-size: 14px;", 
                                                           "Highest incidence rates")
                                                   )
                                            ),
                                            column(4,
-                                                  div(class = "cc-stat-card",
+                                                  div(class = "cc-stat-card", style = "min-height: 180px;",
                                                       div(class = "cc-stat-label", "Preventable"),
-                                                      div(class = "cc-stat-value", "90%+"),
+                                                      div(class = "cc-stat-value", style = "font-size: 32px;", "90%+"),
                                                       div(style = "color: #6b7280; font-size: 14px;", 
                                                           "with HPV vaccination")
                                                   )
                                            ),
                                            column(4,
-                                                  div(class = "cc-stat-card",
+                                                  div(class = "cc-stat-card", style = "min-height: 180px;",
                                                       div(class = "cc-stat-label", "Screening Saves Lives"),
                                                       div(class = "cc-stat-value", style = "font-size: 32px;", "Pap Tests"),
                                                       div(style = "color: #6b7280; font-size: 14px;", 
@@ -1188,7 +1188,7 @@ navbarPage(
                                            div(style = "color: #6b7280; font-size: 14px; font-weight: 600; 
                                                     text-transform: uppercase; letter-spacing: 0.05em;", 
                                                "Prevention Works"),
-                                           div(style = "font-size: 48px; font-weight: 700; color: #9C27B0; margin: 10px 0;", 
+                                           div(style = "font-size: 32px; font-weight: 700; color: #9C27B0; margin: 10px 0;", 
                                                "Testing"),
                                            div(style = "color: #6b7280; font-size: 14px;", 
                                                "Early detection saves lives")
@@ -1613,7 +1613,7 @@ navbarPage(
                                 column(4,
                                        div(class = "mi-stat-card",
                                            div(class = "mi-stat-label", "Infant Mortality"),
-                                           div(class = "mi-stat-value", "2x"),
+                                           div(class = "mi-stat-value", style = "font-size: 32px;", "2x"),
                                            div(style = "color: #6b7280; font-size: 14px;", 
                                                "Higher for Black infants")
                                        )
@@ -1621,7 +1621,7 @@ navbarPage(
                                 column(4,
                                        div(class = "mi-stat-card",
                                            div(class = "mi-stat-label", "Preventable"),
-                                           div(class = "mi-stat-value", "60%"),
+                                           div(class = "mi-stat-value", style = "font-size: 32px;", "60%"),
                                            div(style = "color: #6b7280; font-size: 14px;", 
                                                "Of maternal deaths")
                                        )
